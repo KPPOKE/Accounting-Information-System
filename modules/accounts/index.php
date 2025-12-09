@@ -137,9 +137,9 @@ require_once __DIR__ . '/../../components/header.php';
                             </a>
                             <?php endif; ?>
                             <?php if (hasPermission('accounts_delete')): ?>
-                            <a href="delete.php?id=<?php echo $account['id']; ?>" 
+                            <a href="#" 
                                class="btn btn-sm btn-danger btn-icon" title="Hapus"
-                               onclick="return confirm('Yakin ingin menghapus akun ini?');">
+                               onclick="confirmDelete('Yakin ingin menghapus akun ini? Data yang dihapus tidak dapat dikembalikan.', function() { window.location.href='delete.php?id=<?php echo $account['id']; ?>'; }); return false;">
                                 <i class="fas fa-trash"></i>
                             </a>
                             <?php endif; ?>

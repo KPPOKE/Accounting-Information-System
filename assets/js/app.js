@@ -73,36 +73,62 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function showToast(message, type = 'success') {
-    let container = document.querySelector('.toast-container');
-    if (!container) {
-        container = document.createElement('div');
-        container.className = 'toast-container';
-        document.body.appendChild(container);
-    }
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+    });
 
-    const toast = document.createElement('div');
-    toast.className = 'toast ' + type;
-    toast.innerHTML = `
-        <span class="toast-icon">
-            <i class="fas fa-${type === 'success' ? 'check' : 'times'}"></i>
-        </span>
-        <span class="toast-message">${message}</span>
-    `;
-
-    container.appendChild(toast);
-
-    setTimeout(function () {
-        toast.style.animation = 'slideIn 0.3s ease reverse';
-        setTimeout(function () {
-            toast.remove();
-        }, 300);
-    }, 3000);
+    Toast.fire({
+        icon: type === 'success' ? 'success' : type === 'error' ? 'error' : 'info',
+        title: message
+    });
 }
 
 function confirmDelete(message, callback) {
-    if (confirm(message || 'Apakah Anda yakin ingin menghapus data ini?')) {
-        callback();
-    }
+    Swal.fire({
+        title: 'Konfirmasi Hapus',
+        text: message || 'Apakah Anda yakin ingin menghapus data ini?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Hapus!',
+        cancelButtonText: 'Batal',
+        reverseButtons: true,
+        customClass: {
+            confirmButton: 'swal-btn-confirm',
+            cancelButton: 'swal-btn-cancel'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            callback();
+        }
+    });
+}
+
+function confirmAction(title, message, confirmText, callback) {
+    Swal.fire({
+        title: title,
+        text: message,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: confirmText || 'Ya, Lanjutkan!',
+        cancelButtonText: 'Batal',
+        reverseButtons: true,
+        customClass: {
+            confirmButton: 'swal-btn-confirm',
+            cancelButton: 'swal-btn-cancel'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            callback();
+        }
+    });
 }
 
 function formatCurrency(amount) {

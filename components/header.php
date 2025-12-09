@@ -25,6 +25,7 @@ foreach ($pathParts as $part) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="<?php echo APP_URL; ?>/assets/css/style.css">
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script> 
     <script>
@@ -221,8 +222,9 @@ foreach ($pathParts as $part) {
                 $flash = getFlash();
                 if ($flash): 
                 ?>
-                <div class="alert alert-<?php echo $flash['type']; ?>">
-                    <i class="fas fa-<?php echo $flash['type'] === 'success' ? 'check-circle' : ($flash['type'] === 'danger' ? 'exclamation-circle' : 'info-circle'); ?>"></i>
-                    <span><?php echo $flash['message']; ?></span>
-                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        showToast('<?php echo addslashes($flash['message']); ?>', '<?php echo $flash['type'] === 'danger' ? 'error' : $flash['type']; ?>');
+                    });
+                </script>
                 <?php endif; ?>

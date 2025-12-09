@@ -67,9 +67,9 @@ require_once __DIR__ . '/../../components/header.php';
                             </a>
                             <?php endif; ?>
                             <?php if (hasPermission('users_delete') && $user['id'] != $_SESSION['user_id']): ?>
-                            <a href="delete.php?id=<?php echo $user['id']; ?>" 
+                            <a href="#" 
                                class="btn btn-sm btn-danger btn-icon" title="Hapus"
-                               onclick="return confirm('Yakin ingin menghapus pengguna ini?');">
+                               onclick="confirmDelete('Yakin ingin menghapus pengguna ini? Data yang dihapus tidak dapat dikembalikan.', function() { window.location.href='delete.php?id=<?php echo $user['id']; ?>'; }); return false;">
                                 <i class="fas fa-trash"></i>
                             </a>
                             <?php endif; ?>

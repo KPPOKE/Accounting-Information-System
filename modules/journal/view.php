@@ -181,12 +181,12 @@ require_once __DIR__ . '/../../components/header.php';
     </a>
     <?php endif; ?>
     <?php if (hasPermission('journal_approve') && $journal['status'] === 'pending'): ?>
-    <a href="approve.php?id=<?php echo $journal['id']; ?>&action=approve" 
-       class="btn btn-success" onclick="return confirm('Setujui jurnal ini?');">
+    <a href="#" 
+       class="btn btn-success" onclick="confirmAction('Approve Jurnal?', 'Jurnal yang sudah diapprove tidak bisa diedit lagi.', 'Ya, Approve!', function() { window.location.href='approve.php?id=<?php echo $journal['id']; ?>&action=approve'; }); return false;">
         <i class="fas fa-check"></i> Approve
     </a>
-    <a href="approve.php?id=<?php echo $journal['id']; ?>&action=reject" 
-       class="btn btn-danger" onclick="return confirm('Tolak jurnal ini?');">
+    <a href="#" 
+       class="btn btn-danger" onclick="confirmAction('Reject Jurnal?', 'Berikan alasan penolakan kepada pembuat jurnal.', 'Ya, Reject!', function() { window.location.href='approve.php?id=<?php echo $journal['id']; ?>&action=reject'; }); return false;">
         <i class="fas fa-times"></i> Reject
     </a>
     <?php endif; ?>

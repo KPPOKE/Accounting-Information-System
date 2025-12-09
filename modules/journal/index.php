@@ -146,16 +146,16 @@ require_once __DIR__ . '/../../components/header.php';
                             </a>
                             <?php endif; ?>
                             <?php if (hasPermission('journal_approve') && $journal['status'] === 'pending'): ?>
-                            <a href="approve.php?id=<?php echo $journal['id']; ?>&action=approve" 
+                            <a href="#" 
                                class="btn btn-sm btn-success btn-icon" title="Approve"
-                               onclick="return confirm('Setujui jurnal ini?');">
+                               onclick="confirmAction('Approve Jurnal?', 'Jurnal yang sudah diapprove tidak bisa diedit lagi.', 'Ya, Approve!', function() { window.location.href='approve.php?id=<?php echo $journal['id']; ?>&action=approve'; }); return false;">
                                 <i class="fas fa-check"></i>
                             </a>
                             <?php endif; ?>
                             <?php if (hasPermission('journal_delete') && $journal['status'] === 'pending'): ?>
-                            <a href="delete.php?id=<?php echo $journal['id']; ?>" 
+                            <a href="#" 
                                class="btn btn-sm btn-danger btn-icon" title="Hapus"
-                               onclick="return confirm('Yakin ingin menghapus jurnal ini?');">
+                               onclick="confirmDelete('Yakin ingin menghapus jurnal ini? Data yang dihapus tidak dapat dikembalikan.', function() { window.location.href='delete.php?id=<?php echo $journal['id']; ?>'; }); return false;">
                                 <i class="fas fa-trash"></i>
                             </a>
                             <?php endif; ?>
