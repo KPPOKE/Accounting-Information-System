@@ -30,23 +30,35 @@ foreach ($pathParts as $part) {
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script> 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const lenis = new Lenis({
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                direction: 'vertical',
-                gestureDirection: 'vertical',
-                smooth: true,
-                mouseMultiplier: 1,
-                smoothTouch: false,
-                touchMultiplier: 2,
-            });
+            // Disable Lenis on mobile devices to prevent jittery header
+            const isMobile = window.innerWidth <= 1024;
+            
+            if (!isMobile) {
+                const lenis = new Lenis({
+                    duration: 1.2,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                    direction: 'vertical',
+                    gestureDirection: 'vertical',
+                    smooth: true,
+                    mouseMultiplier: 1,
+                    smoothTouch: false,
+                    touchMultiplier: 2,
+                });
 
+                function raf(time) {
+                    lenis.raf(time);
+                    requestAnimationFrame(raf);
+                }
+
+                requestAnimationFrame(raf);
+            }
+
+            // Sidebar smooth scroll (works on all devices)
             const sidebarWrapper = document.getElementById('sidebarNav');
             const sidebarContent = document.querySelector('.sidebar-nav-content');
-            let sidebarLenis;
 
             if (sidebarWrapper && sidebarContent) {
-                sidebarLenis = new Lenis({
+                const sidebarLenis = new Lenis({
                     wrapper: sidebarWrapper,
                     content: sidebarContent,
                     duration: 1.2,
@@ -58,15 +70,14 @@ foreach ($pathParts as $part) {
                     smoothTouch: false,
                     touchMultiplier: 2,
                 });
-            }
 
-            function raf(time) {
-                lenis.raf(time);
-                if (sidebarLenis) sidebarLenis.raf(time);
-                requestAnimationFrame(raf);
-            }
+                function rafSidebar(time) {
+                    sidebarLenis.raf(time);
+                    requestAnimationFrame(rafSidebar);
+                }
 
-            requestAnimationFrame(raf);
+                requestAnimationFrame(rafSidebar);
+            }
         });
     </script>
 </head>

@@ -1,13 +1,14 @@
 <?php
+require_once __DIR__ . '/../../includes/auth.php';
+requireLogin();
+require_once __DIR__ . '/../../includes/permissions.php';
+requirePermission('journal_view');
+
 $pageTitle = 'Detail Jurnal';
 $breadcrumb = [
     ['title' => 'Jurnal Umum', 'url' => APP_URL . '/modules/journal/'],
     ['title' => 'Detail Jurnal']
 ];
-require_once __DIR__ . '/../../includes/auth.php';
-requireLogin();
-require_once __DIR__ . '/../../includes/permissions.php';
-requirePermission('journal_view');
 
 $pdo = getDBConnection();
 $id = intval($_GET['id'] ?? 0);

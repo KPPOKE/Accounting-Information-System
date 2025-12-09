@@ -2178,3 +2178,40 @@ input[type="date"]::placeholder {
 .swal2-container {
     z-index: 10000;
 }
+
+/* Fix for jittery header on mobile landscape */
+@media (max-width: 1024px) and (orientation: landscape) {
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        will-change: transform;
+    }
+
+    .content-wrapper {
+        padding-top: calc(var(--header-height) + 32px);
+    }
+
+    .main-content {
+        overflow-x: hidden;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+}
+
+/* Additional fix for all mobile devices */
+@media (max-width: 1024px) {
+    .header {
+        -webkit-overflow-scrolling: touch;
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+}
