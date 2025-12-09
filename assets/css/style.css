@@ -116,6 +116,8 @@ a {
     font-size: 24px;
     color: white;
     box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    flex-shrink: 0;
+    transition: var(--transition);
 }
 
 .sidebar-brand-text {
@@ -123,6 +125,10 @@ a {
     font-weight: 700;
     color: white;
     letter-spacing: -0.5px;
+    transition: var(--transition);
+    white-space: nowrap;
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .sidebar-nav {
@@ -149,6 +155,9 @@ a {
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--gray-500);
+    transition: var(--transition);
+    white-space: nowrap;
+    opacity: 1;
 }
 
 .nav-item {
@@ -160,6 +169,7 @@ a {
     transition: var(--transition);
     border-left: 3px solid transparent;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .nav-item:hover {
@@ -180,11 +190,16 @@ a {
     align-items: center;
     justify-content: center;
     font-size: 18px;
+    flex-shrink: 0;
 }
 
 .nav-item-text {
     font-size: 14px;
     font-weight: 500;
+    transition: var(--transition);
+    white-space: nowrap;
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .sidebar-footer {
@@ -209,10 +224,16 @@ a {
     font-weight: 600;
     color: white;
     font-size: 16px;
+    flex-shrink: 0;
+    transition: var(--transition);
 }
 
 .user-details {
     flex: 1;
+    transition: var(--transition);
+    white-space: nowrap;
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .user-name {
@@ -232,6 +253,7 @@ a {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    transition: var(--transition);
 }
 
 .header {
@@ -932,7 +954,8 @@ tbody tr:hover {
 }
 
 .login-page {
-    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1344,10 +1367,19 @@ html.sidebar-is-collapsed .sidebar {
 }
 
 html.sidebar-is-collapsed .sidebar-brand-text,
-html.sidebar-is-collapsed .nav-section-title,
 html.sidebar-is-collapsed .nav-item-text,
 html.sidebar-is-collapsed .user-details {
-    display: none;
+    opacity: 0;
+    width: 0;
+    transform: translateX(-10px);
+    pointer-events: none;
+}
+
+html.sidebar-is-collapsed .nav-section-title {
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    overflow: hidden;
 }
 
 html.sidebar-is-collapsed .sidebar-brand {

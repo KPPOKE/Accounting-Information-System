@@ -39,8 +39,28 @@ foreach ($pathParts as $part) {
                 touchMultiplier: 2,
             });
 
+            const sidebarWrapper = document.getElementById('sidebarNav');
+            const sidebarContent = document.querySelector('.sidebar-nav-content');
+            let sidebarLenis;
+
+            if (sidebarWrapper && sidebarContent) {
+                sidebarLenis = new Lenis({
+                    wrapper: sidebarWrapper,
+                    content: sidebarContent,
+                    duration: 1.2,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                    direction: 'vertical',
+                    gestureDirection: 'vertical',
+                    smooth: true,
+                    mouseMultiplier: 1,
+                    smoothTouch: false,
+                    touchMultiplier: 2,
+                });
+            }
+
             function raf(time) {
                 lenis.raf(time);
+                if (sidebarLenis) sidebarLenis.raf(time);
                 requestAnimationFrame(raf);
             }
 
@@ -65,86 +85,88 @@ foreach ($pathParts as $part) {
                 <span class="sidebar-brand-text">Finacore</span>
             </div>
             
-            <nav class="sidebar-nav" data-lenis-prevent>
-                <div class="nav-section">
-                    <div class="nav-section-title">Menu Utama</div>
-                    <a href="<?php echo APP_URL; ?>/modules/dashboard/" class="nav-item <?php echo $currentModule === 'dashboard' ? 'active' : ''; ?>">
-                        <span class="nav-item-icon"><i class="fas fa-home"></i></span>
-                        <span class="nav-item-text">Dashboard</span>
-                    </a>
-                </div>
-                
-                <?php if (hasPermission('accounts_view')): ?>
-                <div class="nav-section">
-                    <div class="nav-section-title">Master Data</div>
-                    <a href="<?php echo APP_URL; ?>/modules/accounts/" class="nav-item <?php echo $currentModule === 'accounts' ? 'active' : ''; ?>">
-                        <span class="nav-item-icon"><i class="fas fa-list-alt"></i></span>
-                        <span class="nav-item-text">Chart of Accounts</span>
-                    </a>
-                </div>
-                <?php endif; ?>
-                
-                <?php if (hasAnyPermission(['journal_view', 'cash_view'])): ?>
-                <div class="nav-section">
-                    <div class="nav-section-title">Transaksi</div>
-                    <?php if (hasPermission('journal_view')): ?>
-                    <a href="<?php echo APP_URL; ?>/modules/journal/" class="nav-item <?php echo $currentModule === 'journal' ? 'active' : ''; ?>">
-                        <span class="nav-item-icon"><i class="fas fa-book"></i></span>
-                        <span class="nav-item-text">Jurnal Umum</span>
-                    </a>
+            <nav class="sidebar-nav" id="sidebarNav" data-lenis-prevent>
+                <div class="sidebar-nav-content">
+                    <div class="nav-section">
+                        <div class="nav-section-title">Menu Utama</div>
+                        <a href="<?php echo APP_URL; ?>/modules/dashboard/" class="nav-item <?php echo $currentModule === 'dashboard' ? 'active' : ''; ?>">
+                            <span class="nav-item-icon"><i class="fas fa-home"></i></span>
+                            <span class="nav-item-text">Dashboard</span>
+                        </a>
+                    </div>
+                    
+                    <?php if (hasPermission('accounts_view')): ?>
+                    <div class="nav-section">
+                        <div class="nav-section-title">Master Data</div>
+                        <a href="<?php echo APP_URL; ?>/modules/accounts/" class="nav-item <?php echo $currentModule === 'accounts' ? 'active' : ''; ?>">
+                            <span class="nav-item-icon"><i class="fas fa-list-alt"></i></span>
+                            <span class="nav-item-text">Chart of Accounts</span>
+                        </a>
+                    </div>
                     <?php endif; ?>
-                    <?php if (hasPermission('cash_view')): ?>
-                    <a href="<?php echo APP_URL; ?>/modules/cash/" class="nav-item <?php echo $currentModule === 'cash' ? 'active' : ''; ?>">
-                        <span class="nav-item-icon"><i class="fas fa-money-bill-wave"></i></span>
-                        <span class="nav-item-text">Kas Masuk/Keluar</span>
-                    </a>
+                    
+                    <?php if (hasAnyPermission(['journal_view', 'cash_view'])): ?>
+                    <div class="nav-section">
+                        <div class="nav-section-title">Transaksi</div>
+                        <?php if (hasPermission('journal_view')): ?>
+                        <a href="<?php echo APP_URL; ?>/modules/journal/" class="nav-item <?php echo $currentModule === 'journal' ? 'active' : ''; ?>">
+                            <span class="nav-item-icon"><i class="fas fa-book"></i></span>
+                            <span class="nav-item-text">Jurnal Umum</span>
+                        </a>
+                        <?php endif; ?>
+                        <?php if (hasPermission('cash_view')): ?>
+                        <a href="<?php echo APP_URL; ?>/modules/cash/" class="nav-item <?php echo $currentModule === 'cash' ? 'active' : ''; ?>">
+                            <span class="nav-item-icon"><i class="fas fa-money-bill-wave"></i></span>
+                            <span class="nav-item-text">Kas Masuk/Keluar</span>
+                        </a>
+                        <?php endif; ?>
+                    </div>
+                    <?php endif; ?>
+                    
+                    <?php if (hasPermission('reports_view')): ?>
+                    <div class="nav-section">
+                        <div class="nav-section-title">Laporan</div>
+                        <a href="<?php echo APP_URL; ?>/modules/reports/journal.php" class="nav-item <?php echo $currentPage === 'journal' && $currentModule === 'reports' ? 'active' : ''; ?>">
+                            <span class="nav-item-icon"><i class="fas fa-file-alt"></i></span>
+                            <span class="nav-item-text">Laporan Jurnal</span>
+                        </a>
+                        <a href="<?php echo APP_URL; ?>/modules/reports/ledger.php" class="nav-item <?php echo $currentPage === 'ledger' ? 'active' : ''; ?>">
+                            <span class="nav-item-icon"><i class="fas fa-book-open"></i></span>
+                            <span class="nav-item-text">Buku Besar</span>
+                        </a>
+                        <a href="<?php echo APP_URL; ?>/modules/reports/trial_balance.php" class="nav-item <?php echo $currentPage === 'trial_balance' ? 'active' : ''; ?>">
+                            <span class="nav-item-icon"><i class="fas fa-balance-scale"></i></span>
+                            <span class="nav-item-text">Neraca Saldo</span>
+                        </a>
+                        <a href="<?php echo APP_URL; ?>/modules/reports/cash_flow.php" class="nav-item <?php echo $currentPage === 'cash_flow' ? 'active' : ''; ?>">
+                            <span class="nav-item-icon"><i class="fas fa-exchange-alt"></i></span>
+                            <span class="nav-item-text">Arus Kas</span>
+                        </a>
+                        <a href="<?php echo APP_URL; ?>/modules/reports/income_expense.php" class="nav-item <?php echo $currentPage === 'income_expense' ? 'active' : ''; ?>">
+                            <span class="nav-item-icon"><i class="fas fa-chart-pie"></i></span>
+                            <span class="nav-item-text">Pendapatan & Beban</span>
+                        </a>
+                    </div>
+                    <?php endif; ?>
+                    
+                    <?php if (hasAnyPermission(['users_view', 'logs_view'])): ?>
+                    <div class="nav-section">
+                        <div class="nav-section-title">Pengaturan</div>
+                        <?php if (hasPermission('users_view')): ?>
+                        <a href="<?php echo APP_URL; ?>/modules/users/" class="nav-item <?php echo $currentModule === 'users' ? 'active' : ''; ?>">
+                            <span class="nav-item-icon"><i class="fas fa-users"></i></span>
+                            <span class="nav-item-text">Kelola Pengguna</span>
+                        </a>
+                        <?php endif; ?>
+                        <?php if (hasPermission('logs_view')): ?>
+                        <a href="<?php echo APP_URL; ?>/modules/logs/" class="nav-item <?php echo $currentModule === 'logs' ? 'active' : ''; ?>">
+                            <span class="nav-item-icon"><i class="fas fa-history"></i></span>
+                            <span class="nav-item-text">Activity Log</span>
+                        </a>
+                        <?php endif; ?>
+                    </div>
                     <?php endif; ?>
                 </div>
-                <?php endif; ?>
-                
-                <?php if (hasPermission('reports_view')): ?>
-                <div class="nav-section">
-                    <div class="nav-section-title">Laporan</div>
-                    <a href="<?php echo APP_URL; ?>/modules/reports/journal.php" class="nav-item <?php echo $currentPage === 'journal' && $currentModule === 'reports' ? 'active' : ''; ?>">
-                        <span class="nav-item-icon"><i class="fas fa-file-alt"></i></span>
-                        <span class="nav-item-text">Laporan Jurnal</span>
-                    </a>
-                    <a href="<?php echo APP_URL; ?>/modules/reports/ledger.php" class="nav-item <?php echo $currentPage === 'ledger' ? 'active' : ''; ?>">
-                        <span class="nav-item-icon"><i class="fas fa-book-open"></i></span>
-                        <span class="nav-item-text">Buku Besar</span>
-                    </a>
-                    <a href="<?php echo APP_URL; ?>/modules/reports/trial_balance.php" class="nav-item <?php echo $currentPage === 'trial_balance' ? 'active' : ''; ?>">
-                        <span class="nav-item-icon"><i class="fas fa-balance-scale"></i></span>
-                        <span class="nav-item-text">Neraca Saldo</span>
-                    </a>
-                    <a href="<?php echo APP_URL; ?>/modules/reports/cash_flow.php" class="nav-item <?php echo $currentPage === 'cash_flow' ? 'active' : ''; ?>">
-                        <span class="nav-item-icon"><i class="fas fa-exchange-alt"></i></span>
-                        <span class="nav-item-text">Arus Kas</span>
-                    </a>
-                    <a href="<?php echo APP_URL; ?>/modules/reports/income_expense.php" class="nav-item <?php echo $currentPage === 'income_expense' ? 'active' : ''; ?>">
-                        <span class="nav-item-icon"><i class="fas fa-chart-pie"></i></span>
-                        <span class="nav-item-text">Pendapatan & Beban</span>
-                    </a>
-                </div>
-                <?php endif; ?>
-                
-                <?php if (hasAnyPermission(['users_view', 'logs_view'])): ?>
-                <div class="nav-section">
-                    <div class="nav-section-title">Pengaturan</div>
-                    <?php if (hasPermission('users_view')): ?>
-                    <a href="<?php echo APP_URL; ?>/modules/users/" class="nav-item <?php echo $currentModule === 'users' ? 'active' : ''; ?>">
-                        <span class="nav-item-icon"><i class="fas fa-users"></i></span>
-                        <span class="nav-item-text">Kelola Pengguna</span>
-                    </a>
-                    <?php endif; ?>
-                    <?php if (hasPermission('logs_view')): ?>
-                    <a href="<?php echo APP_URL; ?>/modules/logs/" class="nav-item <?php echo $currentModule === 'logs' ? 'active' : ''; ?>">
-                        <span class="nav-item-icon"><i class="fas fa-history"></i></span>
-                        <span class="nav-item-text">Activity Log</span>
-                    </a>
-                    <?php endif; ?>
-                </div>
-                <?php endif; ?>
             </nav>
             
             <div class="sidebar-footer">
