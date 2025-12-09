@@ -8,7 +8,7 @@ if (isLoggedIn()) {
 
 $error = '';
 
-// Check for error from session (after redirect)
+
 if (isset($_SESSION['login_error'])) {
     $error = $_SESSION['login_error'];
     unset($_SESSION['login_error']);
@@ -34,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Get saved username from session
 $savedUsername = $_SESSION['login_username'] ?? '';
 unset($_SESSION['login_username']);
 ?>
@@ -49,6 +48,28 @@ unset($_SESSION['login_username']);
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="<?php echo APP_URL; ?>/assets/css/style.css">
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script> 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false,
+                touchMultiplier: 2,
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+
+            requestAnimationFrame(raf);
+        });
+    </script>
 </head>
 <body class="login-page">
     <div class="login-container">

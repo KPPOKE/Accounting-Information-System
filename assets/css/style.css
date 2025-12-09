@@ -36,12 +36,41 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-200) 100%);
     color: var(--gray-800);
     min-height: 100vh;
     line-height: 1.6;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--gray-100);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--primary-dark) 0%, var(--darker) 100%);
+}
+
+/* Firefox scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--gray-100);
 }
 
 a {
@@ -1357,8 +1386,14 @@ html.sidebar-is-collapsed .main-content {
     }
 
     .main-content,
-    .main-content.expanded {
-        margin-left: 0;
+    .main-content.expanded,
+    html.sidebar-is-collapsed .main-content {
+        margin-left: 0 !important;
+    }
+
+    html.sidebar-is-collapsed .sidebar {
+        transform: translateX(-100%);
+        width: var(--sidebar-width);
     }
 
     .grid-2,
@@ -1368,12 +1403,37 @@ html.sidebar-is-collapsed .main-content {
 }
 
 @media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    html.sidebar-is-collapsed .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .main-content,
+    html.sidebar-is-collapsed .main-content {
+        margin-left: 0 !important;
+    }
+
     .stats-grid {
         grid-template-columns: 1fr;
     }
 
     .content-wrapper {
-        padding: 20px;
+        padding: 16px;
+    }
+
+    .header {
+        padding: 0 16px;
+    }
+
+    .page-title {
+        font-size: 16px;
+    }
+
+    .breadcrumb {
+        display: none;
     }
 
     .card-header {
@@ -1391,12 +1451,34 @@ html.sidebar-is-collapsed .main-content {
     }
 
     table {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     th,
     td {
-        padding: 12px 8px;
+        padding: 10px 6px;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .stat-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+    }
+
+    .stat-value {
+        font-size: 22px;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .card-body {
+        padding: 16px;
     }
 }
 
