@@ -49,14 +49,21 @@ unset($_SESSION['login_username']);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="<?php echo APP_URL; ?>/assets/css/style.css">
     <style>
+        
         html, body {
-            height: 100%;
-            overflow: hidden;
+            height: auto;
+            min-height: 100%;
+            overflow-y: auto;
         }
-        @media (max-width: 768px) {
+        
+        .login-page {
+            min-height: 100vh;
+        }
+        
+        @media (min-width: 769px) and (min-height: 701px) {
             html, body {
-                height: auto;
-                overflow-y: auto;
+                height: 100%;
+                overflow: hidden;
             }
         }
     </style>

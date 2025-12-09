@@ -1583,3 +1583,213 @@ html.sidebar-is-collapsed .main-content {
         padding: 12px 24px;
     }
 }
+
+@media (max-height: 450px) and (orientation: landscape) {
+    .login-page {
+        height: 100vh;
+        padding: 10px;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .login-container {
+        min-height: auto;
+        max-height: 100%;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .login-card {
+        max-width: 540px;
+        width: 100%;
+        max-height: calc(100vh - 20px);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .login-header {
+        padding: 12px 24px 8px;
+        flex-shrink: 0;
+    }
+
+    .login-logo {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+        border-radius: 9px;
+        margin-bottom: 6px;
+    }
+
+    .login-title {
+        font-size: 17px;
+        margin-bottom: 2px;
+    }
+
+    .login-subtitle {
+        font-size: 10px;
+    }
+
+    .login-body {
+        padding: 2px 24px 12px;
+        flex-shrink: 0;
+    }
+
+    .login-body .form-group {
+        margin-bottom: 8px;
+    }
+
+    .login-body .form-label {
+        font-size: 11px;
+        margin-bottom: 3px;
+    }
+
+    .login-body .form-control {
+        height: 36px;
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+    .login-body .input-with-icon {
+        padding-left: 38px !important;
+    }
+
+    .login-body .input-icon {
+        font-size: 12px;
+        left: 12px;
+    }
+
+    .login-body .password-toggle {
+        right: 8px;
+        font-size: 12px;
+        padding: 2px 5px;
+    }
+
+    .login-body .btn-lg {
+        height: 36px;
+        font-size: 12px;
+        padding: 8px 20px;
+        margin-top: 2px;
+    }
+
+    .login-footer {
+        padding: 6px 24px;
+        font-size: 9px;
+        flex-shrink: 0;
+    }
+
+    .login-body .alert {
+        padding: 8px 12px;
+        font-size: 10px;
+        margin-bottom: 8px;
+    }
+
+    .login-body .alert i {
+        font-size: 11px;
+    }
+}
+
+@media (min-height: 451px) and (max-height: 500px) and (orientation: landscape) {
+    .login-page {
+        height: 100vh;
+        padding: 12px;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .login-container {
+        min-height: auto;
+        max-height: 100%;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .login-card {
+        max-width: 520px;
+        width: 100%;
+        max-height: calc(100vh - 24px);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .login-header {
+        padding: 14px 26px 10px;
+        flex-shrink: 0;
+    }
+
+    .login-logo {
+        width: 40px;
+        height: 40px;
+        font-size: 17px;
+        border-radius: 10px;
+        margin-bottom: 7px;
+    }
+
+    .login-title {
+        font-size: 18px;
+        margin-bottom: 2px;
+    }
+
+    .login-subtitle {
+        font-size: 11px;
+    }
+
+    .login-body {
+        padding: 4px 26px 14px;
+        flex-shrink: 0;
+    }
+
+    .login-body .form-group {
+        margin-bottom: 9px;
+    }
+
+    .login-body .form-label {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .login-body .form-control {
+        height: 37px;
+        font-size: 13px;
+        padding: 9px 13px;
+    }
+
+    .login-body .input-with-icon {
+        padding-left: 40px !important;
+    }
+
+    .login-body .input-icon {
+        font-size: 13px;
+        left: 13px;
+    }
+
+    .login-body .password-toggle {
+        right: 9px;
+        font-size: 13px;
+        padding: 3px 6px;
+    }
+
+    .login-body .btn-lg {
+        height: 37px;
+        font-size: 13px;
+        padding: 9px 22px;
+        margin-top: 2px;
+    }
+
+    .login-footer {
+        padding: 7px 26px;
+        font-size: 10px;
+        flex-shrink: 0;
+    }
+
+    .login-body .alert {
+        padding: 9px 13px;
+        font-size: 11px;
+        margin-bottom: 9px;
+    }
+
+    .login-body .alert i {
+        font-size: 12px;
+    }
+}
