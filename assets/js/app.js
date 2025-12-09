@@ -217,4 +217,70 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    initializeFlatpickr();
 });
+
+function initializeFlatpickr() {
+    if (typeof flatpickr === 'undefined') {
+        return;
+    }
+
+    flatpickr.localize(flatpickr.l10ns.id);
+
+    const singleDateInputs = document.querySelectorAll('input[type="date"]');
+    singleDateInputs.forEach(function(input) {
+        if (!input.placeholder) {
+            input.placeholder = 'Pilih Tanggal';
+        }
+        
+        flatpickr(input, {
+            dateFormat: 'Y-m-d',
+            altInput: true,
+            altFormat: 'd F Y',
+            locale: 'id',
+            disableMobile: false,
+            allowInput: true
+        });
+    });
+
+    const dateFromInput = document.querySelector('input[name="date_from"]');
+    const dateToInput = document.querySelector('input[name="date_to"]');
+    
+    if (dateFromInput && dateToInput) {
+        if (!dateFromInput.placeholder) {
+            dateFromInput.placeholder = 'Dari Tanggal';
+        }
+        if (!dateToInput.placeholder) {
+            dateToInput.placeholder = 'Sampai Tanggal';
+        }
+
+        const fpFrom = flatpickr(dateFromInput, {
+            dateFormat: 'Y-m-d',
+            altInput: true,
+            altFormat: 'd F Y',
+            locale: 'id',
+            disableMobile: false,
+            allowInput: true,
+            onChange: function(selectedDates) {
+                if (selectedDates.length > 0) {
+                    fpTo.set('minDate', selectedDates[0]);
+                }
+            }
+        });
+
+        const fpTo = flatpickr(dateToInput, {
+            dateFormat: 'Y-m-d',
+            altInput: true,
+            altFormat: 'd F Y',
+            locale: 'id',
+            disableMobile: false,
+            allowInput: true,
+            onChange: function(selectedDates) {
+                if (selectedDates.length > 0) {
+                    fpFrom.set('maxDate', selectedDates[0]);
+                }
+            }
+        });
+    }
+}
