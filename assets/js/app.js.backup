@@ -73,43 +73,22 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function showToast(message, type = 'success') {
-    // Create custom toast without SweetAlert2 overlay issues
-    const toastContainer = document.getElementById('custom-toast-container') || createToastContainer();
-    
-    const toast = document.createElement('div');
-    toast.className = `custom-toast custom-toast-${type}`;
-    
-    const iconMap = {
-        success: '<i class="fas fa-check-circle"></i>',
-        error: '<i class="fas fa-times-circle"></i>',
-        info: '<i class="fas fa-info-circle"></i>',
-        warning: '<i class="fas fa-exclamation-circle"></i>'
-    };
-    
-    toast.innerHTML = `
-        <div class="custom-toast-icon">${iconMap[type] || iconMap.info}</div>
-        <div class="custom-toast-message">${message}</div>
-        <div class="custom-toast-progress"></div>
-    `;
-    
-    toastContainer.appendChild(toast);
-    
-    // Trigger animation
-    setTimeout(() => toast.classList.add('show'), 10);
-    
-    // Auto remove after 3 seconds
-    setTimeout(() => {
-        toast.classList.remove('show');
-        toast.classList.add('hide');
-        setTimeout(() => toast.remove(), 300);
-    }, 3000);
-}
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+    });
 
-function createToastContainer() {
-    const container = document.createElement('div');
-    container.id = 'custom-toast-container';
-    document.body.appendChild(container);
-    return container;
+    Toast.fire({
+        icon: type === 'success' ? 'success' : type === 'error' ? 'error' : 'info',
+        title: message
+    });
 }
 
 function confirmDelete(message, callback) {
@@ -243,16 +222,6 @@ function removeJournalRow(button) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Initialize Dark Mode
-    initDarkMode();
-    
-    // Add click event to theme toggle button
-    const themeToggle = document.getElementById('themeToggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', toggleDarkMode);
-    }
-    
-    // Form validation
     const forms = document.querySelectorAll('form[data-validate]');
     forms.forEach(function (form) {
         form.addEventListener('submit', function (e) {
@@ -348,33 +317,32 @@ function initDarkMode() {
     // Check for saved theme preference or default to light mode
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
-    console.log('Dark mode initialized with theme:', savedTheme);
     
-    // Remove preload class immediately to prevent overlay issues
-    document.body.classList.remove('preload');
+    // Remove preload class after a short delay to enable transitions
+    setTimeout(() => {
+        document.body.classList.remove('preload');
+    }, 100);
 }
 
 function toggleDarkMode() {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     
-    console.log('Toggling theme from', currentTheme, 'to', newTheme);
-    
-    // Add theme-changing class to prevent transition issues
-    document.body.classList.add('theme-changing');
-    
-    // Apply new theme
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
-    
-    // Remove theme-changing class after a brief moment
-    setTimeout(() => {
-        document.body.classList.remove('theme-changing');
-    }, 50);
     
     // Show toast notification
     const message = newTheme === 'dark' ? 'Mode gelap diaktifkan' : 'Mode terang diaktifkan';
     showToast(message, 'success');
 }
 
-
+// Initialize dark mode on page load
+document.addEventListener('DOMContentLoaded', function() {
+    initDarkMode();
+    
+    // Add click event to theme toggle button
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleDarkMode);
+    }
+});

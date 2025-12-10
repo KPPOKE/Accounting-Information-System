@@ -81,12 +81,19 @@ foreach ($pathParts as $part) {
         });
     </script>
 </head>
-<body>
+<body class="preload">
     <script>
         (function() {
+            // Apply saved theme immediately to prevent flash
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            
             if (window.innerWidth > 1024 && localStorage.getItem('sidebarCollapsed') === 'true') {
                 document.documentElement.classList.add('sidebar-is-collapsed');
             }
+            
+            // Remove preload class immediately after theme is set
+            document.body.classList.remove('preload');
         })();
     </script>
     <div class="app-container">
@@ -219,6 +226,10 @@ foreach ($pathParts as $part) {
                     </div>
                 </div>
                 <div class="header-right">
+                    <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
+                        <i class="fas fa-sun icon-sun"></i>
+                        <i class="fas fa-moon icon-moon"></i>
+                    </button>
                     <button class="header-btn" title="Notifikasi">
                         <i class="fas fa-bell"></i>
                     </button>
