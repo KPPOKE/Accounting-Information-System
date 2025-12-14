@@ -28,7 +28,7 @@
     --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 25px 50px -12px rgb(0 0 0 / 0.25);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
+
     /* Light Mode (Default) */
     --bg-primary: #f8fafc;
     --bg-secondary: #ffffff;
@@ -59,7 +59,7 @@
     --warning: #fbbf24;
     --danger: #f87171;
     --info: #22d3ee;
-    
+
     /* Dark Mode Colors */
     --bg-primary: #0f172a;
     --bg-secondary: #1e293b;
@@ -78,7 +78,7 @@
     --header-bg: #1e293b;
     --table-header-bg: #0f172a;
     --table-row-hover: #334155;
-    
+
     /* Dark Mode Shadows */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
     --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4);
@@ -1966,8 +1966,7 @@ html.sidebar-is-collapsed .main-content {
     }
 }
 
-.flatpic
-kr-calendar {
+.flatpic kr-calendar {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     border-radius: 12px;
     border: none;
@@ -2726,7 +2725,7 @@ body.swal2-toast-shown .swal2-container {
     background-color: rgba(30, 41, 59, 0.3) !important;
 }
 
-[data-theme="dark"] .swal2-container.swal2-center > .swal2-popup {
+[data-theme="dark"] .swal2-container.swal2-center>.swal2-popup {
     background: var(--card-bg) !important;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6) !important;
 }
@@ -2819,7 +2818,7 @@ html[data-theme] {
 
 /* Remove any backdrop element */
 .swal2-container.swal2-toast-shown .swal2-backdrop-show,
-.swal2-container.swal2-toast-shown ~ .swal2-backdrop-show {
+.swal2-container.swal2-toast-shown~.swal2-backdrop-show {
     display: none !important;
     opacity: 0 !important;
     background: transparent !important;
@@ -3082,8 +3081,13 @@ body.swal2-toast-shown.swal2-height-auto {
 }
 
 @keyframes toastProgress {
-    from { width: 100%; }
-    to { width: 0%; }
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
 }
 
 /* Toast Types */
@@ -3233,8 +3237,13 @@ body.swal2-toast-shown.swal2-height-auto {
 }
 
 @keyframes toastProgress {
-    from { width: 100%; }
-    to { width: 0%; }
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
 }
 
 /* Toast Types */
@@ -3360,19 +3369,19 @@ body.swal2-toast-shown.swal2-height-auto {
         transform: translateX(-100%);
         width: var(--sidebar-width);
     }
-    
+
     .sidebar.open {
         transform: translateX(0);
     }
-    
+
     .main-content {
         margin-left: 0;
     }
-    
+
     .main-content.expanded {
         margin-left: 0;
     }
-    
+
     /* Mobile overlay when sidebar is open */
     .sidebar.open::after {
         content: '';
@@ -3465,27 +3474,35 @@ body.swal2-toast-shown.swal2-height-auto {
     0% {
         transform: translate(0, 0) scale(1);
     }
+
     12.5% {
         transform: translate(-100px, 150px) scale(1.1);
     }
+
     25% {
         transform: translate(-200px, 350px) scale(1);
     }
+
     37.5% {
         transform: translate(-100px, 500px) scale(0.9);
     }
+
     50% {
         transform: translate(100px, 550px) scale(1);
     }
+
     62.5% {
         transform: translate(250px, 400px) scale(1.1);
     }
+
     75% {
         transform: translate(300px, 200px) scale(1);
     }
+
     87.5% {
         transform: translate(150px, 50px) scale(0.9);
     }
+
     100% {
         transform: translate(0, 0) scale(1);
     }
@@ -3495,27 +3512,35 @@ body.swal2-toast-shown.swal2-height-auto {
     0% {
         transform: translate(0, 0) scale(1);
     }
+
     12.5% {
         transform: translate(150px, -100px) scale(0.9);
     }
+
     25% {
         transform: translate(350px, -200px) scale(1);
     }
+
     37.5% {
         transform: translate(500px, -100px) scale(1.1);
     }
+
     50% {
         transform: translate(550px, 100px) scale(1);
     }
+
     62.5% {
         transform: translate(400px, 250px) scale(0.9);
     }
+
     75% {
         transform: translate(200px, 300px) scale(1);
     }
+
     87.5% {
         transform: translate(50px, 150px) scale(1.1);
     }
+
     100% {
         transform: translate(0, 0) scale(1);
     }
@@ -3651,4 +3676,167 @@ body.swal2-toast-shown.swal2-height-auto {
     background: rgba(239, 68, 68, 0.2);
     border: 1px solid rgba(239, 68, 68, 0.3);
     color: #fca5a5;
+}
+
+/* ============================================
+   Dark Mode Form Controls & Flatpickr
+   ============================================ */
+
+/* Form Elements */
+[data-theme="dark"] .form-control {
+    background: var(--bg-tertiary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .form-control:focus {
+    background: var(--bg-tertiary) !important;
+    border-color: var(--primary) !important;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: var(--text-secondary) !important;
+    opacity: 0.7;
+}
+
+/* Fix Dropdown Double Arrow & Appearance */
+.form-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+[data-theme="dark"] .form-select {
+    background-color: var(--bg-tertiary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    background-size: 20px !important;
+}
+
+[data-theme="dark"] .form-select:focus {
+    border-color: var(--primary) !important;
+}
+
+[data-theme="dark"] .form-label {
+    color: var(--text-secondary) !important;
+}
+
+/* Flatpickr Dark Mode Overrides (Force Specificity) */
+[data-theme="dark"] .flatpickr-calendar {
+    background: var(--card-bg) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+[data-theme="dark"] .flatpickr-day {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .flatpickr-day.prevMonthDay,
+[data-theme="dark"] .flatpickr-day.nextMonthDay {
+    color: var(--text-tertiary) !important;
+}
+
+[data-theme="dark"] .flatpickr-day:hover,
+[data-theme="dark"] .flatpickr-day.prevMonthDay:hover,
+[data-theme="dark"] .flatpickr-day.nextMonthDay:hover,
+[data-theme="dark"] .flatpickr-day:focus {
+    background: var(--bg-tertiary) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .flatpickr-day.selected,
+[data-theme="dark"] .flatpickr-day.startRange,
+[data-theme="dark"] .flatpickr-day.endRange,
+[data-theme="dark"] .flatpickr-day.selected.inRange,
+[data-theme="dark"] .flatpickr-day.startRange.inRange,
+[data-theme="dark"] .flatpickr-day.endRange.inRange,
+[data-theme="dark"] .flatpickr-day.selected:focus,
+[data-theme="dark"] .flatpickr-day.startRange:focus,
+[data-theme="dark"] .flatpickr-day.endRange:focus,
+[data-theme="dark"] .flatpickr-day.selected:hover,
+[data-theme="dark"] .flatpickr-day.startRange:hover,
+[data-theme="dark"] .flatpickr-day.endRange:hover,
+[data-theme="dark"] .flatpickr-day.selected.prevMonthDay,
+[data-theme="dark"] .flatpickr-day.startRange.prevMonthDay,
+[data-theme="dark"] .flatpickr-day.endRange.prevMonthDay,
+[data-theme="dark"] .flatpickr-day.selected.nextMonthDay,
+[data-theme="dark"] .flatpickr-day.startRange.nextMonthDay,
+[data-theme="dark"] .flatpickr-day.endRange.nextMonthDay {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: white !important;
+}
+
+[data-theme="dark"] .flatpickr-months .flatpickr-month {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    fill: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .flatpickr-months .flatpickr-prev-month,
+[data-theme="dark"] .flatpickr-months .flatpickr-next-month {
+    fill: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .flatpickr-months .flatpickr-prev-month:hover svg,
+[data-theme="dark"] .flatpickr-months .flatpickr-next-month:hover svg {
+    fill: var(--primary) !important;
+}
+
+[data-theme="dark"] .flatpickr-weekdays {
+    background: var(--bg-secondary) !important;
+}
+
+[data-theme="dark"] span.flatpickr-weekday {
+    background: var(--bg-secondary) !important;
+    color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .flatpickr-current-month .flatpickr-monthDropdown-months {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .flatpickr-current-month .numInputWrapper span.arrowUp:after {
+    border-bottom-color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .flatpickr-current-month .numInputWrapper span.arrowDown:after {
+    border-top-color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .flatpickr-current-month input.cur-year {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .flatpickr-time {
+    background: var(--bg-secondary) !important;
+    border-top: 1px solid var(--border-color) !important;
+}
+
+[data-theme="dark"] .flatpickr-time .numInputWrapper span.arrowUp:after {
+    border-bottom-color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .flatpickr-time .numInputWrapper span.arrowDown:after {
+    border-top-color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .flatpickr-time input {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .flatpickr-time .flatpickr-time-separator,
+[data-theme="dark"] .flatpickr-time .flatpickr-am-pm {
+    color: var(--text-primary) !important;
+}
+
+/* Allow text input for flatpickr to inherit styles */
+[data-theme="dark"] .flatpickr-input {
+    background: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
 }
