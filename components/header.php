@@ -32,7 +32,7 @@ foreach ($pathParts as $part) {
         document.addEventListener('DOMContentLoaded', function() {
             // Disable Lenis on mobile devices to prevent jittery header
             const isMobile = window.innerWidth <= 1024;
-            
+
             if (!isMobile) {
                 const lenis = new Lenis({
                     duration: 1.2,
@@ -87,11 +87,11 @@ foreach ($pathParts as $part) {
             // Apply saved theme immediately to prevent flash
             const savedTheme = localStorage.getItem('theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
-            
+
             if (window.innerWidth > 1024 && localStorage.getItem('sidebarCollapsed') === 'true') {
                 document.documentElement.classList.add('sidebar-is-collapsed');
             }
-            
+
             // Remove preload class immediately after theme is set
             document.body.classList.remove('preload');
         })();
@@ -104,7 +104,7 @@ foreach ($pathParts as $part) {
                 </div>
                 <span class="sidebar-brand-text">Finacore</span>
             </div>
-            
+
             <nav class="sidebar-nav" id="sidebarNav" data-lenis-prevent>
                 <div class="sidebar-nav-content">
                     <div class="nav-section">
@@ -114,7 +114,7 @@ foreach ($pathParts as $part) {
                             <span class="nav-item-text">Dashboard</span>
                         </a>
                     </div>
-                    
+
                     <?php if (hasPermission('accounts_view')): ?>
                     <div class="nav-section">
                         <div class="nav-section-title">Master Data</div>
@@ -124,7 +124,7 @@ foreach ($pathParts as $part) {
                         </a>
                     </div>
                     <?php endif; ?>
-                    
+
                     <?php if (hasAnyPermission(['journal_view', 'cash_view'])): ?>
                     <div class="nav-section">
                         <div class="nav-section-title">Transaksi</div>
@@ -142,7 +142,7 @@ foreach ($pathParts as $part) {
                         <?php endif; ?>
                     </div>
                     <?php endif; ?>
-                    
+
                     <?php if (hasPermission('reports_view')): ?>
                     <div class="nav-section">
                         <div class="nav-section-title">Laporan</div>
@@ -168,7 +168,7 @@ foreach ($pathParts as $part) {
                         </a>
                     </div>
                     <?php endif; ?>
-                    
+
                     <?php if (hasAnyPermission(['users_view', 'logs_view'])): ?>
                     <div class="nav-section">
                         <div class="nav-section-title">Pengaturan</div>
@@ -188,7 +188,7 @@ foreach ($pathParts as $part) {
                     <?php endif; ?>
                 </div>
             </nav>
-            
+
             <div class="sidebar-footer">
                 <div class="user-info">
                     <div class="user-avatar">
@@ -201,7 +201,7 @@ foreach ($pathParts as $part) {
                 </div>
             </div>
         </aside>
-        
+
         <main class="main-content">
             <header class="header">
                 <div class="header-left">

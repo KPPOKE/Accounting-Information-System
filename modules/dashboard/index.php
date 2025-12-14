@@ -38,7 +38,7 @@ require_once __DIR__ . '/../../components/header.php';
             <div class="stat-label">Total Akun Aktif</div>
         </div>
     </div>
-    
+
     <div class="stat-card">
         <div class="stat-icon warning">
             <i class="fas fa-clock"></i>
@@ -48,7 +48,7 @@ require_once __DIR__ . '/../../components/header.php';
             <div class="stat-label">Jurnal Pending</div>
         </div>
     </div>
-    
+
     <div class="stat-card">
         <div class="stat-icon success">
             <i class="fas fa-arrow-down"></i>
@@ -58,7 +58,7 @@ require_once __DIR__ . '/../../components/header.php';
             <div class="stat-label">Total Kas Masuk</div>
         </div>
     </div>
-    
+
     <div class="stat-card">
         <div class="stat-icon danger">
             <i class="fas fa-arrow-up"></i>
@@ -124,7 +124,7 @@ require_once __DIR__ . '/../../components/header.php';
             </div>
         </div>
     </div>
-    
+
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">

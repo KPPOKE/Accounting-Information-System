@@ -29,7 +29,6 @@
     --shadow-lg: 0 25px 50px -12px rgb(0 0 0 / 0.25);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    /* Light Mode (Default) */
     --bg-primary: #f8fafc;
     --bg-secondary: #ffffff;
     --bg-tertiary: #f1f5f9;
@@ -49,7 +48,6 @@
     --table-row-hover: #f8fafc;
 }
 
-/* Dark Mode Variables */
 [data-theme="dark"] {
     --primary: #818cf8;
     --primary-dark: #6366f1;
@@ -60,7 +58,6 @@
     --danger: #f87171;
     --info: #22d3ee;
 
-    /* Dark Mode Colors */
     --bg-primary: #0f172a;
     --bg-secondary: #1e293b;
     --bg-tertiary: #334155;
@@ -79,7 +76,6 @@
     --table-header-bg: #0f172a;
     --table-row-hover: #334155;
 
-    /* Dark Mode Shadows */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
     --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4);
     --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.5);
@@ -105,7 +101,6 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -124,7 +119,6 @@ body {
     background: linear-gradient(180deg, var(--primary-dark) 0%, var(--darker) 100%);
 }
 
-/* Firefox scrollbar */
 * {
     scrollbar-width: thin;
     scrollbar-color: var(--primary) var(--gray-100);
@@ -1248,7 +1242,6 @@ tbody tr:hover {
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
 }
 
-/* Override browser autofill styles */
 .login-body .form-control:-webkit-autofill,
 .login-body .form-control:-webkit-autofill:hover,
 .login-body .form-control:-webkit-autofill:focus,
@@ -1686,7 +1679,6 @@ html.sidebar-is-collapsed .main-content {
     }
 }
 
-/* Login Page Mobile Responsive */
 @media (max-width: 480px) {
     .login-page {
         padding: 0;
@@ -2145,7 +2137,6 @@ input[type="date"]::placeholder {
     background: #f1f5f9;
 }
 
-
 .swal2-popup {
     border-radius: 16px;
     padding: 32px;
@@ -2274,7 +2265,6 @@ input[type="date"]::placeholder {
     z-index: 10000;
 }
 
-/* Fix for jittery header on mobile landscape */
 @media (max-width: 1024px) and (orientation: landscape) {
     .header {
         position: fixed;
@@ -2302,7 +2292,6 @@ input[type="date"]::placeholder {
     }
 }
 
-/* Additional fix for all mobile devices */
 @media (max-width: 1024px) {
     .header {
         -webkit-overflow-scrolling: touch;
@@ -2311,7 +2300,6 @@ input[type="date"]::placeholder {
     }
 }
 
-/* Dark Mode Toggle Button */
 .theme-toggle {
     position: relative;
     width: 40px;
@@ -2366,7 +2354,6 @@ input[type="date"]::placeholder {
     color: white;
 }
 
-/* Dark Mode - Table Styles */
 [data-theme="dark"] table {
     color: var(--text-primary);
 }
@@ -2384,7 +2371,6 @@ input[type="date"]::placeholder {
     background: var(--table-row-hover);
 }
 
-/* Dark Mode - Form Elements */
 [data-theme="dark"] .form-control,
 [data-theme="dark"] .form-select,
 [data-theme="dark"] input[type="text"],
@@ -2416,12 +2402,10 @@ input[type="date"]::placeholder {
     color: var(--text-tertiary);
 }
 
-/* Dark Mode - Badges */
 [data-theme="dark"] .badge {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Dark Mode - Alerts */
 [data-theme="dark"] .alert {
     border: 1px solid var(--border-color);
 }
@@ -2450,7 +2434,6 @@ input[type="date"]::placeholder {
     color: var(--info);
 }
 
-/* Dark Mode - Empty State */
 [data-theme="dark"] .empty-state {
     color: var(--text-secondary);
 }
@@ -2459,13 +2442,11 @@ input[type="date"]::placeholder {
     color: var(--text-tertiary);
 }
 
-/* Dark Mode - Filter Bar */
 [data-theme="dark"] .filter-bar {
     background: var(--bg-secondary);
     border-color: var(--border-color);
 }
 
-/* Dark Mode - Sidebar */
 [data-theme="dark"] .sidebar-brand-text,
 [data-theme="dark"] .nav-item-text {
     color: var(--sidebar-text);
@@ -2483,7 +2464,6 @@ input[type="date"]::placeholder {
     color: var(--sidebar-text-muted);
 }
 
-/* Dark Mode - Scrollbar */
 [data-theme="dark"] ::-webkit-scrollbar-track {
     background: var(--bg-secondary);
 }
@@ -2492,7 +2472,6 @@ input[type="date"]::placeholder {
     background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
 }
 
-/* Dark Mode - Flatpickr */
 [data-theme="dark"] .flatpickr-calendar {
     background: var(--card-bg);
     border-color: var(--border-color);
@@ -2523,7 +2502,6 @@ input[type="date"]::placeholder {
     border-color: var(--primary);
 }
 
-/* Dark Mode - SweetAlert2 */
 [data-theme="dark"] .swal2-popup {
     background: var(--card-bg) !important;
     color: var(--text-primary) !important;
@@ -2543,7 +2521,6 @@ input[type="date"]::placeholder {
     color: var(--text-secondary) !important;
 }
 
-/* Dark Mode - SweetAlert2 Buttons */
 [data-theme="dark"] .swal-btn-cancel {
     background: var(--bg-tertiary) !important;
     color: var(--text-primary) !important;
@@ -2555,7 +2532,6 @@ input[type="date"]::placeholder {
     color: var(--text-primary) !important;
 }
 
-/* Dark Mode - SweetAlert2 Toast */
 [data-theme="dark"] .swal2-toast {
     background: var(--card-bg) !important;
     color: var(--text-primary) !important;
@@ -2567,7 +2543,6 @@ input[type="date"]::placeholder {
     color: var(--text-primary) !important;
 }
 
-/* Dark Mode - SweetAlert2 Icons */
 [data-theme="dark"] .swal2-icon.swal2-success {
     border-color: var(--success) !important;
 }
@@ -2603,7 +2578,6 @@ input[type="date"]::placeholder {
     color: var(--primary) !important;
 }
 
-/* Dark Mode - SweetAlert2 Input Fields */
 [data-theme="dark"] .swal2-input,
 [data-theme="dark"] .swal2-textarea,
 [data-theme="dark"] .swal2-select {
@@ -2619,12 +2593,10 @@ input[type="date"]::placeholder {
     box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.1) !important;
 }
 
-/* Dark Mode - SweetAlert2 Progress Bar */
 [data-theme="dark"] .swal2-timer-progress-bar {
     background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
 }
 
-/* Dark Mode - SweetAlert2 Close Button */
 [data-theme="dark"] .swal2-close {
     color: var(--text-secondary) !important;
 }
@@ -2633,7 +2605,6 @@ input[type="date"]::placeholder {
     color: var(--text-primary) !important;
 }
 
-/* Dark Mode - Login Page */
 [data-theme="dark"] .login-page {
     background: var(--bg-primary);
 }
@@ -2657,17 +2628,14 @@ input[type="date"]::placeholder {
     color: var(--text-tertiary);
 }
 
-/* Smooth transitions for theme change */
 * {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Prevent transition on page load */
 .preload * {
     transition: none !important;
 }
 
-/* SweetAlert2 Toast - No backdrop for both themes */
 .swal2-container.swal2-top-end,
 .swal2-container.swal2-toast-shown,
 body.swal2-toast-shown .swal2-container {
@@ -2684,7 +2652,6 @@ body.swal2-toast-shown .swal2-container {
     border: 1px solid var(--border-color) !important;
 }
 
-/* SweetAlert2 Modal - Backdrop only for center modals */
 .swal2-container.swal2-center {
     background-color: rgba(15, 23, 42, 0.4) !important;
 }
@@ -2693,25 +2660,21 @@ body.swal2-toast-shown .swal2-container {
     background-color: rgba(15, 23, 42, 0.5) !important;
 }
 
-/* Dark Mode - SweetAlert2 Loading */
 [data-theme="dark"] .swal2-loading .swal2-styled {
     background-color: var(--bg-tertiary) !important;
 }
 
-/* Dark Mode - SweetAlert2 Validation Message */
 [data-theme="dark"] .swal2-validation-message {
     background: var(--bg-secondary) !important;
     color: var(--danger) !important;
     border: 1px solid var(--danger) !important;
 }
 
-/* Dark Mode - SweetAlert2 Footer */
 [data-theme="dark"] .swal2-footer {
     border-top: 1px solid var(--border-color) !important;
     color: var(--text-secondary) !important;
 }
 
-/* Dark Mode - SweetAlert2 Range Input */
 [data-theme="dark"] .swal2-range input {
     background: var(--bg-tertiary) !important;
 }
@@ -2720,7 +2683,6 @@ body.swal2-toast-shown .swal2-container {
     color: var(--text-primary) !important;
 }
 
-/* Override default SweetAlert2 backdrop for better visibility in dark mode */
 [data-theme="dark"] .swal2-container.swal2-backdrop-show {
     background-color: rgba(30, 41, 59, 0.3) !important;
 }
@@ -2730,7 +2692,6 @@ body.swal2-toast-shown .swal2-container {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6) !important;
 }
 
-/* Prevent unwanted overlay during theme transitions - but allow login page orbs */
 body:not(.login-page)::before,
 body:not(.login-page)::after,
 html::before,
@@ -2738,17 +2699,14 @@ html::after {
     display: none !important;
 }
 
-/* Force immediate theme application without transition delays */
 html[data-theme] {
     transition: none !important;
 }
 
-/* Override any conflicting transitions during theme change */
 .theme-changing * {
     transition: none !important;
 }
 
-/* Ensure toast notifications never have backdrop */
 .swal2-container.swal2-top-end {
     background: none !important;
     backdrop-filter: none !important;
@@ -2759,18 +2717,15 @@ html[data-theme] {
     box-shadow: var(--shadow-lg) !important;
 }
 
-/* Remove any backdrop for toast notifications */
 .swal2-toast-shown .swal2-container {
     background: transparent !important;
 }
 
-/* Disable animations that might cause overlay flicker */
 .swal2-noanimation {
     animation: none !important;
     transition: none !important;
 }
 
-/* Fix SweetAlert2 Toast - Remove backdrop completely */
 .swal2-container.swal2-top-end,
 .swal2-container.swal2-toast-shown {
     background: transparent !important;
@@ -2787,17 +2742,10 @@ html[data-theme] {
     box-shadow: var(--shadow-lg) !important;
 }
 
-/* Ensure toast timer works properly */
 .swal2-toast .swal2-timer-progress-bar {
     background: var(--primary) !important;
 }
 
-/*
- ============================================
-   SweetAlert2 Toast - No Overlay Fix
-   ============================================ */
-
-/* Remove backdrop/overlay for toast notifications */
 .swal2-container.swal2-toast-shown {
     background: transparent !important;
     backdrop-filter: none !important;
@@ -2811,12 +2759,10 @@ html[data-theme] {
     -webkit-backdrop-filter: none !important;
 }
 
-/* Ensure toast itself is clickable */
 .swal2-container.swal2-toast-shown .swal2-popup {
     pointer-events: auto !important;
 }
 
-/* Remove any backdrop element */
 .swal2-container.swal2-toast-shown .swal2-backdrop-show,
 .swal2-container.swal2-toast-shown~.swal2-backdrop-show {
     display: none !important;
@@ -2824,7 +2770,6 @@ html[data-theme] {
     background: transparent !important;
 }
 
-/* Toast specific styling */
 .swal2-popup.swal2-toast {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
     border-radius: 10px !important;
@@ -2849,12 +2794,10 @@ html[data-theme] {
     font-size: 16px !important;
 }
 
-/* Toast timer progress bar */
 .swal2-popup.swal2-toast .swal2-timer-progress-bar {
     background: var(--primary) !important;
 }
 
-/* Dark mode toast styling */
 [data-theme="dark"] .swal2-popup.swal2-toast {
     background: var(--card-bg) !important;
     border-color: var(--border-color) !important;
@@ -2865,18 +2808,12 @@ html[data-theme] {
     color: var(--text-primary) !important;
 }
 
-/* ============================================
-   SweetAlert2 Modal/Popup Styling
-   ============================================ */
-
-/* Regular popup (non-toast) backdrop */
 .swal2-container:not(.swal2-toast-shown) {
     background: rgba(15, 23, 42, 0.6) !important;
     backdrop-filter: blur(4px) !important;
     -webkit-backdrop-filter: blur(4px) !important;
 }
 
-/* Popup styling */
 .swal2-popup:not(.swal2-toast) {
     background: var(--card-bg) !important;
     border-radius: 16px !important;
@@ -2895,7 +2832,6 @@ html[data-theme] {
     font-size: 14px !important;
 }
 
-/* SweetAlert2 buttons */
 .swal2-styled.swal2-confirm {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
     border: none !important;
@@ -2922,7 +2858,6 @@ html[data-theme] {
     background: var(--border-color) !important;
 }
 
-/* Dark mode popup */
 [data-theme="dark"] .swal2-popup:not(.swal2-toast) {
     background: var(--card-bg) !important;
     border-color: var(--border-color) !important;
@@ -2942,7 +2877,6 @@ html[data-theme] {
     border-color: var(--border-color) !important;
 }
 
-/* SweetAlert2 icons in dark mode */
 [data-theme="dark"] .swal2-icon.swal2-warning {
     border-color: var(--warning) !important;
     color: var(--warning) !important;
@@ -2979,8 +2913,6 @@ html[data-theme] {
     color: var(--primary) !important;
 }
 
-
-/* Custom toast container class - no overlay */
 .swal2-toast-container-no-overlay {
     background: transparent !important;
     backdrop-filter: none !important;
@@ -2997,14 +2929,12 @@ html[data-theme] {
     pointer-events: auto !important;
 }
 
-/* Ensure no black overlay on any toast */
 body.swal2-toast-shown .swal2-container {
     background: transparent !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
 }
 
-/* Fix for body scroll lock during toast */
 body.swal2-toast-shown {
     overflow: auto !important;
     padding-right: 0 !important;
@@ -3013,11 +2943,6 @@ body.swal2-toast-shown {
 body.swal2-toast-shown.swal2-height-auto {
     height: auto !important;
 }
-
-
-/* ============================================
-   Custom Toast Notifications (No Overlay)
-   ============================================ */
 
 #custom-toast-container {
     position: fixed;
@@ -3090,7 +3015,6 @@ body.swal2-toast-shown.swal2-height-auto {
     }
 }
 
-/* Toast Types */
 .custom-toast-success {
     border-left: 4px solid var(--success);
 }
@@ -3139,7 +3063,6 @@ body.swal2-toast-shown.swal2-height-auto {
     background: var(--warning);
 }
 
-/* Dark mode toast */
 [data-theme="dark"] .custom-toast {
     background: var(--card-bg);
     border-color: var(--border-color);
@@ -3154,14 +3077,12 @@ body.swal2-toast-shown.swal2-height-auto {
     pointer-events: auto !important;
 }
 
-/* Ensure no black overlay on any toast */
 body.swal2-toast-shown .swal2-container {
     background: transparent !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
 }
 
-/* Fix for body scroll lock during toast */
 body.swal2-toast-shown {
     overflow: auto !important;
     padding-right: 0 !important;
@@ -3170,10 +3091,6 @@ body.swal2-toast-shown {
 body.swal2-toast-shown.swal2-height-auto {
     height: auto !important;
 }
-
-/* ============================================
-   Custom Toast Notifications (No Overlay)
-   ============================================ */
 
 #custom-toast-container {
     position: fixed;
@@ -3246,7 +3163,6 @@ body.swal2-toast-shown.swal2-height-auto {
     }
 }
 
-/* Toast Types */
 .custom-toast-success {
     border-left: 4px solid var(--success);
 }
@@ -3295,7 +3211,6 @@ body.swal2-toast-shown.swal2-height-auto {
     background: var(--warning);
 }
 
-/* Dark mode toast */
 [data-theme="dark"] .custom-toast {
     background: var(--card-bg);
     border-color: var(--border-color);
@@ -3305,10 +3220,6 @@ body.swal2-toast-shown.swal2-height-auto {
 [data-theme="dark"] .custom-toast-message {
     color: var(--text-primary);
 }
-
-/* ============================================
-   Sidebar Collapsed State
-   ============================================ */
 
 .sidebar.collapsed {
     width: 80px;
@@ -3342,12 +3253,10 @@ body.swal2-toast-shown.swal2-height-auto {
     padding: 20px 16px;
 }
 
-/* Main content expanded when sidebar collapsed */
 .main-content.expanded {
     margin-left: 80px;
 }
 
-/* Sidebar transition - Important to override theme transitions */
 .sidebar {
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
@@ -3363,7 +3272,6 @@ body.swal2-toast-shown.swal2-height-auto {
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* Mobile sidebar */
 @media (max-width: 1024px) {
     .sidebar {
         transform: translateX(-100%);
@@ -3382,7 +3290,6 @@ body.swal2-toast-shown.swal2-height-auto {
         margin-left: 0;
     }
 
-    /* Mobile overlay when sidebar is open */
     .sidebar.open::after {
         content: '';
         position: fixed;
@@ -3395,7 +3302,6 @@ body.swal2-toast-shown.swal2-height-auto {
     }
 }
 
-/* Tooltip for collapsed sidebar */
 .sidebar.collapsed .nav-item {
     position: relative;
 }
@@ -3424,11 +3330,6 @@ body.swal2-toast-shown.swal2-height-auto {
     opacity: 1;
     visibility: visible;
 }
-
-
-/* ============================================
-   Login Page with Animated Orbs
-   ============================================ */
 
 .login-page {
     height: 100vh;
@@ -3629,7 +3530,6 @@ body.swal2-toast-shown.swal2-height-auto {
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
 }
 
-/* Override browser autofill styles for login */
 .login-body .form-control:-webkit-autofill,
 .login-body .form-control:-webkit-autofill:hover,
 .login-body .form-control:-webkit-autofill:focus,
@@ -3678,11 +3578,6 @@ body.swal2-toast-shown.swal2-height-auto {
     color: #fca5a5;
 }
 
-/* ============================================
-   Dark Mode Form Controls & Flatpickr
-   ============================================ */
-
-/* Form Elements */
 [data-theme="dark"] .form-control {
     background: var(--bg-tertiary) !important;
     border-color: var(--border-color) !important;
@@ -3699,7 +3594,6 @@ body.swal2-toast-shown.swal2-height-auto {
     opacity: 0.7;
 }
 
-/* Fix Dropdown Double Arrow & Appearance */
 .form-select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -3724,7 +3618,6 @@ body.swal2-toast-shown.swal2-height-auto {
     color: var(--text-secondary) !important;
 }
 
-/* Flatpickr Dark Mode Overrides (Force Specificity) */
 [data-theme="dark"] .flatpickr-calendar {
     background: var(--card-bg) !important;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3) !important;
@@ -3835,7 +3728,6 @@ body.swal2-toast-shown.swal2-height-auto {
     color: var(--text-primary) !important;
 }
 
-/* Allow text input for flatpickr to inherit styles */
 [data-theme="dark"] .flatpickr-input {
     background: var(--bg-tertiary) !important;
     color: var(--text-primary) !important;

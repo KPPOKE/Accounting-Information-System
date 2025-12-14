@@ -20,7 +20,7 @@ if (!$journal) {
 if ($action === 'approve') {
     $stmt = $pdo->prepare("UPDATE journal_entries SET status = 'approved', approved_by = ?, updated_at = NOW() WHERE id = ?");
     $result = $stmt->execute([$_SESSION['user_id'], $id]);
-    
+
     if ($result) {
         logActivity('approve', 'journal', $id, "Menyetujui jurnal: {$journal['entry_number']}");
         setFlash('success', 'Jurnal berhasil disetujui');
@@ -29,7 +29,7 @@ if ($action === 'approve') {
     $note = sanitize($_GET['note'] ?? 'Ditolak');
     $stmt = $pdo->prepare("UPDATE journal_entries SET status = 'rejected', approved_by = ?, rejection_note = ?, updated_at = NOW() WHERE id = ?");
     $result = $stmt->execute([$_SESSION['user_id'], $note, $id]);
-    
+
     if ($result) {
         logActivity('reject', 'journal', $id, "Menolak jurnal: {$journal['entry_number']}");
         setFlash('warning', 'Jurnal telah ditolak');

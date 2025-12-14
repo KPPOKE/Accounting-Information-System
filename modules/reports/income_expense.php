@@ -64,7 +64,7 @@ require_once __DIR__ . '/../../components/header.php';
         </a>
         <?php endif; ?>
     </div>
-    
+
     <div class="filter-bar">
         <form method="GET" class="d-flex gap-2" style="align-items: flex-end;">
             <div class="form-group mb-0">
@@ -80,13 +80,13 @@ require_once __DIR__ . '/../../components/header.php';
             </button>
         </form>
     </div>
-    
+
     <div class="card-body">
         <div class="text-center" style="margin-bottom: 24px;">
             <h2 style="margin-bottom: 8px;">LAPORAN LABA RUGI</h2>
             <p style="color: var(--gray-500);">Periode: <?php echo formatDate($dateFrom); ?> - <?php echo formatDate($dateTo); ?></p>
         </div>
-        
+
         <div class="grid-2" style="gap: 32px;">
             <div>
                 <h4 style="color: var(--success); margin-bottom: 16px;">
@@ -109,7 +109,7 @@ require_once __DIR__ . '/../../components/header.php';
                     </tr>
                 </table>
             </div>
-            
+
             <div>
                 <h4 style="color: var(--danger); margin-bottom: 16px;">
                     <i class="fas fa-arrow-up"></i> BEBAN
@@ -132,7 +132,7 @@ require_once __DIR__ . '/../../components/header.php';
                 </table>
             </div>
         </div>
-        
+
         <div style="margin-top: 32px; padding: 24px; background: <?php echo $labaRugi >= 0 ? 'var(--success)' : 'var(--danger)'; ?>; color: white; border-radius: 12px; display: flex; justify-content: space-between; align-items: center;">
             <h3 style="margin: 0;"><?php echo $labaRugi >= 0 ? 'LABA BERSIH' : 'RUGI BERSIH'; ?></h3>
             <h2 style="margin: 0;"><?php echo formatCurrency(abs($labaRugi)); ?></h2>

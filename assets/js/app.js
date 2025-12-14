@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function showToast(message, type = 'success') {
-    // Create custom toast without SweetAlert2 overlay issues
+
     const toastContainer = document.getElementById('custom-toast-container') || createToastContainer();
 
     const toast = document.createElement('div');
@@ -94,10 +94,8 @@ function showToast(message, type = 'success') {
 
     toastContainer.appendChild(toast);
 
-    // Trigger animation
     setTimeout(() => toast.classList.add('show'), 10);
 
-    // Auto remove after 3 seconds
     setTimeout(() => {
         toast.classList.remove('show');
         toast.classList.add('hide');
@@ -243,16 +241,14 @@ function removeJournalRow(button) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Initialize Dark Mode
+
     initDarkMode();
 
-    // Add click event to theme toggle button
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
         themeToggle.addEventListener('click', toggleDarkMode);
     }
 
-    // Form validation
     const forms = document.querySelectorAll('form[data-validate]');
     forms.forEach(function (form) {
         form.addEventListener('submit', function (e) {
@@ -342,17 +338,14 @@ function initializeFlatpickr() {
     }
 }
 
-// Dark Mode Toggle
 function initDarkMode() {
-    // Check for saved theme preference or default to light mode
+
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     console.log('Dark mode initialized with theme:', savedTheme);
 
-    // Remove preload class immediately to prevent overlay issues
     document.body.classList.remove('preload');
 
-    // Apply Flatpickr theme based on current theme
     applyFlatpickrTheme(savedTheme);
 }
 
@@ -362,39 +355,33 @@ function toggleDarkMode() {
 
     console.log('Toggling theme from', currentTheme, 'to', newTheme);
 
-    // Add theme-changing class to prevent transition issues
     document.body.classList.add('theme-changing');
 
-    // Apply new theme
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
 
-    // Apply Flatpickr theme
     applyFlatpickrTheme(newTheme);
 
-    // Remove theme-changing class after a brief moment
     setTimeout(() => {
         document.body.classList.remove('theme-changing');
     }, 50);
 
-    // Show toast notification
     const message = newTheme === 'dark' ? 'Dark Mode Enabled' : 'Light Mode Enabled';
     showToast(message, 'success');
 }
 
-// Dynamically apply Flatpickr dark theme with inline styles for maximum specificity
 function applyFlatpickrTheme(theme) {
     const FLATPICKR_DARK_THEME_ID = 'flatpickr-dark-theme-inline';
 
     let existingStyle = document.getElementById(FLATPICKR_DARK_THEME_ID);
 
     if (theme === 'dark') {
-        // Add dark theme inline styles if not already present
+
         if (!existingStyle) {
             const style = document.createElement('style');
             style.id = FLATPICKR_DARK_THEME_ID;
             style.textContent = `
-                /* Flatpickr Dark Theme - Inline CSS */
+
                 .flatpickr-calendar {
                     background: #1e293b !important;
                     border: 1px solid #334155 !important;
@@ -530,7 +517,7 @@ function applyFlatpickrTheme(theme) {
             console.log('Flatpickr dark theme (inline) applied');
         }
     } else {
-        // Remove dark theme if present
+
         if (existingStyle) {
             existingStyle.remove();
             console.log('Flatpickr dark theme (inline) removed');

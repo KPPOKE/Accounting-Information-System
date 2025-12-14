@@ -41,11 +41,11 @@ switch ($type) {
         ");
         $stmt->execute([$dateFrom, $dateTo]);
         $journals = $stmt->fetchAll();
-        
+
         echo "<tr><th colspan='5'>LAPORAN JURNAL UMUM</th></tr>";
         echo "<tr><th colspan='5'>Periode: " . date('d/m/Y', strtotime($dateFrom)) . " - " . date('d/m/Y', strtotime($dateTo)) . "</th></tr>";
         echo "<tr><th>No Bukti</th><th>Tanggal</th><th>Akun</th><th>Debit</th><th>Kredit</th></tr>";
-        
+
         foreach ($journals as $j) {
             $detailStmt = $pdo->prepare("
                 SELECT jd.*, a.code, a.name FROM journal_details jd 
@@ -53,7 +53,7 @@ switch ($type) {
             ");
             $detailStmt->execute([$j['id']]);
             $details = $detailStmt->fetchAll();
-            
+
             foreach ($details as $d) {
                 echo "<tr>";
                 echo "<td>{$j['entry_number']}</td>";
@@ -65,12 +65,12 @@ switch ($type) {
             }
         }
         break;
-        
+
     case 'ledger':
         $stmt = $pdo->prepare("SELECT * FROM accounts WHERE id = ?");
         $stmt->execute([$accountId]);
         $account = $stmt->fetch();
-        
+
         if ($account) {
             $stmt = $pdo->prepare("
                 SELECT je.entry_number, je.entry_date, jd.debit, jd.credit, jd.description
@@ -81,13 +81,13 @@ switch ($type) {
             ");
             $stmt->execute([$accountId, $dateFrom, $dateTo]);
             $data = $stmt->fetchAll();
-            
+
             echo "<tr><th colspan='5'>BUKU BESAR - {$account['code']} - {$account['name']}</th></tr>";
             echo "<tr><th>Tanggal</th><th>No Bukti</th><th>Debit</th><th>Kredit</th><th>Saldo</th></tr>";
-            
+
             $saldo = $account['opening_balance'];
             echo "<tr><td colspan='4'>Saldo Awal</td><td>{$saldo}</td></tr>";
-            
+
             foreach ($data as $row) {
                 $saldo = $saldo + $row['debit'] - $row['credit'];
                 echo "<tr>";
@@ -100,7 +100,7 @@ switch ($type) {
             }
         }
         break;
-        
+
     case 'trial_balance':
         $stmt = $pdo->prepare("
             SELECT a.code, a.name, a.opening_balance, ac.normal_balance,
@@ -115,10 +115,10 @@ switch ($type) {
         ");
         $stmt->execute([$asOfDate]);
         $accounts = $stmt->fetchAll();
-        
+
         echo "<tr><th colspan='4'>NERACA SALDO per " . date('d/m/Y', strtotime($asOfDate)) . "</th></tr>";
         echo "<tr><th>Kode</th><th>Nama Akun</th><th>Debit</th><th>Kredit</th></tr>";
-        
+
         foreach ($accounts as $acc) {
             $saldo = $acc['opening_balance'] + $acc['total_debit'] - $acc['total_credit'];
             if ($acc['normal_balance'] === 'credit') {
@@ -131,7 +131,7 @@ switch ($type) {
             }
         }
         break;
-        
+
     case 'cash_flow':
         $stmt = $pdo->prepare("
             SELECT ct.*, a.name as account_name FROM cash_transactions ct
@@ -141,10 +141,10 @@ switch ($type) {
         ");
         $stmt->execute([$dateFrom, $dateTo]);
         $transactions = $stmt->fetchAll();
-        
+
         echo "<tr><th colspan='5'>LAPORAN ARUS KAS</th></tr>";
         echo "<tr><th>Tanggal</th><th>No Transaksi</th><th>Akun</th><th>Kas Masuk</th><th>Kas Keluar</th></tr>";
-        
+
         foreach ($transactions as $trx) {
             echo "<tr>";
             echo "<td>" . date('d/m/Y', strtotime($trx['transaction_date'])) . "</td>";
@@ -155,7 +155,7 @@ switch ($type) {
             echo "</tr>";
         }
         break;
-        
+
     case 'income_expense':
         $stmt = $pdo->prepare("
             SELECT a.code, a.name, ac.type,
@@ -171,14 +171,14 @@ switch ($type) {
         ");
         $stmt->execute([$dateFrom, $dateTo]);
         $data = $stmt->fetchAll();
-        
+
         echo "<tr><th colspan='3'>LAPORAN LABA RUGI</th></tr>";
         echo "<tr><th>Kode</th><th>Nama</th><th>Jumlah</th></tr>";
         echo "<tr><td colspan='3'><b>PENDAPATAN</b></td></tr>";
-        
+
         $totalPendapatan = 0;
         $totalBeban = 0;
-        
+
         foreach ($data as $row) {
             if ($row['type'] === 'pendapatan') {
                 $amount = $row['total_credit'] - $row['total_debit'];
@@ -186,10 +186,10 @@ switch ($type) {
                 echo "<tr><td>{$row['code']}</td><td>{$row['name']}</td><td>{$amount}</td></tr>";
             }
         }
-        
+
         echo "<tr><td colspan='2'><b>Total Pendapatan</b></td><td><b>{$totalPendapatan}</b></td></tr>";
         echo "<tr><td colspan='3'><b>BEBAN</b></td></tr>";
-        
+
         foreach ($data as $row) {
             if ($row['type'] === 'beban') {
                 $amount = $row['total_debit'] - $row['total_credit'];
@@ -197,7 +197,7 @@ switch ($type) {
                 echo "<tr><td>{$row['code']}</td><td>{$row['name']}</td><td>{$amount}</td></tr>";
             }
         }
-        
+
         echo "<tr><td colspan='2'><b>Total Beban</b></td><td><b>{$totalBeban}</b></td></tr>";
         $labaRugi = $totalPendapatan - $totalBeban;
         echo "<tr><td colspan='2'><b>" . ($labaRugi >= 0 ? 'LABA BERSIH' : 'RUGI BERSIH') . "</b></td><td><b>" . abs($labaRugi) . "</b></td></tr>";

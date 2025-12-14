@@ -22,7 +22,7 @@ require_once __DIR__ . '/../../components/header.php';
         </a>
         <?php endif; ?>
     </div>
-    
+
     <div class="table-container">
         <table>
             <thead>

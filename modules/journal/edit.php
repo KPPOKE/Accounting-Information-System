@@ -33,19 +33,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $entryDate = sanitize($_POST['entry_date'] ?? '');
     $description = sanitize($_POST['description'] ?? '');
     $details = $_POST['details'] ?? [];
-    
+
     if (empty($entryDate)) $errors[] = 'Tanggal harus diisi';
     if (empty($description)) $errors[] = 'Keterangan harus diisi';
-    
+
     $totalDebit = 0;
     $totalCredit = 0;
     $validDetails = [];
-    
+
     foreach ($details as $detail) {
         $accountId = intval($detail['account_id'] ?? 0);
         $debit = floatval(str_replace(['.', ','], ['', '.'], $detail['debit'] ?? 0));
         $credit = floatval(str_replace(['.', ','], ['', '.'], $detail['credit'] ?? 0));
-        
+
         if ($accountId > 0 && ($debit > 0 || $credit > 0)) {
             $validDetails[] = [
                 'account_id' => $accountId,
@@ -57,36 +57,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $totalCredit += $credit;
         }
     }
-    
+
     if (count($validDetails) < 2) {
         $errors[] = 'Minimal harus ada 2 baris detail yang valid';
     }
-    
+
     if ($totalDebit != $totalCredit) {
         $errors[] = 'Total debit dan kredit harus sama';
     }
-    
+
     if (empty($errors)) {
         try {
             $pdo->beginTransaction();
-            
+
             $stmt = $pdo->prepare("
                 UPDATE journal_entries SET entry_date = ?, description = ?, total_amount = ?, updated_at = NOW()
                 WHERE id = ?
             ");
             $stmt->execute([$entryDate, $description, $totalDebit, $id]);
-            
+
             $pdo->prepare("DELETE FROM journal_details WHERE journal_entry_id = ?")->execute([$id]);
-            
+
             $detailStmt = $pdo->prepare("
                 INSERT INTO journal_details (journal_entry_id, account_id, debit, credit, description) 
                 VALUES (?, ?, ?, ?, ?)
             ");
-            
+
             foreach ($validDetails as $detail) {
                 $detailStmt->execute([$id, $detail['account_id'], $detail['debit'], $detail['credit'], $detail['description']]);
             }
-            
+
             if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] === UPLOAD_ERR_OK) {
                 $upload = uploadFile($_FILES['attachment'], 'journal');
                 if ($upload['success']) {
@@ -100,12 +100,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ]);
                 }
             }
-            
+
             $pdo->commit();
             logActivity('update', 'journal', $id, "Mengupdate jurnal: {$journal['entry_number']}");
             setFlash('success', 'Jurnal berhasil diupdate');
             redirect(APP_URL . '/modules/journal/');
-            
+
         } catch (Exception $e) {
             $pdo->rollBack();
             $errors[] = 'Gagal menyimpan data';
@@ -131,7 +131,7 @@ require_once __DIR__ . '/../../components/header.php';
             </ul>
         </div>
         <?php endif; ?>
-        
+
         <form method="POST" action="" enctype="multipart/form-data">
             <div class="form-row">
                 <div class="form-group">
@@ -144,16 +144,16 @@ require_once __DIR__ . '/../../components/header.php';
                            value="<?php echo htmlspecialchars($_POST['entry_date'] ?? $journal['entry_date']); ?>" required>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label class="form-label">Keterangan <span class="text-danger">*</span></label>
                 <textarea name="description" class="form-control" rows="2" required><?php echo htmlspecialchars($_POST['description'] ?? $journal['description']); ?></textarea>
             </div>
-            
+
             <div id="balanceInfo" class="alert alert-success">
                 <i class="fas fa-check-circle"></i> Balance: Debit dan Kredit seimbang
             </div>
-            
+
             <div class="table-container" style="margin-bottom: 20px;">
                 <table>
                     <thead>
@@ -204,16 +204,16 @@ require_once __DIR__ . '/../../components/header.php';
                     </tbody>
                 </table>
             </div>
-            
+
             <button type="button" class="btn btn-secondary" onclick="addJournalRow()">
                 <i class="fas fa-plus"></i> Tambah Baris
             </button>
-            
+
             <div class="form-group" style="margin-top: 20px;">
                 <label class="form-label">Tambah Lampiran</label>
                 <input type="file" name="attachment" class="form-control" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.xls,.xlsx">
             </div>
-            
+
             <div class="d-flex gap-2" style="margin-top: 24px;">
                 <button type="submit" id="submitBtn" class="btn btn-primary">
                     <i class="fas fa-save"></i> Update

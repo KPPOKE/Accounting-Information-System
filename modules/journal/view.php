@@ -99,7 +99,7 @@ require_once __DIR__ . '/../../components/header.php';
             </table>
         </div>
     </div>
-    
+
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Lampiran</h3>

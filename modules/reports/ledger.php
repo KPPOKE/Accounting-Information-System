@@ -21,7 +21,7 @@ if ($accountId > 0) {
     $stmt = $pdo->prepare("SELECT a.*, ac.normal_balance FROM accounts a LEFT JOIN account_categories ac ON a.category_id = ac.id WHERE a.id = ?");
     $stmt->execute([$accountId]);
     $selectedAccount = $stmt->fetch();
-    
+
     if ($selectedAccount) {
         $stmt = $pdo->prepare("
             SELECT je.entry_number, je.entry_date, je.description as journal_desc, 
@@ -49,7 +49,7 @@ require_once __DIR__ . '/../../components/header.php';
         </a>
         <?php endif; ?>
     </div>
-    
+
     <div class="filter-bar">
         <form method="GET" class="d-flex gap-2" style="align-items: flex-end; flex-wrap: wrap;">
             <div class="form-group mb-0" style="min-width: 250px;">
@@ -76,7 +76,7 @@ require_once __DIR__ . '/../../components/header.php';
             </button>
         </form>
     </div>
-    
+
     <div class="card-body">
         <?php if (!$selectedAccount): ?>
         <div class="empty-state">
@@ -90,7 +90,7 @@ require_once __DIR__ . '/../../components/header.php';
             <h4><?php echo htmlspecialchars($selectedAccount['code'] . ' - ' . $selectedAccount['name']); ?></h4>
             <p style="color: var(--gray-500);">Periode: <?php echo formatDate($dateFrom); ?> - <?php echo formatDate($dateTo); ?></p>
         </div>
-        
+
         <div class="table-container">
             <table>
                 <thead>
@@ -111,7 +111,7 @@ require_once __DIR__ . '/../../components/header.php';
                     <?php 
                     $saldo = $selectedAccount['opening_balance'];
                     $isDebitNormal = $selectedAccount['normal_balance'] === 'debit';
-                    
+
                     foreach ($ledgerData as $row): 
                         if ($isDebitNormal) {
                             $saldo = $saldo + $row['debit'] - $row['credit'];

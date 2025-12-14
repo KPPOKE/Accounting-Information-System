@@ -8,7 +8,6 @@ if (isLoggedIn()) {
 
 $error = '';
 
-
 if (isset($_SESSION['login_error'])) {
     $error = $_SESSION['login_error'];
     unset($_SESSION['login_error']);
@@ -17,7 +16,7 @@ if (isset($_SESSION['login_error'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = sanitize($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
-    
+
     if (empty($username) || empty($password)) {
         $_SESSION['login_error'] = 'Username dan password harus diisi';
         $_SESSION['login_username'] = $username;
@@ -49,17 +48,17 @@ unset($_SESSION['login_username']);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="<?php echo APP_URL; ?>/assets/css/style.css">
     <style>
-        
+
         html, body {
             height: auto;
             min-height: 100%;
             overflow-y: auto;
         }
-        
+
         .login-page {
             min-height: 100vh;
         }
-        
+
         @media (min-width: 769px) and (min-height: 701px) {
             html, body {
                 height: 100%;
@@ -78,7 +77,7 @@ unset($_SESSION['login_username']);
                 <h1 class="login-title">Finacore</h1>
                 <p class="login-subtitle">Sistem Informasi Akuntansi</p>
             </div>
-            
+
             <div class="login-body">
                 <?php if ($error): ?>
                 <div class="alert alert-danger">
@@ -86,7 +85,7 @@ unset($_SESSION['login_username']);
                     <span><?php echo $error; ?></span>
                 </div>
                 <?php endif; ?>
-                
+
                 <form method="POST" action="">
                     <div class="form-group">
                         <label class="form-label">Username</label>
@@ -98,7 +97,7 @@ unset($_SESSION['login_username']);
                                    required>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="form-label">Password</label>
                         <div class="input-icon-wrapper">
@@ -112,20 +111,20 @@ unset($_SESSION['login_username']);
                             </button>
                         </div>
                     </div>
-                    
+
                     <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
                         <i class="fas fa-sign-in-alt"></i>
                         Masuk
                     </button>
                 </form>
             </div>
-            
+
             <div class="login-footer">
                 <p>&copy; <?php echo date('Y'); ?> Finacore v1.0.0</p>
             </div>
         </div>
     </div>
-    
+
     <script>
     function togglePassword() {
         const input = document.getElementById('passwordInput');

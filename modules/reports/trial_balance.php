@@ -33,7 +33,7 @@ $totalCredit = 0;
 
 foreach ($accounts as $acc) {
     $saldo = $acc['opening_balance'] + $acc['total_debit'] - $acc['total_credit'];
-    
+
     if ($acc['normal_balance'] === 'debit') {
         $debit = $saldo >= 0 ? $saldo : 0;
         $credit = $saldo < 0 ? abs($saldo) : 0;
@@ -42,7 +42,7 @@ foreach ($accounts as $acc) {
         $credit = $saldo >= 0 ? $saldo : 0;
         $debit = $saldo < 0 ? abs($saldo) : 0;
     }
-    
+
     if ($debit != 0 || $credit != 0) {
         $trialBalance[] = [
             'code' => $acc['code'],
@@ -70,7 +70,7 @@ require_once __DIR__ . '/../../components/header.php';
         </a>
         <?php endif; ?>
     </div>
-    
+
     <div class="filter-bar">
         <form method="GET" class="d-flex gap-2" style="align-items: flex-end;">
             <div class="form-group mb-0">
@@ -82,13 +82,13 @@ require_once __DIR__ . '/../../components/header.php';
             </button>
         </form>
     </div>
-    
+
     <div class="card-body">
         <div class="text-center" style="margin-bottom: 24px;">
             <h2 style="margin-bottom: 8px;">NERACA SALDO</h2>
             <p style="color: var(--gray-500);">Per Tanggal: <?php echo formatDate($asOfDate, 'd F Y'); ?></p>
         </div>
-        
+
         <?php if (empty($trialBalance)): ?>
         <div class="empty-state">
             <div class="empty-state-icon"><i class="fas fa-balance-scale"></i></div>
@@ -126,7 +126,7 @@ require_once __DIR__ . '/../../components/header.php';
                 </tfoot>
             </table>
         </div>
-        
+
         <div class="alert <?php echo abs($totalDebit - $totalCredit) < 0.01 ? 'alert-success' : 'alert-danger'; ?>" style="margin-top: 24px;">
             <i class="fas fa-<?php echo abs($totalDebit - $totalCredit) < 0.01 ? 'check-circle' : 'exclamation-circle'; ?>"></i>
             <?php if (abs($totalDebit - $totalCredit) < 0.01): ?>

@@ -43,13 +43,13 @@ switch ($type) {
         ");
         $stmt->execute([$dateFrom, $dateTo]);
         $journals = $stmt->fetchAll();
-        
+
         $html .= "<h1>LAPORAN JURNAL UMUM</h1>";
         $html .= "<h2>Periode: " . date('d/m/Y', strtotime($dateFrom)) . " - " . date('d/m/Y', strtotime($dateTo)) . "</h2>";
-        
+
         $totalDebit = 0;
         $totalCredit = 0;
-        
+
         foreach ($journals as $j) {
             $detailStmt = $pdo->prepare("
                 SELECT jd.*, a.code, a.name FROM journal_details jd 
@@ -57,10 +57,10 @@ switch ($type) {
             ");
             $detailStmt->execute([$j['id']]);
             $details = $detailStmt->fetchAll();
-            
+
             $html .= "<p><strong>{$j['entry_number']}</strong> - " . date('d/m/Y', strtotime($j['entry_date'])) . " - {$j['description']}</p>";
             $html .= "<table><tr><th>Kode</th><th>Nama Akun</th><th class='text-right'>Debit</th><th class='text-right'>Kredit</th></tr>";
-            
+
             foreach ($details as $d) {
                 $totalDebit += $d['debit'];
                 $totalCredit += $d['credit'];
@@ -70,12 +70,12 @@ switch ($type) {
             }
             $html .= "</table><br>";
         }
-        
+
         $html .= "<table><tr class='total-row'><td colspan='2'>GRAND TOTAL</td>";
         $html .= "<td class='text-right'>" . number_format($totalDebit, 0, ',', '.') . "</td>";
         $html .= "<td class='text-right'>" . number_format($totalCredit, 0, ',', '.') . "</td></tr></table>";
         break;
-        
+
     default:
         $html .= "<p>Tipe laporan tidak valid</p>";
 }

@@ -57,7 +57,7 @@ require_once __DIR__ . '/../../components/header.php';
         </div>
         <?php endif; ?>
     </div>
-    
+
     <div class="filter-bar">
         <form method="GET" class="d-flex gap-2" style="align-items: flex-end;">
             <div class="form-group mb-0">
@@ -73,13 +73,13 @@ require_once __DIR__ . '/../../components/header.php';
             </button>
         </form>
     </div>
-    
+
     <div class="card-body">
         <div class="text-center" style="margin-bottom: 24px;">
             <h2 style="margin-bottom: 8px;">JURNAL UMUM</h2>
             <p style="color: var(--gray-500);">Periode: <?php echo formatDate($dateFrom); ?> - <?php echo formatDate($dateTo); ?></p>
         </div>
-        
+
         <?php if (empty($journals)): ?>
         <div class="empty-state">
             <div class="empty-state-icon"><i class="fas fa-book"></i></div>
@@ -100,7 +100,7 @@ require_once __DIR__ . '/../../components/header.php';
                 </div>
                 <div style="color: var(--gray-500);"><?php echo htmlspecialchars($journal['description']); ?></div>
             </div>
-            
+
             <table style="width: 100%; background: white;">
                 <thead>
                     <tr>
@@ -128,7 +128,7 @@ require_once __DIR__ . '/../../components/header.php';
             </table>
         </div>
         <?php endforeach; ?>
-        
+
         <div style="background: var(--primary); color: white; padding: 16px; border-radius: 8px; display: flex; justify-content: space-between;">
             <strong>GRAND TOTAL</strong>
             <div>

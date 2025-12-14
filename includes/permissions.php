@@ -5,7 +5,7 @@ function hasPermission($permissionName) {
     if (!isset($_SESSION['role_id'])) {
         return false;
     }
-    
+
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("
         SELECT COUNT(*) as count 
@@ -15,7 +15,7 @@ function hasPermission($permissionName) {
     ");
     $stmt->execute([$_SESSION['role_id'], $permissionName]);
     $result = $stmt->fetch();
-    
+
     return $result['count'] > 0;
 }
 
@@ -55,7 +55,7 @@ function canAccessModule($module) {
     ");
     $stmt->execute([$_SESSION['role_id'], $module]);
     $result = $stmt->fetch();
-    
+
     return $result['count'] > 0;
 }
 
@@ -63,11 +63,11 @@ function getUserPermissions($roleId = null) {
     if ($roleId === null && isset($_SESSION['role_id'])) {
         $roleId = $_SESSION['role_id'];
     }
-    
+
     if ($roleId === null) {
         return [];
     }
-    
+
     $pdo = getDBConnection();
     $stmt = $pdo->prepare("
         SELECT p.* 

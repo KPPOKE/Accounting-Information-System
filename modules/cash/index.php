@@ -68,7 +68,7 @@ require_once __DIR__ . '/../../components/header.php';
         </a>
         <?php endif; ?>
     </div>
-    
+
     <div class="filter-bar">
         <form method="GET" class="d-flex gap-2" style="width: 100%; flex-wrap: wrap;">
             <div class="filter-item search-box">
@@ -101,7 +101,7 @@ require_once __DIR__ . '/../../components/header.php';
             <a href="index.php" class="btn btn-outline">Reset</a>
         </form>
     </div>
-    
+
     <div class="table-container">
         <table>
             <thead>

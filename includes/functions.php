@@ -18,18 +18,18 @@ function generateNumber($prefix, $table, $column, $dateFormat = 'Ym') {
     $pdo = getDBConnection();
     $datePrefix = date($dateFormat);
     $pattern = $prefix . '-' . $datePrefix . '-%';
-    
+
     $stmt = $pdo->prepare("SELECT $column FROM $table WHERE $column LIKE ? ORDER BY id DESC LIMIT 1");
     $stmt->execute([$pattern]);
     $last = $stmt->fetch();
-    
+
     if ($last) {
         $lastNum = intval(substr($last[$column], -4));
         $newNum = $lastNum + 1;
     } else {
         $newNum = 1;
     }
-    
+
     return $prefix . '-' . $datePrefix . '-' . str_pad($newNum, 4, '0', STR_PAD_LEFT);
 }
 
@@ -84,24 +84,24 @@ function uploadFile($file, $directory = '') {
     if ($file['error'] !== UPLOAD_ERR_OK) {
         return ['success' => false, 'message' => 'Upload error'];
     }
-    
+
     if ($file['size'] > MAX_UPLOAD_SIZE) {
         return ['success' => false, 'message' => 'File too large'];
     }
-    
+
     $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     if (!in_array($extension, ALLOWED_EXTENSIONS)) {
         return ['success' => false, 'message' => 'Invalid file type'];
     }
-    
+
     $uploadDir = UPLOAD_PATH . $directory;
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0755, true);
     }
-    
+
     $filename = uniqid() . '_' . time() . '.' . $extension;
     $filepath = $uploadDir . '/' . $filename;
-    
+
     if (move_uploaded_file($file['tmp_name'], $filepath)) {
         return [
             'success' => true,
@@ -112,7 +112,7 @@ function uploadFile($file, $directory = '') {
             'filesize' => $file['size']
         ];
     }
-    
+
     return ['success' => false, 'message' => 'Failed to move file'];
 }
 
@@ -128,7 +128,7 @@ function getPagination($totalItems, $perPage = 10, $currentPage = 1) {
     $totalPages = ceil($totalItems / $perPage);
     $currentPage = max(1, min($currentPage, $totalPages));
     $offset = ($currentPage - 1) * $perPage;
-    
+
     return [
         'total_items' => $totalItems,
         'per_page' => $perPage,
@@ -149,29 +149,29 @@ function getActivityLogs($filters = [], $limit = 50) {
         WHERE 1=1
     ";
     $params = [];
-    
+
     if (!empty($filters['module'])) {
         $sql .= " AND al.module = ?";
         $params[] = $filters['module'];
     }
-    
+
     if (!empty($filters['user_id'])) {
         $sql .= " AND al.user_id = ?";
         $params[] = $filters['user_id'];
     }
-    
+
     if (!empty($filters['date_from'])) {
         $sql .= " AND DATE(al.created_at) >= ?";
         $params[] = $filters['date_from'];
     }
-    
+
     if (!empty($filters['date_to'])) {
         $sql .= " AND DATE(al.created_at) <= ?";
         $params[] = $filters['date_to'];
     }
-    
+
     $sql .= " ORDER BY al.created_at DESC LIMIT " . intval($limit);
-    
+
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
     return $stmt->fetchAll();

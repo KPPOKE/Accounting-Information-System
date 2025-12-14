@@ -21,22 +21,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $openingBalance = floatval(str_replace(['.', ','], ['', '.'], $_POST['opening_balance'] ?? 0));
     $description = sanitize($_POST['description'] ?? '');
     $isActive = isset($_POST['is_active']) ? 1 : 0;
-    
+
     if (empty($code)) $errors[] = 'Kode akun harus diisi';
     if (empty($name)) $errors[] = 'Nama akun harus diisi';
     if ($categoryId <= 0) $errors[] = 'Kategori harus dipilih';
-    
+
     $existCheck = $pdo->prepare("SELECT id FROM accounts WHERE code = ?");
     $existCheck->execute([$code]);
     if ($existCheck->fetch()) $errors[] = 'Kode akun sudah digunakan';
-    
+
     if (empty($errors)) {
         $stmt = $pdo->prepare("
             INSERT INTO accounts (code, name, category_id, opening_balance, current_balance, description, is_active) 
             VALUES (?, ?, ?, ?, ?, ?, ?)
         ");
         $result = $stmt->execute([$code, $name, $categoryId, $openingBalance, $openingBalance, $description, $isActive]);
-        
+
         if ($result) {
             $accountId = $pdo->lastInsertId();
             logActivity('create', 'accounts', $accountId, "Membuat akun baru: $code - $name");
@@ -66,7 +66,7 @@ require_once __DIR__ . '/../../components/header.php';
             </ul>
         </div>
         <?php endif; ?>
-        
+
         <form method="POST" action="">
             <div class="form-row">
                 <div class="form-group">
@@ -82,7 +82,7 @@ require_once __DIR__ . '/../../components/header.php';
                            placeholder="Contoh: Kas Kecil" required>
                 </div>
             </div>
-            
+
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label">Kategori <span class="text-danger">*</span></label>
@@ -103,13 +103,13 @@ require_once __DIR__ . '/../../components/header.php';
                            placeholder="0" onkeyup="formatNumber(this);">
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label class="form-label">Deskripsi</label>
                 <textarea name="description" class="form-control" rows="3" 
                           placeholder="Keterangan tambahan tentang akun ini"><?php echo htmlspecialchars($_POST['description'] ?? ''); ?></textarea>
             </div>
-            
+
             <div class="form-group">
                 <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
                     <input type="checkbox" name="is_active" value="1" 
@@ -117,7 +117,7 @@ require_once __DIR__ . '/../../components/header.php';
                     <span>Akun Aktif</span>
                 </label>
             </div>
-            
+
             <div class="d-flex gap-2" style="margin-top: 24px;">
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i>

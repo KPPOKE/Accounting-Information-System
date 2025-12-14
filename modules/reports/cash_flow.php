@@ -48,7 +48,7 @@ require_once __DIR__ . '/../../components/header.php';
         </a>
         <?php endif; ?>
     </div>
-    
+
     <div class="filter-bar">
         <form method="GET" class="d-flex gap-2" style="align-items: flex-end;">
             <div class="form-group mb-0">
@@ -64,13 +64,13 @@ require_once __DIR__ . '/../../components/header.php';
             </button>
         </form>
     </div>
-    
+
     <div class="card-body">
         <div class="text-center" style="margin-bottom: 24px;">
             <h2 style="margin-bottom: 8px;">LAPORAN ARUS KAS</h2>
             <p style="color: var(--gray-500);">Periode: <?php echo formatDate($dateFrom); ?> - <?php echo formatDate($dateTo); ?></p>
         </div>
-        
+
         <div class="stats-grid" style="margin-bottom: 24px;">
             <div class="stat-card">
                 <div class="stat-icon success"><i class="fas fa-arrow-down"></i></div>
@@ -98,7 +98,7 @@ require_once __DIR__ . '/../../components/header.php';
                 </div>
             </div>
         </div>
-        
+
         <?php if (empty($transactions)): ?>
         <div class="empty-state">
             <div class="empty-state-icon"><i class="fas fa-exchange-alt"></i></div>

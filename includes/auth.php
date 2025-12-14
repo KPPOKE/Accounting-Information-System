@@ -42,7 +42,7 @@ function login($username, $password) {
     ");
     $stmt->execute([$username]);
     $user = $stmt->fetch();
-    
+
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
@@ -50,12 +50,12 @@ function login($username, $password) {
         $_SESSION['email'] = $user['email'];
         $_SESSION['role_id'] = $user['role_id'];
         $_SESSION['role_name'] = $user['role_name'];
-        
+
         $stmt = $pdo->prepare("UPDATE users SET last_login = NOW() WHERE id = ?");
         $stmt->execute([$user['id']]);
-        
+
         logActivity('login', 'auth', null, 'User ' . $username . ' berhasil login');
-        
+
         return true;
     }
     return false;
@@ -107,7 +107,7 @@ function createUser($data) {
         $data['role_id'],
         $data['status'] ?? 'active'
     ]);
-    
+
     if ($result) {
         $userId = $pdo->lastInsertId();
         logActivity('create', 'users', $userId, 'Membuat user baru: ' . $data['username']);
@@ -119,21 +119,21 @@ function createUser($data) {
 function updateUser($id, $data) {
     $pdo = getDBConnection();
     $oldData = getUserById($id);
-    
+
     $sql = "UPDATE users SET username = ?, email = ?, full_name = ?, role_id = ?, status = ?, updated_at = NOW()";
     $params = [$data['username'], $data['email'], $data['full_name'], $data['role_id'], $data['status']];
-    
+
     if (!empty($data['password'])) {
         $sql .= ", password = ?";
         $params[] = password_hash($data['password'], PASSWORD_DEFAULT);
     }
-    
+
     $sql .= " WHERE id = ?";
     $params[] = $id;
-    
+
     $stmt = $pdo->prepare($sql);
     $result = $stmt->execute($params);
-    
+
     if ($result) {
         logActivity('update', 'users', $id, 'Mengupdate user: ' . $data['username'], $oldData, $data);
     }
@@ -143,10 +143,10 @@ function updateUser($id, $data) {
 function deleteUser($id) {
     $pdo = getDBConnection();
     $oldData = getUserById($id);
-    
+
     $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
     $result = $stmt->execute([$id]);
-    
+
     if ($result) {
         logActivity('delete', 'users', $id, 'Menghapus user: ' . $oldData['username'], $oldData);
     }

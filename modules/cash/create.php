@@ -30,18 +30,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $amount = floatval(str_replace(['.', ','], ['', '.'], $_POST['amount'] ?? 0));
     $description = sanitize($_POST['description'] ?? '');
     $reference = sanitize($_POST['reference'] ?? '');
-    
+
     if (empty($transactionDate)) $errors[] = 'Tanggal harus diisi';
     if ($accountId <= 0) $errors[] = 'Akun harus dipilih';
     if ($amount <= 0) $errors[] = 'Jumlah harus lebih dari 0';
-    
+
     $prefix = $type === 'masuk' ? 'KM' : 'KK';
     $transactionNumber = generateNumber($prefix, 'cash_transactions', 'transaction_number');
-    
+
     if (empty($errors)) {
         try {
             $pdo->beginTransaction();
-            
+
             $stmt = $pdo->prepare("
                 INSERT INTO cash_transactions (transaction_number, transaction_date, type, account_id, amount, description, reference, created_by, status) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $amount, $description, $reference, $_SESSION['user_id']
             ]);
             $transactionId = $pdo->lastInsertId();
-            
+
             if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] === UPLOAD_ERR_OK) {
                 $upload = uploadFile($_FILES['attachment'], 'cash');
                 if ($upload['success']) {
@@ -65,12 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ]);
                 }
             }
-            
+
             $pdo->commit();
             logActivity('create', 'cash', $transactionId, "Membuat transaksi kas: $transactionNumber");
             setFlash('success', 'Transaksi kas berhasil dibuat');
             redirect(APP_URL . '/modules/cash/');
-            
+
         } catch (Exception $e) {
             $pdo->rollBack();
             $errors[] = 'Gagal menyimpan data';
@@ -96,7 +96,7 @@ require_once __DIR__ . '/../../components/header.php';
             </ul>
         </div>
         <?php endif; ?>
-        
+
         <form method="POST" action="" enctype="multipart/form-data">
             <div class="form-row">
                 <div class="form-group">
@@ -111,7 +111,7 @@ require_once __DIR__ . '/../../components/header.php';
                     <input type="text" class="form-control" value="<?php echo $transactionNumber; ?>" readonly style="background: var(--gray-100);">
                 </div>
             </div>
-            
+
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label">Tanggal <span class="text-danger">*</span></label>
@@ -130,7 +130,7 @@ require_once __DIR__ . '/../../components/header.php';
                     </select>
                 </div>
             </div>
-            
+
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label">Jumlah <span class="text-danger">*</span></label>
@@ -145,19 +145,19 @@ require_once __DIR__ . '/../../components/header.php';
                            placeholder="No. Invoice / No. Kwitansi">
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label class="form-label">Keterangan</label>
                 <textarea name="description" class="form-control" rows="3" 
                           placeholder="Deskripsi transaksi"><?php echo htmlspecialchars($_POST['description'] ?? ''); ?></textarea>
             </div>
-            
+
             <div class="form-group">
                 <label class="form-label">Lampiran Bukti</label>
                 <input type="file" name="attachment" class="form-control" accept=".jpg,.jpeg,.png,.pdf">
                 <span class="form-text">Format: JPG, PNG, PDF (Maks. 5MB)</span>
             </div>
-            
+
             <div class="d-flex gap-2" style="margin-top: 24px;">
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i> Simpan
