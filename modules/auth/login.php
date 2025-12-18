@@ -65,11 +65,28 @@ unset($_SESSION['login_username']);
                 overflow: hidden;
             }
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 40px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .fade-in-up {
+            animation-name: fadeInUp;
+            animation-duration: 0.8s;
+            animation-fill-mode: both;
+        }
     </style>
 </head>
 <body class="login-page">
     <div class="login-container">
-        <div class="login-card">
+        <div class="login-card fade-in-up">
             <div class="login-header">
                 <div class="login-logo">
                     <i class="fas fa-chart-line"></i>

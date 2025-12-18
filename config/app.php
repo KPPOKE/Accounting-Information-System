@@ -1,7 +1,24 @@
 <?php
 define('APP_NAME', 'Finacore');
 define('APP_VERSION', '1.0.0');
-define('APP_URL', 'http://localhost/Sistem%20Informasi%20Akuntasi');
+
+// Dynamic APP_URL - works on localhost and production
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$scriptPath = dirname($_SERVER['SCRIPT_NAME']);
+$basePath = '';
+
+// Detect base path from script location
+if (strpos($scriptPath, '/modules/') !== false) {
+    $basePath = substr($scriptPath, 0, strpos($scriptPath, '/modules/'));
+} elseif (strpos($scriptPath, '/api/') !== false) {
+    $basePath = substr($scriptPath, 0, strpos($scriptPath, '/api/'));
+} else {
+    $basePath = rtrim($scriptPath, '/');
+}
+
+define('APP_URL', $protocol . '://' . $host . $basePath);
+
 define('BASE_PATH', dirname(__DIR__));
 define('UPLOAD_PATH', BASE_PATH . '/assets/uploads/');
 define('MAX_UPLOAD_SIZE', 5 * 1024 * 1024);
