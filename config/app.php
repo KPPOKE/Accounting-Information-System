@@ -2,13 +2,13 @@
 define('APP_NAME', 'Finacore');
 define('APP_VERSION', '1.0.0');
 
-// Dynamic APP_URL - works on localhost and production
+
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 $scriptPath = dirname($_SERVER['SCRIPT_NAME']);
 $basePath = '';
 
-// Detect base path from script location
+
 if (strpos($scriptPath, '/modules/') !== false) {
     $basePath = substr($scriptPath, 0, strpos($scriptPath, '/modules/'));
 } elseif (strpos($scriptPath, '/api/') !== false) {
