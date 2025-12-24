@@ -7,6 +7,7 @@ if (isLoggedIn()) {
 }
 
 $error = '';
+$lockoutTime = isLoginLocked();
 
 if (isset($_SESSION['login_error'])) {
     $error = $_SESSION['login_error'];
@@ -14,6 +15,19 @@ if (isset($_SESSION['login_error'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($lockoutTime) {
+        $minutes = ceil($lockoutTime / 60);
+        $_SESSION['login_error'] = "Terlalu banyak percobaan gagal. Coba lagi dalam $minutes menit.";
+        header('Location: ' . APP_URL . '/login');
+        exit;
+    }
+    
+    if (!validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        $_SESSION['login_error'] = 'Invalid security token. Please refresh and try again.';
+        header('Location: ' . APP_URL . '/login');
+        exit;
+    }
+    
     $username = sanitize($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
@@ -26,7 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ' . APP_URL . '/dashboard');
         exit;
     } else {
-        $_SESSION['login_error'] = 'Username atau password salah';
+        $remaining = getRemainingAttempts();
+        if ($remaining > 0) {
+            $_SESSION['login_error'] = "Username atau password salah. Sisa percobaan: $remaining";
+        } else {
+            $_SESSION['login_error'] = 'Terlalu banyak percobaan gagal. Coba lagi dalam 5 menit.';
+        }
         $_SESSION['login_username'] = $username;
         header('Location: ' . APP_URL . '/login');
         exit;
@@ -104,6 +123,7 @@ unset($_SESSION['login_username']);
                 <?php endif; ?>
 
                 <form method="POST" action="">
+                    <?php echo csrfField(); ?>
                     <div class="form-group">
                         <label class="form-label">Username</label>
                         <div class="input-icon-wrapper">

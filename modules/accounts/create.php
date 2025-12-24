@@ -68,6 +68,7 @@ require_once __DIR__ . '/../../components/header.php';
         <?php endif; ?>
 
         <form method="POST" action="">
+            <?php echo csrfField(); ?>
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label">Kode Akun <span class="text-danger">*</span></label>

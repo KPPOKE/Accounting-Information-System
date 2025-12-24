@@ -130,6 +130,7 @@ require_once __DIR__ . '/../../components/header.php';
         <?php endif; ?>
 
         <form method="POST" action="" enctype="multipart/form-data" id="journalForm">
+            <?php echo csrfField(); ?>
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label">No. Bukti</label>
