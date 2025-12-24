@@ -1,3 +1,4 @@
+
 <?php
 $pageTitle = 'Laporan Arus Kas';
 $breadcrumb = [['title' => 'Laporan'], ['title' => 'Arus Kas']];
@@ -16,7 +17,7 @@ $stmt = $pdo->prepare("
     FROM cash_transactions ct
     LEFT JOIN accounts a ON ct.account_id = a.id
     LEFT JOIN users u ON ct.created_by = u.id
-    WHERE ct.status = 'approved' AND ct.transaction_date BETWEEN ? AND ?
+    WHERE ct.status = 'approved' AND DATE(ct.transaction_date) BETWEEN ? AND ?
     ORDER BY ct.transaction_date ASC, ct.id ASC
 ");
 $stmt->execute([$dateFrom, $dateTo]);
@@ -134,9 +135,9 @@ require_once __DIR__ . '/../../components/header.php';
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
-                <tfoot style="background: var(--gray-100); font-weight: 600;">
+                <tfoot style="background: var(--bg-tertiary); font-weight: 600;">
                     <tr>
-                        <td colspan="4" class="text-right">TOTAL</td>
+                        <td colspan="4" class="text-right" style="color: var(--text-primary);">TOTAL</td>
                         <td class="text-right text-success"><?php echo formatCurrency($totalIn); ?></td>
                         <td class="text-right text-danger"><?php echo formatCurrency($totalOut); ?></td>
                     </tr>

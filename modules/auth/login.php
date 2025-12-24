@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../includes/auth.php';
 
 if (isLoggedIn()) {
-    header('Location: ' . APP_URL . '/modules/dashboard/');
+    header('Location: ' . APP_URL . '/dashboard');
     exit;
 }
 
@@ -20,15 +20,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($username) || empty($password)) {
         $_SESSION['login_error'] = 'Username dan password harus diisi';
         $_SESSION['login_username'] = $username;
-        header('Location: ' . APP_URL . '/modules/auth/login.php');
+        header('Location: ' . APP_URL . '/login');
         exit;
     } elseif (login($username, $password)) {
-        header('Location: ' . APP_URL . '/modules/dashboard/');
+        header('Location: ' . APP_URL . '/dashboard');
         exit;
     } else {
         $_SESSION['login_error'] = 'Username atau password salah';
         $_SESSION['login_username'] = $username;
-        header('Location: ' . APP_URL . '/modules/auth/login.php');
+        header('Location: ' . APP_URL . '/login');
         exit;
     }
 }

@@ -6,12 +6,13 @@ requirePermission('cash_edit');
 
 $pageTitle = 'Edit Transaksi Kas';
 $breadcrumb = [
-    ['title' => 'Kas Masuk/Keluar', 'url' => APP_URL . '/modules/cash/'],
+    ['title' => 'Kas Masuk/Keluar', 'url' => APP_URL . '/cash'],
     ['title' => 'Edit Transaksi']
 ];
 
 $pdo = getDBConnection();
-$id = intval($_GET['id'] ?? 0);
+$decodedId = HashIdHelper::decode($_GET['id'] ?? '');
+$id = $decodedId !== false ? $decodedId : 0;
 
 $stmt = $pdo->prepare("SELECT * FROM cash_transactions WHERE id = ? AND status = 'pending'");
 $stmt->execute([$id]);
@@ -19,7 +20,7 @@ $transaction = $stmt->fetch();
 
 if (!$transaction) {
     setFlash('danger', 'Transaksi tidak ditemukan atau sudah diproses');
-    redirect(APP_URL . '/modules/cash/');
+    redirect(APP_URL . '/cash');
 }
 
 $cashAccounts = $pdo->query("
@@ -66,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result) {
             logActivity('update', 'cash', $id, "Mengupdate transaksi: {$transaction['transaction_number']}", $oldData, $_POST);
             setFlash('success', 'Transaksi berhasil diupdate');
-            redirect(APP_URL . '/modules/cash/');
+            redirect(APP_URL . '/cash');
         } else {
             $errors[] = 'Gagal menyimpan data';
         }
@@ -151,7 +152,7 @@ require_once __DIR__ . '/../../components/header.php';
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i> Update
                 </button>
-                <a href="<?php echo APP_URL; ?>/modules/cash/" class="btn btn-secondary">
+                <a href="<?php echo APP_URL; ?>/cash" class="btn btn-secondary">
                     <i class="fas fa-times"></i> Batal
                 </a>
             </div>

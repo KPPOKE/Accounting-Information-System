@@ -1,13 +1,16 @@
 <?php
+
 require_once __DIR__ . '/../includes/auth.php';
 requireLogin();
 require_once __DIR__ . '/../includes/permissions.php';
 requirePermission('reports_export');
+require_once __DIR__ . '/../includes/HashIdHelper.php';
 
 $type = sanitize($_GET['type'] ?? '');
 $dateFrom = sanitize($_GET['date_from'] ?? date('Y-m-01'));
 $dateTo = sanitize($_GET['date_to'] ?? date('Y-m-d'));
-$accountId = intval($_GET['account_id'] ?? 0);
+$decodedId = HashIdHelper::decode($_GET['account_id'] ?? '');
+$accountId = $decodedId !== false ? $decodedId : 0;
 $asOfDate = sanitize($_GET['as_of_date'] ?? date('Y-m-d'));
 
 $pdo = getDBConnection();
@@ -20,7 +23,26 @@ $reportNames = [
     'income_expense' => 'Laba_Rugi'
 ];
 $reportName = $reportNames[$type] ?? 'Export';
-$filename = "Finacore_{$reportName}_" . date('Y-m-d') . ".xls";
+
+// Dynamic filename based on report type
+switch ($type) {
+    case 'trial_balance':
+        $filename = "Finacore_{$reportName}_{$asOfDate}.xls";
+        break;
+    case 'ledger':
+        $accountCode = ''; // Will be fetched from DB
+        if ($accountId > 0) {
+            $accStmt = $pdo->prepare("SELECT code FROM accounts WHERE id = ?");
+            $accStmt->execute([$accountId]);
+            $acc = $accStmt->fetch();
+            $accountCode = $acc ? "_{$acc['code']}" : '';
+        }
+        $filename = "Finacore_{$reportName}{$accountCode}_{$dateFrom}_to_{$dateTo}.xls";
+        break;
+    default:
+        $filename = "Finacore_{$reportName}_{$dateFrom}_to_{$dateTo}.xls";
+        break;
+}
 
 header('Content-Type: application/vnd.ms-excel; charset=utf-8');
 header('Content-Disposition: attachment; filename="' . $filename . '"');
@@ -33,13 +55,22 @@ echo '<table border="1">';
 
 switch ($type) {
     case 'journal':
-        $stmt = $pdo->prepare("
-            SELECT je.*, u.full_name as creator_name FROM journal_entries je 
-            LEFT JOIN users u ON je.created_by = u.id
-            WHERE je.status = 'approved' AND je.entry_date BETWEEN ? AND ?
-            ORDER BY je.entry_date ASC
-        ");
-        $stmt->execute([$dateFrom, $dateTo]);
+        $status = sanitize($_GET['status'] ?? 'all');
+        
+        $query = "SELECT je.*, u.full_name as creator_name FROM journal_entries je 
+                  LEFT JOIN users u ON je.created_by = u.id 
+                  WHERE DATE(je.entry_date) BETWEEN ? AND ?";
+        $params = [$dateFrom, $dateTo];
+
+        if ($status !== 'all') {
+            $query .= " AND je.status = ?";
+            $params[] = $status;
+        }
+
+        $query .= " ORDER BY je.entry_date ASC";
+
+        $stmt = $pdo->prepare($query);
+        $stmt->execute($params);
         $journals = $stmt->fetchAll();
 
         echo "<tr><th colspan='5'>LAPORAN JURNAL UMUM</th></tr>";
@@ -76,7 +107,7 @@ switch ($type) {
                 SELECT je.entry_number, je.entry_date, jd.debit, jd.credit, jd.description
                 FROM journal_details jd
                 JOIN journal_entries je ON jd.journal_entry_id = je.id
-                WHERE jd.account_id = ? AND je.status = 'approved' AND je.entry_date BETWEEN ? AND ?
+                WHERE jd.account_id = ? AND je.status = 'approved' AND DATE(je.entry_date) BETWEEN ? AND ?
                 ORDER BY je.entry_date ASC
             ");
             $stmt->execute([$accountId, $dateFrom, $dateTo]);
@@ -104,11 +135,16 @@ switch ($type) {
     case 'trial_balance':
         $stmt = $pdo->prepare("
             SELECT a.code, a.name, a.opening_balance, ac.normal_balance,
-                   COALESCE(SUM(jd.debit), 0) as total_debit, COALESCE(SUM(jd.credit), 0) as total_credit
+                   COALESCE(SUM(trans.debit), 0) as total_debit, 
+                   COALESCE(SUM(trans.credit), 0) as total_credit
             FROM accounts a
             LEFT JOIN account_categories ac ON a.category_id = ac.id
-            LEFT JOIN journal_details jd ON a.id = jd.account_id
-            LEFT JOIN journal_entries je ON jd.journal_entry_id = je.id AND je.status = 'approved' AND je.entry_date <= ?
+            LEFT JOIN (
+                SELECT jd.account_id, jd.debit, jd.credit
+                FROM journal_details jd
+                JOIN journal_entries je ON jd.journal_entry_id = je.id
+                WHERE je.status = 'approved' AND DATE(je.entry_date) <= ?
+            ) trans ON a.id = trans.account_id
             WHERE a.is_active = 1
             GROUP BY a.id, a.code, a.name, a.opening_balance, ac.normal_balance
             ORDER BY a.code
@@ -120,14 +156,24 @@ switch ($type) {
         echo "<tr><th>Kode</th><th>Nama Akun</th><th>Debit</th><th>Kredit</th></tr>";
 
         foreach ($accounts as $acc) {
+            // IMPORTANT: Use same logic as trial_balance.php
             $saldo = $acc['opening_balance'] + $acc['total_debit'] - $acc['total_credit'];
-            if ($acc['normal_balance'] === 'credit') {
+
+            if ($acc['normal_balance'] === 'debit') {
+                $debit = $saldo >= 0 ? $saldo : 0;
+                $credit = $saldo < 0 ? abs($saldo) : 0;
+            } else {
+                // For credit accounts, recalculate saldo with reversed formula
                 $saldo = $acc['opening_balance'] - $acc['total_debit'] + $acc['total_credit'];
+                $credit = $saldo >= 0 ? $saldo : 0;
+                $debit = $saldo < 0 ? abs($saldo) : 0;
             }
-            if ($saldo != 0) {
-                $debit = $acc['normal_balance'] === 'debit' ? abs($saldo) : '';
-                $credit = $acc['normal_balance'] === 'credit' ? abs($saldo) : '';
-                echo "<tr><td>{$acc['code']}</td><td>{$acc['name']}</td><td>{$debit}</td><td>{$credit}</td></tr>";
+
+            // Only show accounts with non-zero balance
+            if ($debit != 0 || $credit != 0) {
+                $debitDisplay = $debit > 0 ? number_format($debit, 0, ',', '.') : '';
+                $creditDisplay = $credit > 0 ? number_format($credit, 0, ',', '.') : '';
+                echo "<tr><td>{$acc['code']}</td><td>{$acc['name']}</td><td>{$debitDisplay}</td><td>{$creditDisplay}</td></tr>";
             }
         }
         break;
@@ -136,7 +182,7 @@ switch ($type) {
         $stmt = $pdo->prepare("
             SELECT ct.*, a.name as account_name FROM cash_transactions ct
             LEFT JOIN accounts a ON ct.account_id = a.id
-            WHERE ct.status = 'approved' AND ct.transaction_date BETWEEN ? AND ?
+            WHERE ct.status = 'approved' AND DATE(ct.transaction_date) BETWEEN ? AND ?
             ORDER BY ct.transaction_date ASC
         ");
         $stmt->execute([$dateFrom, $dateTo]);
@@ -159,11 +205,16 @@ switch ($type) {
     case 'income_expense':
         $stmt = $pdo->prepare("
             SELECT a.code, a.name, ac.type,
-                   COALESCE(SUM(jd.credit), 0) as total_credit, COALESCE(SUM(jd.debit), 0) as total_debit
+                   COALESCE(SUM(trans.credit), 0) as total_credit, 
+                   COALESCE(SUM(trans.debit), 0) as total_debit
             FROM accounts a
             LEFT JOIN account_categories ac ON a.category_id = ac.id
-            LEFT JOIN journal_details jd ON a.id = jd.account_id
-            LEFT JOIN journal_entries je ON jd.journal_entry_id = je.id AND je.status = 'approved' AND je.entry_date BETWEEN ? AND ?
+            LEFT JOIN (
+                SELECT jd.account_id, jd.debit, jd.credit
+                FROM journal_details jd
+                JOIN journal_entries je ON jd.journal_entry_id = je.id
+                WHERE je.status = 'approved' AND DATE(je.entry_date) BETWEEN ? AND ?
+            ) trans ON a.id = trans.account_id
             WHERE ac.type IN ('pendapatan', 'beban')
             GROUP BY a.id, a.code, a.name, ac.type
             HAVING total_credit > 0 OR total_debit > 0

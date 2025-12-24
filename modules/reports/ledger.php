@@ -8,7 +8,7 @@ requirePermission('reports_view');
 
 $pdo = getDBConnection();
 
-$accountId = intval($_GET['account_id'] ?? 0);
+$accountId = HashIdHelper::decode($_GET['account_id'] ?? '') ?: 0;
 $dateFrom = sanitize($_GET['date_from'] ?? date('Y-m-01'));
 $dateTo = sanitize($_GET['date_to'] ?? date('Y-m-d'));
 
@@ -25,10 +25,10 @@ if ($accountId > 0) {
     if ($selectedAccount) {
         $stmt = $pdo->prepare("
             SELECT je.entry_number, je.entry_date, je.description as journal_desc, 
-                   jd.debit, jd.credit, jd.description
+                   jd.debit, jd.credit, jd.description, je.id as journal_id
             FROM journal_details jd
             JOIN journal_entries je ON jd.journal_entry_id = je.id
-            WHERE jd.account_id = ? AND je.status = 'approved' AND je.entry_date BETWEEN ? AND ?
+            WHERE jd.account_id = ? AND je.status = 'approved' AND DATE(je.entry_date) BETWEEN ? AND ?
             ORDER BY je.entry_date ASC, je.id ASC
         ");
         $stmt->execute([$accountId, $dateFrom, $dateTo]);
@@ -43,7 +43,7 @@ require_once __DIR__ . '/../../components/header.php';
     <div class="card-header">
         <h3 class="card-title">Buku Besar</h3>
         <?php if (hasPermission('reports_export') && $selectedAccount): ?>
-        <a href="<?php echo APP_URL; ?>/api/export_excel.php?type=ledger&account_id=<?php echo $accountId; ?>&date_from=<?php echo $dateFrom; ?>&date_to=<?php echo $dateTo; ?>" 
+        <a href="<?php echo APP_URL; ?>/api/export_excel.php?type=ledger&account_id=<?php echo HashIdHelper::encode($accountId); ?>&date_from=<?php echo $dateFrom; ?>&date_to=<?php echo $dateTo; ?>" 
            class="btn btn-success btn-sm">
             <i class="fas fa-file-excel"></i> Export Excel
         </a>
@@ -57,7 +57,7 @@ require_once __DIR__ . '/../../components/header.php';
                 <select name="account_id" class="form-select" required>
                     <option value="">-- Pilih Akun --</option>
                     <?php foreach ($accounts as $acc): ?>
-                    <option value="<?php echo $acc['id']; ?>" <?php echo $accountId == $acc['id'] ? 'selected' : ''; ?>>
+                    <option value="<?php echo HashIdHelper::encode($acc['id']); ?>" <?php echo $accountId == $acc['id'] ? 'selected' : ''; ?>>
                         <?php echo htmlspecialchars($acc['code'] . ' - ' . $acc['name']); ?>
                     </option>
                     <?php endforeach; ?>

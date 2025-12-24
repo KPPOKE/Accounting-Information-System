@@ -16,7 +16,7 @@ require_once __DIR__ . '/../../components/header.php';
     <div class="card-header">
         <h3 class="card-title">Daftar Pengguna</h3>
         <?php if (hasPermission('users_create')): ?>
-        <a href="create.php" class="btn btn-primary">
+        <a href="<?php echo APP_URL; ?>/users/create" class="btn btn-primary">
             <i class="fas fa-plus"></i>
             Tambah Pengguna
         </a>
@@ -62,14 +62,14 @@ require_once __DIR__ . '/../../components/header.php';
                     <td>
                         <div class="btn-group">
                             <?php if (hasPermission('users_edit')): ?>
-                            <a href="edit.php?id=<?php echo $user['id']; ?>" class="btn btn-sm btn-secondary btn-icon" title="Edit">
+                            <a href="<?php echo APP_URL; ?>/users/edit?id=<?php echo HashIdHelper::encode($user['id']); ?>" class="btn btn-sm btn-secondary btn-icon" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <?php endif; ?>
                             <?php if (hasPermission('users_delete') && $user['id'] != $_SESSION['user_id']): ?>
                             <a href="#" 
                                class="btn btn-sm btn-danger btn-icon" title="Hapus"
-                               onclick="confirmDelete('Yakin ingin menghapus pengguna ini? Data yang dihapus tidak dapat dikembalikan.', function() { window.location.href='delete.php?id=<?php echo $user['id']; ?>'; }); return false;">
+                               onclick="confirmDelete('Yakin ingin menghapus pengguna ini? Data yang dihapus tidak dapat dikembalikan.', function() { window.location.href='<?php echo APP_URL; ?>/users/delete?id=<?php echo HashIdHelper::encode($user['id']); ?>'; }); return false;">
                                 <i class="fas fa-trash"></i>
                             </a>
                             <?php endif; ?>

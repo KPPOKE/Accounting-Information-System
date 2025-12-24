@@ -6,16 +6,17 @@ requirePermission('users_edit');
 
 $pageTitle = 'Edit Pengguna';
 $breadcrumb = [
-    ['title' => 'Kelola Pengguna', 'url' => APP_URL . '/modules/users/'],
+    ['title' => 'Kelola Pengguna', 'url' => APP_URL . '/users'],
     ['title' => 'Edit Pengguna']
 ];
 
-$id = intval($_GET['id'] ?? 0);
+$decodedId = HashIdHelper::decode($_GET['id'] ?? '');
+$id = $decodedId !== false ? $decodedId : 0;
 $user = getUserById($id);
 
 if (!$user) {
     setFlash('danger', 'Pengguna tidak ditemukan');
-    redirect(APP_URL . '/modules/users/');
+    redirect(APP_URL . '/users');
 }
 
 $roles = getAllRoles();
@@ -45,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         if (updateUser($id, $data)) {
             setFlash('success', 'Pengguna berhasil diupdate');
-            redirect(APP_URL . '/modules/users/');
+            redirect(APP_URL . '/users');
         } else {
             $errors[] = 'Gagal menyimpan data';
         }
@@ -124,7 +125,7 @@ require_once __DIR__ . '/../../components/header.php';
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i> Update
                 </button>
-                <a href="<?php echo APP_URL; ?>/modules/users/" class="btn btn-secondary">
+                <a href="<?php echo APP_URL; ?>/users" class="btn btn-secondary">
                     <i class="fas fa-times"></i> Batal
                 </a>
             </div>

@@ -78,7 +78,7 @@ require_once __DIR__ . '/../../components/header.php';
                 Jurnal Terbaru
             </h3>
             <?php if (hasPermission('journal_view')): ?>
-            <a href="<?php echo APP_URL; ?>/modules/journal/" class="btn btn-sm btn-outline">
+            <a href="<?php echo APP_URL; ?>/journal" class="btn btn-sm btn-outline">
                 Lihat Semua
             </a>
             <?php endif; ?>
@@ -132,7 +132,7 @@ require_once __DIR__ . '/../../components/header.php';
                 Transaksi Kas Terbaru
             </h3>
             <?php if (hasPermission('cash_view')): ?>
-            <a href="<?php echo APP_URL; ?>/modules/cash/" class="btn btn-sm btn-outline">
+            <a href="<?php echo APP_URL; ?>/cash" class="btn btn-sm btn-outline">
                 Lihat Semua
             </a>
             <?php endif; ?>

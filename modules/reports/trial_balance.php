@@ -8,18 +8,28 @@ requirePermission('reports_view');
 
 $pdo = getDBConnection();
 
-$asOfDate = sanitize($_GET['as_of_date'] ?? date('Y-m-d'));
+// Smart default: Use latest transaction date if no filter is set
+if (!isset($_GET['as_of_date'])) {
+    $latestStmt = $pdo->query("SELECT MAX(entry_date) as latest FROM journal_entries WHERE status = 'approved'");
+    $latest = $latestStmt->fetch();
+    $asOfDate = $latest['latest'] ?? date('Y-m-d');
+} else {
+    $asOfDate = sanitize($_GET['as_of_date']);
+}
 
 $stmt = $pdo->prepare("
     SELECT a.id, a.code, a.name, a.opening_balance, 
            ac.name as category_name, ac.type as category_type, ac.normal_balance,
-           COALESCE(SUM(jd.debit), 0) as total_debit,
-           COALESCE(SUM(jd.credit), 0) as total_credit
+           COALESCE(SUM(trans.debit), 0) as total_debit,
+           COALESCE(SUM(trans.credit), 0) as total_credit
     FROM accounts a
     LEFT JOIN account_categories ac ON a.category_id = ac.id
-    LEFT JOIN journal_details jd ON a.id = jd.account_id
-    LEFT JOIN journal_entries je ON jd.journal_entry_id = je.id 
-        AND je.status = 'approved' AND je.entry_date <= ?
+    LEFT JOIN (
+        SELECT jd.account_id, jd.debit, jd.credit
+        FROM journal_details jd
+        JOIN journal_entries je ON jd.journal_entry_id = je.id
+        WHERE je.status = 'approved' AND DATE(je.entry_date) <= ?
+    ) trans ON a.id = trans.account_id
     WHERE a.is_active = 1
     GROUP BY a.id, a.code, a.name, a.opening_balance, ac.name, ac.type, ac.normal_balance
     ORDER BY a.code
@@ -72,12 +82,19 @@ require_once __DIR__ . '/../../components/header.php';
     </div>
 
     <div class="filter-bar">
-        <form method="GET" class="d-flex gap-2" style="align-items: flex-end;">
-            <div class="form-group mb-0">
-                <label class="form-label">Per Tanggal</label>
-                <input type="date" name="as_of_date" class="form-control" value="<?php echo $asOfDate; ?>">
+        <form method="GET" class="d-flex gap-2" style="align-items: flex-start;">
+            <div class="form-group mb-0" style="flex: 1; max-width: 300px;">
+                <label class="form-label">
+                    Sampai Dengan Tanggal
+                    <i class="fas fa-info-circle" style="color: var(--primary); cursor: help;" 
+                       title="Neraca Saldo menampilkan saldo kumulatif dari semua transaksi sejak awal SAMPAI DENGAN tanggal yang dipilih"></i>
+                </label>
+                <div>
+                    <input type="date" name="as_of_date" class="form-control" value="<?php echo $asOfDate; ?>">
+                    <small class="text-muted d-block" style="font-size: 12px; margin-top: 4px;">Kumulatif dari awal sampai tanggal ini</small>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" style="height: 40px; margin-top: 32px;">
                 <i class="fas fa-search"></i> Tampilkan
             </button>
         </form>
@@ -86,13 +103,25 @@ require_once __DIR__ . '/../../components/header.php';
     <div class="card-body">
         <div class="text-center" style="margin-bottom: 24px;">
             <h2 style="margin-bottom: 8px;">NERACA SALDO</h2>
-            <p style="color: var(--gray-500);">Per Tanggal: <?php echo formatDate($asOfDate, 'd F Y'); ?></p>
+            <p style="color: var(--gray-500);">Posisi Keuangan Sampai Dengan: <?php echo formatDate($asOfDate, 'd F Y'); ?></p>
         </div>
 
         <?php if (empty($trialBalance)): ?>
+        <?php
+        $rangeStmt = $pdo->query("SELECT MIN(entry_date) as earliest, MAX(entry_date) as latest FROM journal_entries WHERE status = 'approved'");
+        $dateRange = $rangeStmt->fetch();
+        ?>
         <div class="empty-state">
             <div class="empty-state-icon"><i class="fas fa-balance-scale"></i></div>
             <div class="empty-state-title">Tidak ada data</div>
+            <?php if ($dateRange && $dateRange['earliest']): ?>
+            <div class="empty-state-text" style="margin-top: 12px; padding: 12px; background: #fff3cd; border-radius: 6px; border: 1px solid #ffc107;">
+                <i class="fas fa-info-circle" style="color: #856404;"></i> 
+                <strong style="color: #856404;">Data transaksi tersedia:</strong> 
+                <span style="color: #856404;"><?php echo formatDate($dateRange['earliest']); ?> sampai <?php echo formatDate($dateRange['latest']); ?></span>
+                <br><small style="color: #856404;">Anda memilih tanggal: <?php echo formatDate($asOfDate); ?></small>
+            </div>
+            <?php endif; ?>
         </div>
         <?php else: ?>
         <div class="table-container">

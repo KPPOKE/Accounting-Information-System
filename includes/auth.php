@@ -13,7 +13,7 @@ function isLoggedIn() {
 
 function requireLogin() {
     if (!isLoggedIn()) {
-        header('Location: ' . APP_URL . '/modules/auth/login.php');
+        header('Location: ' . APP_URL . '/login');
         exit;
     }
 }
@@ -66,7 +66,7 @@ function logout() {
         logActivity('logout', 'auth', null, 'User logout');
     }
     session_destroy();
-    header('Location: ' . APP_URL . '/modules/auth/login.php');
+    header('Location: ' . APP_URL . '/login');
     exit;
 }
 

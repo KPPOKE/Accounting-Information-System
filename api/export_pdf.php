@@ -3,11 +3,13 @@ require_once __DIR__ . '/../includes/auth.php';
 requireLogin();
 require_once __DIR__ . '/../includes/permissions.php';
 requirePermission('reports_export');
+require_once __DIR__ . '/../includes/HashIdHelper.php';
 
 $type = sanitize($_GET['type'] ?? '');
 $dateFrom = sanitize($_GET['date_from'] ?? date('Y-m-01'));
 $dateTo = sanitize($_GET['date_to'] ?? date('Y-m-d'));
-$accountId = intval($_GET['account_id'] ?? 0);
+$decodedId = HashIdHelper::decode($_GET['account_id'] ?? '');
+$accountId = $decodedId !== false ? $decodedId : 0;
 $asOfDate = sanitize($_GET['as_of_date'] ?? date('Y-m-d'));
 
 $pdo = getDBConnection();

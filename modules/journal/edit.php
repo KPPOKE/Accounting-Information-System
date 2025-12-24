@@ -6,12 +6,13 @@ requirePermission('journal_edit');
 
 $pageTitle = 'Edit Jurnal';
 $breadcrumb = [
-    ['title' => 'Jurnal Umum', 'url' => APP_URL . '/modules/journal/'],
+    ['title' => 'Jurnal Umum', 'url' => APP_URL . '/journal'],
     ['title' => 'Edit Jurnal']
 ];
 
 $pdo = getDBConnection();
-$id = intval($_GET['id'] ?? 0);
+$decodedId = HashIdHelper::decode($_GET['id'] ?? '');
+$id = $decodedId !== false ? $decodedId : 0;
 
 $stmt = $pdo->prepare("SELECT * FROM journal_entries WHERE id = ? AND status = 'pending'");
 $stmt->execute([$id]);
@@ -19,7 +20,7 @@ $journal = $stmt->fetch();
 
 if (!$journal) {
     setFlash('danger', 'Jurnal tidak ditemukan atau sudah diproses');
-    redirect(APP_URL . '/modules/journal/');
+    redirect(APP_URL . '/journal');
 }
 
 $detailsStmt = $pdo->prepare("SELECT * FROM journal_details WHERE journal_entry_id = ?");
@@ -104,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdo->commit();
             logActivity('update', 'journal', $id, "Mengupdate jurnal: {$journal['entry_number']}");
             setFlash('success', 'Jurnal berhasil diupdate');
-            redirect(APP_URL . '/modules/journal/');
+            redirect(APP_URL . '/journal');
 
         } catch (Exception $e) {
             $pdo->rollBack();
@@ -218,7 +219,7 @@ require_once __DIR__ . '/../../components/header.php';
                 <button type="submit" id="submitBtn" class="btn btn-primary">
                     <i class="fas fa-save"></i> Update
                 </button>
-                <a href="<?php echo APP_URL; ?>/modules/journal/" class="btn btn-secondary">
+                <a href="<?php echo APP_URL; ?>/journal" class="btn btn-secondary">
                     <i class="fas fa-times"></i> Batal
                 </a>
             </div>

@@ -34,12 +34,12 @@ if ($statusFilter) {
 }
 
 if ($dateFrom) {
-    $sql .= " AND je.entry_date >= ?";
+    $sql .= " AND DATE(je.entry_date) >= ?";
     $params[] = $dateFrom;
 }
 
 if ($dateTo) {
-    $sql .= " AND je.entry_date <= ?";
+    $sql .= " AND DATE(je.entry_date) <= ?";
     $params[] = $dateTo;
 }
 
@@ -56,7 +56,7 @@ require_once __DIR__ . '/../../components/header.php';
     <div class="card-header">
         <h3 class="card-title">Daftar Jurnal Umum</h3>
         <?php if (hasPermission('journal_create')): ?>
-        <a href="create.php" class="btn btn-primary">
+        <a href="<?php echo APP_URL; ?>/journal/create" class="btn btn-primary">
             <i class="fas fa-plus"></i>
             Tambah Jurnal
         </a>
@@ -90,7 +90,7 @@ require_once __DIR__ . '/../../components/header.php';
             <button type="submit" class="btn btn-secondary">
                 <i class="fas fa-filter"></i> Filter
             </button>
-            <a href="index.php" class="btn btn-outline">Reset</a>
+            <a href="<?php echo APP_URL; ?>/journal" class="btn btn-outline">Reset</a>
         </form>
     </div>
 
@@ -137,25 +137,25 @@ require_once __DIR__ . '/../../components/header.php';
                     </td>
                     <td>
                         <div class="btn-group">
-                            <a href="view.php?id=<?php echo $journal['id']; ?>" class="btn btn-sm btn-secondary btn-icon" title="Detail">
+                            <a href="<?php echo APP_URL; ?>/journal/view?id=<?php echo HashIdHelper::encode($journal['id']); ?>" class="btn btn-sm btn-secondary btn-icon" title="Detail">
                                 <i class="fas fa-eye"></i>
                             </a>
                             <?php if (hasPermission('journal_edit') && $journal['status'] === 'pending'): ?>
-                            <a href="edit.php?id=<?php echo $journal['id']; ?>" class="btn btn-sm btn-secondary btn-icon" title="Edit">
+                            <a href="<?php echo APP_URL; ?>/journal/edit?id=<?php echo HashIdHelper::encode($journal['id']); ?>" class="btn btn-sm btn-secondary btn-icon" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <?php endif; ?>
                             <?php if (hasPermission('journal_approve') && $journal['status'] === 'pending'): ?>
                             <a href="#" 
                                class="btn btn-sm btn-success btn-icon" title="Approve"
-                               onclick="confirmAction('Approve Jurnal?', 'Jurnal yang sudah diapprove tidak bisa diedit lagi.', 'Ya, Approve!', function() { window.location.href='approve.php?id=<?php echo $journal['id']; ?>&action=approve'; }); return false;">
+                               onclick="confirmAction('Approve Jurnal?', 'Jurnal yang sudah diapprove tidak bisa diedit lagi.', 'Ya, Approve!', function() { window.location.href='<?php echo APP_URL; ?>/journal/approve?id=<?php echo HashIdHelper::encode($journal['id']); ?>&action=approve'; }); return false;">
                                 <i class="fas fa-check"></i>
                             </a>
                             <?php endif; ?>
                             <?php if (hasPermission('journal_delete') && $journal['status'] === 'pending'): ?>
                             <a href="#" 
                                class="btn btn-sm btn-danger btn-icon" title="Hapus"
-                               onclick="confirmDelete('Yakin ingin menghapus jurnal ini? Data yang dihapus tidak dapat dikembalikan.', function() { window.location.href='delete.php?id=<?php echo $journal['id']; ?>'; }); return false;">
+                               onclick="confirmDelete('Yakin ingin menghapus jurnal ini? Data yang dihapus tidak dapat dikembalikan.', function() { window.location.href='<?php echo APP_URL; ?>/journal/delete?id=<?php echo HashIdHelper::encode($journal['id']); ?>'; }); return false;">
                                 <i class="fas fa-trash"></i>
                             </a>
                             <?php endif; ?>

@@ -1,4 +1,5 @@
 <?php
+
 $pageTitle = 'Kas Masuk/Keluar';
 $breadcrumb = [['title' => 'Kas Masuk/Keluar']];
 require_once __DIR__ . '/../../includes/auth.php';
@@ -40,12 +41,12 @@ if ($statusFilter) {
 }
 
 if ($dateFrom) {
-    $sql .= " AND ct.transaction_date >= ?";
+    $sql .= " AND DATE(ct.transaction_date) >= ?";
     $params[] = $dateFrom;
 }
 
 if ($dateTo) {
-    $sql .= " AND ct.transaction_date <= ?";
+    $sql .= " AND DATE(ct.transaction_date) <= ?";
     $params[] = $dateTo;
 }
 
@@ -62,7 +63,7 @@ require_once __DIR__ . '/../../components/header.php';
     <div class="card-header">
         <h3 class="card-title">Daftar Transaksi Kas</h3>
         <?php if (hasPermission('cash_create')): ?>
-        <a href="create.php" class="btn btn-primary">
+        <a href="<?php echo APP_URL; ?>/cash/create" class="btn btn-primary">
             <i class="fas fa-plus"></i>
             Tambah Transaksi
         </a>
@@ -98,7 +99,7 @@ require_once __DIR__ . '/../../components/header.php';
                 <input type="date" name="date_to" class="form-control" value="<?php echo htmlspecialchars($dateTo); ?>">
             </div>
             <button type="submit" class="btn btn-secondary"><i class="fas fa-filter"></i> Filter</button>
-            <a href="index.php" class="btn btn-outline">Reset</a>
+            <a href="<?php echo APP_URL; ?>/cash" class="btn btn-outline">Reset</a>
         </form>
     </div>
 
@@ -145,14 +146,14 @@ require_once __DIR__ . '/../../components/header.php';
                     <td>
                         <div class="btn-group">
                             <?php if (hasPermission('cash_edit') && $trx['status'] === 'pending'): ?>
-                            <a href="edit.php?id=<?php echo $trx['id']; ?>" class="btn btn-sm btn-secondary btn-icon" title="Edit">
+                            <a href="<?php echo APP_URL; ?>/cash/edit?id=<?php echo HashIdHelper::encode($trx['id']); ?>" class="btn btn-sm btn-secondary btn-icon" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <?php endif; ?>
                             <?php if (hasPermission('cash_delete') && $trx['status'] === 'pending'): ?>
                             <a href="#" 
                                class="btn btn-sm btn-danger btn-icon" title="Hapus"
-                               onclick="confirmDelete('Yakin ingin menghapus transaksi kas ini? Data yang dihapus tidak dapat dikembalikan.', function() { window.location.href='delete.php?id=<?php echo $trx['id']; ?>'; }); return false;">
+                               onclick="confirmDelete('Yakin ingin menghapus transaksi kas ini? Data yang dihapus tidak dapat dikembalikan.', function() { window.location.href='<?php echo APP_URL; ?>/cash/delete?id=<?php echo HashIdHelper::encode($trx['id']); ?>'; }); return false;">
                                 <i class="fas fa-trash"></i>
                             </a>
                             <?php endif; ?>

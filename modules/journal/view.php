@@ -6,12 +6,13 @@ requirePermission('journal_view');
 
 $pageTitle = 'Detail Jurnal';
 $breadcrumb = [
-    ['title' => 'Jurnal Umum', 'url' => APP_URL . '/modules/journal/'],
+    ['title' => 'Jurnal Umum', 'url' => APP_URL . '/journal'],
     ['title' => 'Detail Jurnal']
 ];
 
 $pdo = getDBConnection();
-$id = intval($_GET['id'] ?? 0);
+$decodedId = HashIdHelper::decode($_GET['id'] ?? '');
+$id = $decodedId !== false ? $decodedId : 0;
 
 $stmt = $pdo->prepare("
     SELECT je.*, u.full_name as creator_name, ua.full_name as approver_name
@@ -25,7 +26,7 @@ $journal = $stmt->fetch();
 
 if (!$journal) {
     setFlash('danger', 'Jurnal tidak ditemukan');
-    redirect(APP_URL . '/modules/journal/');
+    redirect(APP_URL . '/journal');
 }
 
 $detailsStmt = $pdo->prepare("
@@ -173,21 +174,21 @@ require_once __DIR__ . '/../../components/header.php';
 </div>
 
 <div class="d-flex gap-2" style="margin-top: 24px;">
-    <a href="<?php echo APP_URL; ?>/modules/journal/" class="btn btn-secondary">
+    <a href="<?php echo APP_URL; ?>/journal" class="btn btn-secondary">
         <i class="fas fa-arrow-left"></i> Kembali
     </a>
     <?php if (hasPermission('journal_edit') && $journal['status'] === 'pending'): ?>
-    <a href="edit.php?id=<?php echo $journal['id']; ?>" class="btn btn-primary">
+    <a href="<?php echo APP_URL; ?>/journal/edit?id=<?php echo HashIdHelper::encode($journal['id']); ?>" class="btn btn-primary">
         <i class="fas fa-edit"></i> Edit
     </a>
     <?php endif; ?>
     <?php if (hasPermission('journal_approve') && $journal['status'] === 'pending'): ?>
     <a href="#" 
-       class="btn btn-success" onclick="confirmAction('Approve Jurnal?', 'Jurnal yang sudah diapprove tidak bisa diedit lagi.', 'Ya, Approve!', function() { window.location.href='approve.php?id=<?php echo $journal['id']; ?>&action=approve'; }); return false;">
+       class="btn btn-success" onclick="confirmAction('Approve Jurnal?', 'Jurnal yang sudah diapprove tidak bisa diedit lagi.', 'Ya, Approve!', function() { window.location.href='<?php echo APP_URL; ?>/journal/approve?id=<?php echo HashIdHelper::encode($journal['id']); ?>&action=approve'; }); return false;">
         <i class="fas fa-check"></i> Approve
     </a>
     <a href="#" 
-       class="btn btn-danger" onclick="confirmAction('Reject Jurnal?', 'Berikan alasan penolakan kepada pembuat jurnal.', 'Ya, Reject!', function() { window.location.href='approve.php?id=<?php echo $journal['id']; ?>&action=reject'; }); return false;">
+       class="btn btn-danger" onclick="confirmAction('Reject Jurnal?', 'Berikan alasan penolakan kepada pembuat jurnal.', 'Ya, Reject!', function() { window.location.href='<?php echo APP_URL; ?>/journal/approve?id=<?php echo HashIdHelper::encode($journal['id']); ?>&action=reject'; }); return false;">
         <i class="fas fa-times"></i> Reject
     </a>
     <?php endif; ?>

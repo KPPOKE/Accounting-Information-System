@@ -5,7 +5,8 @@ require_once __DIR__ . '/../../includes/permissions.php';
 requirePermission('cash_delete');
 
 $pdo = getDBConnection();
-$id = intval($_GET['id'] ?? 0);
+$decodedId = HashIdHelper::decode($_GET['id'] ?? '');
+$id = $decodedId !== false ? $decodedId : 0;
 
 $stmt = $pdo->prepare("SELECT * FROM cash_transactions WHERE id = ? AND status = 'pending'");
 $stmt->execute([$id]);
@@ -13,7 +14,7 @@ $transaction = $stmt->fetch();
 
 if (!$transaction) {
     setFlash('danger', 'Transaksi tidak ditemukan atau sudah diproses');
-    redirect(APP_URL . '/modules/cash/');
+    redirect(APP_URL . '/cash');
 }
 
 $attachStmt = $pdo->prepare("SELECT filepath FROM attachments WHERE cash_transaction_id = ?");
@@ -36,4 +37,4 @@ if ($result) {
     setFlash('danger', 'Gagal menghapus transaksi');
 }
 
-redirect(APP_URL . '/modules/cash/');
+redirect(APP_URL . '/cash');

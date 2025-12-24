@@ -13,13 +13,16 @@ $dateTo = sanitize($_GET['date_to'] ?? date('Y-m-d'));
 
 $stmt = $pdo->prepare("
     SELECT a.id, a.code, a.name, ac.type as category_type, ac.name as category_name,
-           COALESCE(SUM(jd.credit), 0) as total_credit,
-           COALESCE(SUM(jd.debit), 0) as total_debit
+           COALESCE(SUM(trans.credit), 0) as total_credit,
+           COALESCE(SUM(trans.debit), 0) as total_debit
     FROM accounts a
     LEFT JOIN account_categories ac ON a.category_id = ac.id
-    LEFT JOIN journal_details jd ON a.id = jd.account_id
-    LEFT JOIN journal_entries je ON jd.journal_entry_id = je.id 
-        AND je.status = 'approved' AND je.entry_date BETWEEN ? AND ?
+    LEFT JOIN (
+        SELECT jd.account_id, jd.debit, jd.credit
+        FROM journal_details jd
+        JOIN journal_entries je ON jd.journal_entry_id = je.id
+        WHERE je.status = 'approved' AND DATE(je.entry_date) BETWEEN ? AND ?
+    ) trans ON a.id = trans.account_id
     WHERE ac.type IN ('pendapatan', 'beban')
     GROUP BY a.id, a.code, a.name, ac.type, ac.name
     HAVING total_credit > 0 OR total_debit > 0

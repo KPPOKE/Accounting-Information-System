@@ -109,7 +109,7 @@ foreach ($pathParts as $part) {
                 <div class="sidebar-nav-content">
                     <div class="nav-section">
                         <div class="nav-section-title">Menu Utama</div>
-                        <a href="<?php echo APP_URL; ?>/modules/dashboard/" class="nav-item <?php echo $currentModule === 'dashboard' ? 'active' : ''; ?>">
+                        <a href="<?php echo APP_URL; ?>/dashboard" class="nav-item <?php echo $currentModule === 'dashboard' ? 'active' : ''; ?>">
                             <span class="nav-item-icon"><i class="fas fa-home"></i></span>
                             <span class="nav-item-text">Dashboard</span>
                         </a>
@@ -118,7 +118,7 @@ foreach ($pathParts as $part) {
                     <?php if (hasPermission('accounts_view')): ?>
                     <div class="nav-section">
                         <div class="nav-section-title">Master Data</div>
-                        <a href="<?php echo APP_URL; ?>/modules/accounts/" class="nav-item <?php echo $currentModule === 'accounts' ? 'active' : ''; ?>">
+                        <a href="<?php echo APP_URL; ?>/accounts" class="nav-item <?php echo $currentModule === 'accounts' ? 'active' : ''; ?>">
                             <span class="nav-item-icon"><i class="fas fa-list-alt"></i></span>
                             <span class="nav-item-text">Chart of Accounts</span>
                         </a>
@@ -129,13 +129,13 @@ foreach ($pathParts as $part) {
                     <div class="nav-section">
                         <div class="nav-section-title">Transaksi</div>
                         <?php if (hasPermission('journal_view')): ?>
-                        <a href="<?php echo APP_URL; ?>/modules/journal/" class="nav-item <?php echo $currentModule === 'journal' ? 'active' : ''; ?>">
+                        <a href="<?php echo APP_URL; ?>/journal" class="nav-item <?php echo $currentModule === 'journal' ? 'active' : ''; ?>">
                             <span class="nav-item-icon"><i class="fas fa-book"></i></span>
                             <span class="nav-item-text">Jurnal Umum</span>
                         </a>
                         <?php endif; ?>
                         <?php if (hasPermission('cash_view')): ?>
-                        <a href="<?php echo APP_URL; ?>/modules/cash/" class="nav-item <?php echo $currentModule === 'cash' ? 'active' : ''; ?>">
+                        <a href="<?php echo APP_URL; ?>/cash" class="nav-item <?php echo $currentModule === 'cash' ? 'active' : ''; ?>">
                             <span class="nav-item-icon"><i class="fas fa-money-bill-wave"></i></span>
                             <span class="nav-item-text">Kas Masuk/Keluar</span>
                         </a>
@@ -146,23 +146,23 @@ foreach ($pathParts as $part) {
                     <?php if (hasPermission('reports_view')): ?>
                     <div class="nav-section">
                         <div class="nav-section-title">Laporan</div>
-                        <a href="<?php echo APP_URL; ?>/modules/reports/journal.php" class="nav-item <?php echo $currentPage === 'journal' && $currentModule === 'reports' ? 'active' : ''; ?>">
+                        <a href="<?php echo APP_URL; ?>/reports/journal" class="nav-item <?php echo $currentPage === 'journal' && $currentModule === 'reports' ? 'active' : ''; ?>">
                             <span class="nav-item-icon"><i class="fas fa-file-alt"></i></span>
                             <span class="nav-item-text">Laporan Jurnal</span>
                         </a>
-                        <a href="<?php echo APP_URL; ?>/modules/reports/ledger.php" class="nav-item <?php echo $currentPage === 'ledger' ? 'active' : ''; ?>">
+                        <a href="<?php echo APP_URL; ?>/reports/ledger" class="nav-item <?php echo $currentPage === 'ledger' ? 'active' : ''; ?>">
                             <span class="nav-item-icon"><i class="fas fa-book-open"></i></span>
                             <span class="nav-item-text">Buku Besar</span>
                         </a>
-                        <a href="<?php echo APP_URL; ?>/modules/reports/trial_balance.php" class="nav-item <?php echo $currentPage === 'trial_balance' ? 'active' : ''; ?>">
+                        <a href="<?php echo APP_URL; ?>/reports/trial-balance" class="nav-item <?php echo $currentPage === 'trial_balance' ? 'active' : ''; ?>">
                             <span class="nav-item-icon"><i class="fas fa-balance-scale"></i></span>
                             <span class="nav-item-text">Neraca Saldo</span>
                         </a>
-                        <a href="<?php echo APP_URL; ?>/modules/reports/cash_flow.php" class="nav-item <?php echo $currentPage === 'cash_flow' ? 'active' : ''; ?>">
+                        <a href="<?php echo APP_URL; ?>/reports/cash-flow" class="nav-item <?php echo $currentPage === 'cash_flow' ? 'active' : ''; ?>">
                             <span class="nav-item-icon"><i class="fas fa-exchange-alt"></i></span>
                             <span class="nav-item-text">Arus Kas</span>
                         </a>
-                        <a href="<?php echo APP_URL; ?>/modules/reports/income_expense.php" class="nav-item <?php echo $currentPage === 'income_expense' ? 'active' : ''; ?>">
+                        <a href="<?php echo APP_URL; ?>/reports/income-expense" class="nav-item <?php echo $currentPage === 'income_expense' ? 'active' : ''; ?>">
                             <span class="nav-item-icon"><i class="fas fa-chart-pie"></i></span>
                             <span class="nav-item-text">Pendapatan & Beban</span>
                         </a>
@@ -173,13 +173,13 @@ foreach ($pathParts as $part) {
                     <div class="nav-section">
                         <div class="nav-section-title">Pengaturan</div>
                         <?php if (hasPermission('users_view')): ?>
-                        <a href="<?php echo APP_URL; ?>/modules/users/" class="nav-item <?php echo $currentModule === 'users' ? 'active' : ''; ?>">
+                        <a href="<?php echo APP_URL; ?>/users" class="nav-item <?php echo $currentModule === 'users' ? 'active' : ''; ?>">
                             <span class="nav-item-icon"><i class="fas fa-users"></i></span>
                             <span class="nav-item-text">Kelola Pengguna</span>
                         </a>
                         <?php endif; ?>
                         <?php if (hasPermission('logs_view')): ?>
-                        <a href="<?php echo APP_URL; ?>/modules/logs/" class="nav-item <?php echo $currentModule === 'logs' ? 'active' : ''; ?>">
+                        <a href="<?php echo APP_URL; ?>/logs" class="nav-item <?php echo $currentModule === 'logs' ? 'active' : ''; ?>">
                             <span class="nav-item-icon"><i class="fas fa-history"></i></span>
                             <span class="nav-item-text">Activity Log</span>
                         </a>
@@ -212,7 +212,7 @@ foreach ($pathParts as $part) {
                         <h1 class="page-title"><?php echo isset($pageTitle) ? $pageTitle : 'Dashboard'; ?></h1>
                         <?php if (isset($breadcrumb)): ?>
                         <div class="breadcrumb">
-                            <a href="<?php echo APP_URL; ?>/modules/dashboard/">Home</a>
+                            <a href="<?php echo APP_URL; ?>/dashboard">Home</a>
                             <?php foreach ($breadcrumb as $item): ?>
                             <span class="breadcrumb-separator">/</span>
                             <?php if (isset($item['url'])): ?>
@@ -233,7 +233,7 @@ foreach ($pathParts as $part) {
                     <button class="header-btn" title="Notifikasi">
                         <i class="fas fa-bell"></i>
                     </button>
-                    <a href="<?php echo APP_URL; ?>/modules/auth/logout.php" class="header-btn" title="Logout">
+                    <a href="<?php echo APP_URL; ?>/logout" class="header-btn" title="Logout">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 </div>

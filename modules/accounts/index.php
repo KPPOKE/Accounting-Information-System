@@ -45,7 +45,7 @@ require_once __DIR__ . '/../../components/header.php';
     <div class="card-header">
         <h3 class="card-title">Daftar Akun Perkiraan</h3>
         <?php if (hasPermission('accounts_create')): ?>
-        <a href="create.php" class="btn btn-primary">
+        <a href="<?php echo APP_URL; ?>/accounts/create" class="btn btn-primary">
             <i class="fas fa-plus"></i>
             Tambah Akun
         </a>
@@ -74,7 +74,7 @@ require_once __DIR__ . '/../../components/header.php';
                 <i class="fas fa-filter"></i>
                 Filter
             </button>
-            <a href="index.php" class="btn btn-outline">Reset</a>
+            <a href="<?php echo APP_URL; ?>/accounts" class="btn btn-outline">Reset</a>
         </form>
     </div>
 
@@ -132,14 +132,14 @@ require_once __DIR__ . '/../../components/header.php';
                     <td>
                         <div class="btn-group">
                             <?php if (hasPermission('accounts_edit')): ?>
-                            <a href="edit.php?id=<?php echo $account['id']; ?>" class="btn btn-sm btn-secondary btn-icon" title="Edit">
+                            <a href="<?php echo APP_URL; ?>/accounts/edit?id=<?php echo HashIdHelper::encode($account['id']); ?>" class="btn btn-sm btn-secondary btn-icon" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <?php endif; ?>
                             <?php if (hasPermission('accounts_delete')): ?>
                             <a href="#" 
                                class="btn btn-sm btn-danger btn-icon" title="Hapus"
-                               onclick="confirmDelete('Yakin ingin menghapus akun ini? Data yang dihapus tidak dapat dikembalikan.', function() { window.location.href='delete.php?id=<?php echo $account['id']; ?>'; }); return false;">
+                               onclick="confirmDelete('Yakin ingin menghapus akun ini? Data yang dihapus tidak dapat dikembalikan.', function() { window.location.href='<?php echo APP_URL; ?>/accounts/delete?id=<?php echo HashIdHelper::encode($account['id']); ?>'; }); return false;">
                                 <i class="fas fa-trash"></i>
                             </a>
                             <?php endif; ?>

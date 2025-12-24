@@ -6,12 +6,13 @@ requirePermission('accounts_edit');
 
 $pageTitle = 'Edit Akun';
 $breadcrumb = [
-    ['title' => 'Chart of Accounts', 'url' => APP_URL . '/modules/accounts/'],
+    ['title' => 'Chart of Accounts', 'url' => APP_URL . '/accounts'],
     ['title' => 'Edit Akun']
 ];
 
 $pdo = getDBConnection();
-$id = intval($_GET['id'] ?? 0);
+$decodedId = HashIdHelper::decode($_GET['id'] ?? '');
+$id = $decodedId !== false ? $decodedId : 0;
 
 $stmt = $pdo->prepare("SELECT * FROM accounts WHERE id = ?");
 $stmt->execute([$id]);
@@ -19,7 +20,7 @@ $account = $stmt->fetch();
 
 if (!$account) {
     setFlash('danger', 'Akun tidak ditemukan');
-    redirect(APP_URL . '/modules/accounts/');
+    redirect(APP_URL . '/accounts');
 }
 
 $categories = $pdo->query("SELECT * FROM account_categories ORDER BY code")->fetchAll();
@@ -52,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result) {
             logActivity('update', 'accounts', $id, "Mengupdate akun: $code - $name", $oldData, $_POST);
             setFlash('success', 'Akun berhasil diupdate');
-            redirect(APP_URL . '/modules/accounts/');
+            redirect(APP_URL . '/accounts');
         } else {
             $errors[] = 'Gagal menyimpan data';
         }
@@ -134,7 +135,7 @@ require_once __DIR__ . '/../../components/header.php';
                     <i class="fas fa-save"></i>
                     Update
                 </button>
-                <a href="<?php echo APP_URL; ?>/modules/accounts/" class="btn btn-secondary">
+                <a href="<?php echo APP_URL; ?>/accounts" class="btn btn-secondary">
                     <i class="fas fa-times"></i>
                     Batal
                 </a>
