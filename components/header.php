@@ -27,7 +27,7 @@ foreach ($pathParts as $part) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="<?php echo APP_URL; ?>/assets/css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo APP_URL; ?>/assets/css/style.css?v=1.0.1">
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script> 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

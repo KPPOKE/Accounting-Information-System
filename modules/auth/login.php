@@ -137,7 +137,7 @@ unset($_SESSION['login_username']);
             </div>
 
             <div class="login-footer">
-                <p>&copy; <?php echo date('Y'); ?> Finacore v1.0.0</p>
+                <p>&copy; <?php echo date('Y'); ?> Finacore v1.0.1</p>
             </div>
         </div>
     </div>
