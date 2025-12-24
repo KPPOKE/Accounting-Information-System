@@ -73,7 +73,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function showToast(message, type = 'success') {
-
     const toastContainer = document.getElementById('custom-toast-container') || createToastContainer();
 
     const toast = document.createElement('div');
@@ -241,7 +240,6 @@ function removeJournalRow(button) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-
     initDarkMode();
 
     const themeToggle = document.getElementById('themeToggle');
@@ -339,21 +337,15 @@ function initializeFlatpickr() {
 }
 
 function initDarkMode() {
-
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
-    console.log('Dark mode initialized with theme:', savedTheme);
-
     document.body.classList.remove('preload');
-
     applyFlatpickrTheme(savedTheme);
 }
 
 function toggleDarkMode() {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-    console.log('Toggling theme from', currentTheme, 'to', newTheme);
 
     document.body.classList.add('theme-changing');
 
@@ -376,12 +368,10 @@ function applyFlatpickrTheme(theme) {
     let existingStyle = document.getElementById(FLATPICKR_DARK_THEME_ID);
 
     if (theme === 'dark') {
-
         if (!existingStyle) {
             const style = document.createElement('style');
             style.id = FLATPICKR_DARK_THEME_ID;
             style.textContent = `
-
                 .flatpickr-calendar {
                     background: #1e293b !important;
                     border: 1px solid #334155 !important;
@@ -514,14 +504,10 @@ function applyFlatpickrTheme(theme) {
                 }
             `;
             document.head.appendChild(style);
-            console.log('Flatpickr dark theme (inline) applied');
         }
     } else {
-
         if (existingStyle) {
             existingStyle.remove();
-            console.log('Flatpickr dark theme (inline) removed');
         }
     }
 }
-

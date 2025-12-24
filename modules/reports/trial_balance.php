@@ -8,7 +8,6 @@ requirePermission('reports_view');
 
 $pdo = getDBConnection();
 
-// Smart default: Use latest transaction date if no filter is set
 if (!isset($_GET['as_of_date'])) {
     $latestStmt = $pdo->query("SELECT MAX(entry_date) as latest FROM journal_entries WHERE status = 'approved'");
     $latest = $latestStmt->fetch();

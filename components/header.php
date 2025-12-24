@@ -26,11 +26,11 @@ foreach ($pathParts as $part) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo APP_URL; ?>/assets/css/style.css?v=<?php echo time(); ?>">
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script> 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Disable Lenis on mobile devices to prevent jittery header
             const isMobile = window.innerWidth <= 1024;
 
             if (!isMobile) {
@@ -53,7 +53,6 @@ foreach ($pathParts as $part) {
                 requestAnimationFrame(raf);
             }
 
-            // Sidebar smooth scroll (works on all devices)
             const sidebarWrapper = document.getElementById('sidebarNav');
             const sidebarContent = document.querySelector('.sidebar-nav-content');
 
@@ -84,7 +83,6 @@ foreach ($pathParts as $part) {
 <body class="preload">
     <script>
         (function() {
-            // Apply saved theme immediately to prevent flash
             const savedTheme = localStorage.getItem('theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
 
@@ -92,7 +90,6 @@ foreach ($pathParts as $part) {
                 document.documentElement.classList.add('sidebar-is-collapsed');
             }
 
-            // Remove preload class immediately after theme is set
             document.body.classList.remove('preload');
         })();
     </script>

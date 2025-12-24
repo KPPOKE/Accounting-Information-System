@@ -6,7 +6,7 @@ requirePermission('journal_create');
 
 $pageTitle = 'Tambah Jurnal';
 $breadcrumb = [
-    ['title' => 'Jurnal Umum', 'url' => APP_URL . '/modules/journal/'],
+    ['title' => 'Jurnal Umum', 'url' => APP_URL . '/journal'],
     ['title' => 'Tambah Jurnal']
 ];
 
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdo->commit();
             logActivity('create', 'journal', $journalId, "Membuat jurnal baru: $entryNumber");
             setFlash('success', 'Jurnal berhasil dibuat');
-            redirect(APP_URL . '/modules/journal/');
+            redirect(APP_URL . '/journal');
 
         } catch (Exception $e) {
             $pdo->rollBack();
@@ -233,7 +233,7 @@ require_once __DIR__ . '/../../components/header.php';
                     <i class="fas fa-save"></i>
                     Simpan Jurnal
                 </button>
-                <a href="<?php echo APP_URL; ?>/modules/journal/" class="btn btn-secondary">
+                <a href="<?php echo APP_URL; ?>/journal" class="btn btn-secondary">
                     <i class="fas fa-times"></i>
                     Batal
                 </a>

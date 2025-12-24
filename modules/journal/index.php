@@ -72,12 +72,22 @@ require_once __DIR__ . '/../../components/header.php';
                        value="<?php echo htmlspecialchars($search); ?>">
             </div>
             <div class="filter-item">
-                <select name="status" class="form-select">
-                    <option value="">Semua Status</option>
-                    <option value="pending" <?php echo $statusFilter === 'pending' ? 'selected' : ''; ?>>Pending</option>
-                    <option value="approved" <?php echo $statusFilter === 'approved' ? 'selected' : ''; ?>>Approved</option>
-                    <option value="rejected" <?php echo $statusFilter === 'rejected' ? 'selected' : ''; ?>>Rejected</option>
-                </select>
+                <div class="custom-dropdown" data-submit>
+                    <input type="hidden" name="status" value="<?php echo $statusFilter; ?>">
+                    <button class="dropdown-trigger" type="button">
+                        <span class="dropdown-value"><?php 
+                            $statusLabels = ['pending' => 'Pending', 'approved' => 'Approved', 'rejected' => 'Rejected'];
+                            echo $statusFilter ? ($statusLabels[$statusFilter] ?? $statusFilter) : 'Semua Status';
+                        ?></span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item<?php echo empty($statusFilter) ? ' active' : ''; ?>" data-value="">Semua Status</div>
+                        <div class="dropdown-item<?php echo $statusFilter === 'pending' ? ' active' : ''; ?>" data-value="pending">Pending</div>
+                        <div class="dropdown-item<?php echo $statusFilter === 'approved' ? ' active' : ''; ?>" data-value="approved">Approved</div>
+                        <div class="dropdown-item<?php echo $statusFilter === 'rejected' ? ' active' : ''; ?>" data-value="rejected">Rejected</div>
+                    </div>
+                </div>
             </div>
             <div class="filter-item">
                 <input type="date" name="date_from" class="form-control" 

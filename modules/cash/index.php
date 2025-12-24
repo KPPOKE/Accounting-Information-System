@@ -79,18 +79,38 @@ require_once __DIR__ . '/../../components/header.php';
                        value="<?php echo htmlspecialchars($search); ?>">
             </div>
             <div class="filter-item">
-                <select name="type" class="form-select">
-                    <option value="">Semua Tipe</option>
-                    <option value="masuk" <?php echo $typeFilter === 'masuk' ? 'selected' : ''; ?>>Kas Masuk</option>
-                    <option value="keluar" <?php echo $typeFilter === 'keluar' ? 'selected' : ''; ?>>Kas Keluar</option>
-                </select>
+                <div class="custom-dropdown" data-submit>
+                    <input type="hidden" name="type" value="<?php echo $typeFilter; ?>">
+                    <button class="dropdown-trigger" type="button">
+                        <span class="dropdown-value"><?php 
+                            $typeLabels = ['masuk' => 'Kas Masuk', 'keluar' => 'Kas Keluar'];
+                            echo $typeFilter ? ($typeLabels[$typeFilter] ?? $typeFilter) : 'Semua Tipe';
+                        ?></span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item<?php echo empty($typeFilter) ? ' active' : ''; ?>" data-value="">Semua Tipe</div>
+                        <div class="dropdown-item<?php echo $typeFilter === 'masuk' ? ' active' : ''; ?>" data-value="masuk">Kas Masuk</div>
+                        <div class="dropdown-item<?php echo $typeFilter === 'keluar' ? ' active' : ''; ?>" data-value="keluar">Kas Keluar</div>
+                    </div>
+                </div>
             </div>
             <div class="filter-item">
-                <select name="status" class="form-select">
-                    <option value="">Semua Status</option>
-                    <option value="pending" <?php echo $statusFilter === 'pending' ? 'selected' : ''; ?>>Pending</option>
-                    <option value="approved" <?php echo $statusFilter === 'approved' ? 'selected' : ''; ?>>Approved</option>
-                </select>
+                <div class="custom-dropdown" data-submit>
+                    <input type="hidden" name="status" value="<?php echo $statusFilter; ?>">
+                    <button class="dropdown-trigger" type="button">
+                        <span class="dropdown-value"><?php 
+                            $statusLabels = ['pending' => 'Pending', 'approved' => 'Approved'];
+                            echo $statusFilter ? ($statusLabels[$statusFilter] ?? $statusFilter) : 'Semua Status';
+                        ?></span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item<?php echo empty($statusFilter) ? ' active' : ''; ?>" data-value="">Semua Status</div>
+                        <div class="dropdown-item<?php echo $statusFilter === 'pending' ? ' active' : ''; ?>" data-value="pending">Pending</div>
+                        <div class="dropdown-item<?php echo $statusFilter === 'approved' ? ' active' : ''; ?>" data-value="approved">Approved</div>
+                    </div>
+                </div>
             </div>
             <div class="filter-item">
                 <input type="date" name="date_from" class="form-control" value="<?php echo htmlspecialchars($dateFrom); ?>">

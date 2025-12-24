@@ -61,14 +61,30 @@ require_once __DIR__ . '/../../components/header.php';
                        value="<?php echo htmlspecialchars($search); ?>">
             </div>
             <div class="filter-item">
-                <select name="category" class="form-select">
-                    <option value="">Semua Kategori</option>
-                    <?php foreach ($categories as $cat): ?>
-                    <option value="<?php echo $cat['id']; ?>" <?php echo $categoryFilter == $cat['id'] ? 'selected' : ''; ?>>
-                        <?php echo htmlspecialchars($cat['name']); ?>
-                    </option>
-                    <?php endforeach; ?>
-                </select>
+                <div class="custom-dropdown" data-submit>
+                    <input type="hidden" name="category" value="<?php echo $categoryFilter; ?>">
+                    <button class="dropdown-trigger" type="button">
+                        <span class="dropdown-value"><?php 
+                            if ($categoryFilter) {
+                                foreach ($categories as $cat) {
+                                    if ($cat['id'] == $categoryFilter) {
+                                        echo htmlspecialchars($cat['name']);
+                                        break;
+                                    }
+                                }
+                            } else {
+                                echo 'Semua Kategori';
+                            }
+                        ?></span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item<?php echo empty($categoryFilter) ? ' active' : ''; ?>" data-value="">Semua Kategori</div>
+                        <?php foreach ($categories as $cat): ?>
+                        <div class="dropdown-item<?php echo $categoryFilter == $cat['id'] ? ' active' : ''; ?>" data-value="<?php echo $cat['id']; ?>"><?php echo htmlspecialchars($cat['name']); ?></div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </div>
             <button type="submit" class="btn btn-secondary">
                 <i class="fas fa-filter"></i>

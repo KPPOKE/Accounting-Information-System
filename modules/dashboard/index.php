@@ -2,6 +2,7 @@
 $pageTitle = 'Dashboard';
 require_once __DIR__ . '/../../includes/auth.php';
 requireLogin();
+require_once __DIR__ . '/../../includes/chart_data.php';
 
 $pdo = getDBConnection();
 
@@ -9,6 +10,18 @@ $statsTotalAccounts = $pdo->query("SELECT COUNT(*) as count FROM accounts WHERE 
 $statsPendingJournals = $pdo->query("SELECT COUNT(*) as count FROM journal_entries WHERE status = 'pending'")->fetch()['count'];
 $statsTotalCashIn = $pdo->query("SELECT COALESCE(SUM(amount), 0) as total FROM cash_transactions WHERE type = 'masuk' AND status = 'approved'")->fetch()['total'];
 $statsTotalCashOut = $pdo->query("SELECT COALESCE(SUM(amount), 0) as total FROM cash_transactions WHERE type = 'keluar' AND status = 'approved'")->fetch()['total'];
+
+$revenueExpenseTrend = getMonthlyRevenueExpenseTrend($pdo, 12);
+$categoryDistribution = getAccountCategoryDistribution($pdo);
+$cashFlowTrend = getCashFlowMonthlyTrend($pdo, 12);
+
+$revenueExpenseData = prepareChartData($revenueExpenseTrend, 'month_label', ['revenue', 'expense']);
+$categoryData = [
+    'labels' => array_column($categoryDistribution, 'category'),
+    'values' => array_column($categoryDistribution, 'account_count')
+];
+$cashFlowData = prepareChartData($cashFlowTrend, 'month_label', ['cash_in', 'cash_out']);
+
 
 $recentJournals = $pdo->query("
     SELECT je.*, u.full_name as creator_name 
@@ -69,6 +82,87 @@ require_once __DIR__ . '/../../components/header.php';
         </div>
     </div>
 </div>
+
+<div class="charts-section" style="margin-bottom: 32px;">
+    <div class="grid-3">
+        <div class="card">
+            <div class="card-header chart-header-with-filter">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-line" style="color: var(--primary); margin-right: 8px;"></i>
+                    Trend Pendapatan & Beban
+                </h3>
+                <div class="custom-dropdown" id="revenueDropdown" data-chart="revenue_expense">
+                    <button class="dropdown-trigger" type="button">
+                        <span class="dropdown-value">6 Bulan</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item" data-value="3">3 Bulan</div>
+                        <div class="dropdown-item active" data-value="6">6 Bulan</div>
+                        <div class="dropdown-item" data-value="12">12 Bulan</div>
+                        <div class="dropdown-item" data-value="24">24 Bulan</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart-container" style="position: relative; height: 300px;">
+                    <canvas id="revenueExpenseChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-pie" style="color: var(--info); margin-right: 8px;"></i>
+                    Distribusi Kategori Akun
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="chart-container" style="position: relative; height: 300px;">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header chart-header-with-filter">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-bar" style="color: var(--success); margin-right: 8px;"></i>
+                    Arus Kas Bulanan
+                </h3>
+                <div class="custom-dropdown" id="cashFlowDropdown" data-chart="cash_flow">
+                    <button class="dropdown-trigger" type="button">
+                        <span class="dropdown-value">6 Bulan</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item" data-value="7">7 Hari</div>
+                        <div class="dropdown-item" data-value="30">30 Hari</div>
+                        <div class="dropdown-item" data-value="3">3 Bulan</div>
+                        <div class="dropdown-item active" data-value="6">6 Bulan</div>
+                        <div class="dropdown-item" data-value="12">12 Bulan</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart-container" style="position: relative; height: 300px;">
+                    <canvas id="cashFlowChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="application/json" id="revenueExpenseData">
+<?php echo json_encode($revenueExpenseData); ?>
+</script>
+<script type="application/json" id="categoryData">
+<?php echo json_encode($categoryData); ?>
+</script>
+<script type="application/json" id="cashFlowData">
+<?php echo json_encode($cashFlowData); ?>
+</script>
 
 <div class="grid-2">
     <div class="card">

@@ -24,13 +24,12 @@ $reportNames = [
 ];
 $reportName = $reportNames[$type] ?? 'Export';
 
-// Dynamic filename based on report type
 switch ($type) {
     case 'trial_balance':
         $filename = "Finacore_{$reportName}_{$asOfDate}.xls";
         break;
     case 'ledger':
-        $accountCode = ''; // Will be fetched from DB
+        $accountCode = '';
         if ($accountId > 0) {
             $accStmt = $pdo->prepare("SELECT code FROM accounts WHERE id = ?");
             $accStmt->execute([$accountId]);
@@ -156,20 +155,17 @@ switch ($type) {
         echo "<tr><th>Kode</th><th>Nama Akun</th><th>Debit</th><th>Kredit</th></tr>";
 
         foreach ($accounts as $acc) {
-            // IMPORTANT: Use same logic as trial_balance.php
             $saldo = $acc['opening_balance'] + $acc['total_debit'] - $acc['total_credit'];
 
             if ($acc['normal_balance'] === 'debit') {
                 $debit = $saldo >= 0 ? $saldo : 0;
                 $credit = $saldo < 0 ? abs($saldo) : 0;
             } else {
-                // For credit accounts, recalculate saldo with reversed formula
                 $saldo = $acc['opening_balance'] - $acc['total_debit'] + $acc['total_credit'];
                 $credit = $saldo >= 0 ? $saldo : 0;
                 $debit = $saldo < 0 ? abs($saldo) : 0;
             }
 
-            // Only show accounts with non-zero balance
             if ($debit != 0 || $credit != 0) {
                 $debitDisplay = $debit > 0 ? number_format($debit, 0, ',', '.') : '';
                 $creditDisplay = $credit > 0 ? number_format($credit, 0, ',', '.') : '';

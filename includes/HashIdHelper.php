@@ -2,13 +2,9 @@
 
 class HashIdHelper
 {
-    // Alphabet shuffled for obfuscation. Change this string to change the generated hashes.
     private static $alphabet = 'wr58d9e2q1yau6j4nm7zk3xhp0sbgvtfc'; 
-    private static $length = 5; // Minimum length of hash
+    private static $length = 5;
 
-    /**
-     * Encode an integer ID into a string hash
-     */
     public static function encode($number)
     {
         if (!is_numeric($number)) {
@@ -24,17 +20,10 @@ class HashIdHelper
             $output = self::$alphabet[$remainder] . $output;
             $number = floor($number / $alphaLength);
         } while ($number > 0);
-
-        // Pad with random characters if too short (simplified logic)
-        // Note: For true reversibility with padding, more complex logic is needed.
-        // For this simple version, we won't force padding to keep it strictly bijective and simple.
         
         return $output;
     }
 
-    /**
-     * Decode a string hash back into an integer ID
-     */
     public static function decode($string)
     {
         if (empty($string)) {
@@ -49,7 +38,7 @@ class HashIdHelper
             $position = strpos(self::$alphabet, $char);
             
             if ($position === false) {
-                return false; // Invalid character found
+                return false;
             }
 
             $number = ($number * $alphaLength) + $position;

@@ -8,7 +8,6 @@ requirePermission('reports_view');
 
 $pdo = getDBConnection();
 
-// Smart default: Use latest transaction date if no filter is set
 if (!isset($_GET['date_from']) || !isset($_GET['date_to'])) {
     $latestStmt = $pdo->query("SELECT MIN(entry_date) as earliest, MAX(entry_date) as latest FROM journal_entries");
     $dateRange = $latestStmt->fetch();
@@ -88,12 +87,22 @@ require_once __DIR__ . '/../../components/header.php';
             </div>
             <div class="form-group mb-0" style="min-width: 150px;">
                 <label class="form-label">Status</label>
-                <select name="status" class="form-control" style="height: 45px; padding: 8px 12px; padding-right: 35px; font-size: 14px; background-position: right 8px center;">
-                    <option value="all" <?php echo $status === 'all' ? 'selected' : ''; ?>>Semua Status</option>
-                    <option value="approved" <?php echo $status === 'approved' ? 'selected' : ''; ?>>Approved</option>
-                    <option value="pending" <?php echo $status === 'pending' ? 'selected' : ''; ?>>Pending</option>
-                    <option value="rejected" <?php echo $status === 'rejected' ? 'selected' : ''; ?>>Rejected</option>
-                </select>
+                <div class="custom-dropdown" data-submit>
+                    <input type="hidden" name="status" value="<?php echo $status; ?>">
+                    <button class="dropdown-trigger" type="button" style="height: 45px;">
+                        <span class="dropdown-value"><?php 
+                            $statusLabels = ['all' => 'Semua Status', 'approved' => 'Approved', 'pending' => 'Pending', 'rejected' => 'Rejected'];
+                            echo $statusLabels[$status] ?? 'Semua Status';
+                        ?></span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item<?php echo $status === 'all' ? ' active' : ''; ?>" data-value="all">Semua Status</div>
+                        <div class="dropdown-item<?php echo $status === 'approved' ? ' active' : ''; ?>" data-value="approved">Approved</div>
+                        <div class="dropdown-item<?php echo $status === 'pending' ? ' active' : ''; ?>" data-value="pending">Pending</div>
+                        <div class="dropdown-item<?php echo $status === 'rejected' ? ' active' : ''; ?>" data-value="rejected">Rejected</div>
+                    </div>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">
                 <i class="fas fa-search"></i> Tampilkan
@@ -109,7 +118,6 @@ require_once __DIR__ . '/../../components/header.php';
 
         <?php if (empty($journals)): ?>
         <?php
-        // Get available date range to help user
         $rangeStmt = $pdo->query("SELECT MIN(entry_date) as earliest, MAX(entry_date) as latest FROM journal_entries");
         $dateRange = $rangeStmt->fetch();
         ?>

@@ -40,35 +40,52 @@ require_once __DIR__ . '/../../components/header.php';
     </div>
 
     <div class="filter-bar">
-        <form method="GET" class="d-flex gap-2" style="width: 100%; flex-wrap: wrap;">
-            <div class="filter-item">
-                <select name="module" class="form-select">
-                    <option value="">Semua Modul</option>
-                    <?php foreach ($modules as $key => $label): ?>
-                    <option value="<?php echo $key; ?>" <?php echo $moduleFilter === $key ? 'selected' : ''; ?>>
-                        <?php echo $label; ?>
-                    </option>
-                    <?php endforeach; ?>
-                </select>
+        <form method="GET" class="filter-form">
+            <div class="filter-group-left">
+                <div class="custom-dropdown" data-submit>
+                    <input type="hidden" name="module" value="<?php echo $moduleFilter; ?>">
+                    <button class="dropdown-trigger" type="button">
+                        <span class="dropdown-value"><?php echo $moduleFilter ? ($modules[$moduleFilter] ?? $moduleFilter) : 'Semua Modul'; ?></span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item<?php echo empty($moduleFilter) ? ' active' : ''; ?>" data-value="">Semua Modul</div>
+                        <?php foreach ($modules as $key => $label): ?>
+                        <div class="dropdown-item<?php echo $moduleFilter === $key ? ' active' : ''; ?>" data-value="<?php echo $key; ?>"><?php echo $label; ?></div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <div class="custom-dropdown" data-submit>
+                    <input type="hidden" name="user_id" value="<?php echo $userFilter; ?>">
+                    <button class="dropdown-trigger" type="button">
+                        <span class="dropdown-value"><?php 
+                            if ($userFilter) {
+                                foreach ($users as $user) {
+                                    if ($user['id'] == $userFilter) {
+                                        echo htmlspecialchars($user['full_name']);
+                                        break;
+                                    }
+                                }
+                            } else {
+                                echo 'Semua User';
+                            }
+                        ?></span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item<?php echo empty($userFilter) ? ' active' : ''; ?>" data-value="">Semua User</div>
+                        <?php foreach ($users as $user): ?>
+                        <div class="dropdown-item<?php echo $userFilter == $user['id'] ? ' active' : ''; ?>" data-value="<?php echo $user['id']; ?>"><?php echo htmlspecialchars($user['full_name']); ?></div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </div>
-            <div class="filter-item">
-                <select name="user_id" class="form-select">
-                    <option value="">Semua User</option>
-                    <?php foreach ($users as $user): ?>
-                    <option value="<?php echo $user['id']; ?>" <?php echo $userFilter == $user['id'] ? 'selected' : ''; ?>>
-                        <?php echo htmlspecialchars($user['full_name']); ?>
-                    </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="filter-item">
+            <div class="filter-group-right">
                 <input type="date" name="date_from" class="form-control" value="<?php echo $dateFrom; ?>" placeholder="Dari Tanggal">
-            </div>
-            <div class="filter-item">
                 <input type="date" name="date_to" class="form-control" value="<?php echo $dateTo; ?>" placeholder="Sampai Tanggal">
+                <button type="submit" class="btn btn-secondary"><i class="fas fa-filter"></i> Filter</button>
+                <a href="<?php echo APP_URL; ?>/modules/logs/" class="btn btn-outline">Reset</a>
             </div>
-            <button type="submit" class="btn btn-secondary"><i class="fas fa-filter"></i> Filter</button>
-            <a href="<?php echo APP_URL; ?>/modules/logs/" class="btn btn-outline">Reset</a>
         </form>
     </div>
 
