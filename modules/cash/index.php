@@ -127,13 +127,13 @@ require_once __DIR__ . '/../../components/header.php';
         <table>
             <thead>
                 <tr>
-                    <th>No. Transaksi</th>
-                    <th>Tanggal</th>
-                    <th>Tipe</th>
-                    <th>Akun</th>
-                    <th>Jumlah</th>
-                    <th>Status</th>
-                    <th style="width: 120px;">Aksi</th>
+                    <th style="text-align: center;">No. Transaksi</th>
+                    <th style="text-align: center;">Tanggal</th>
+                    <th style="text-align: center;">Tipe</th>
+                    <th style="text-align: center;">Akun</th>
+                    <th style="text-align: center;">Jumlah</th>
+                    <th style="text-align: center;">Status</th>
+                    <th style="width: 120px; text-align: center;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -150,21 +150,21 @@ require_once __DIR__ . '/../../components/header.php';
                 <?php else: ?>
                 <?php foreach ($transactions as $trx): ?>
                 <tr>
-                    <td><strong><?php echo htmlspecialchars($trx['transaction_number']); ?></strong></td>
-                    <td><?php echo formatDate($trx['transaction_date']); ?></td>
-                    <td>
+                    <td style="text-align: center;"><strong><?php echo htmlspecialchars($trx['transaction_number']); ?></strong></td>
+                    <td style="text-align: center;"><?php echo formatDate($trx['transaction_date']); ?></td>
+                    <td style="text-align: center;">
                         <span class="badge badge-<?php echo $trx['type'] === 'masuk' ? 'success' : 'danger'; ?>">
                             <?php echo $trx['type'] === 'masuk' ? 'Kas Masuk' : 'Kas Keluar'; ?>
                         </span>
                     </td>
-                    <td><?php echo htmlspecialchars($trx['account_code'] . ' - ' . $trx['account_name']); ?></td>
-                    <td><strong><?php echo formatCurrency($trx['amount']); ?></strong></td>
-                    <td>
+                    <td style="text-align: center;"><?php echo htmlspecialchars($trx['account_code'] . ' - ' . $trx['account_name']); ?></td>
+                    <td style="text-align: center;"><strong><?php echo formatCurrency($trx['amount']); ?></strong></td>
+                    <td style="text-align: center;">
                         <?php $badgeClass = $trx['status'] === 'approved' ? 'success' : 'warning'; ?>
                         <span class="badge badge-<?php echo $badgeClass; ?>"><?php echo ucfirst($trx['status']); ?></span>
                     </td>
-                    <td>
-                        <div class="btn-group">
+                    <td style="text-align: center;">
+                        <div class="btn-group" style="justify-content: center;">
                             <?php if (hasPermission('cash_edit') && $trx['status'] === 'pending'): ?>
                             <a href="<?php echo APP_URL; ?>/cash/edit?id=<?php echo HashIdHelper::encode($trx['id']); ?>" class="btn btn-sm btn-secondary btn-icon" title="Edit">
                                 <i class="fas fa-edit"></i>

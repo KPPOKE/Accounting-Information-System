@@ -754,6 +754,7 @@ a {
 .filter-item {
     display: flex;
     align-items: center;
+    flex: 0 0 auto;
 }
 
 .filter-item .form-control,
@@ -863,7 +864,7 @@ thead {
 }
 
 th {
-    padding: 14px 16px;
+    padding: 14px 12px;
     text-align: left;
     font-size: 12px;
     font-weight: 600;
@@ -874,12 +875,20 @@ th {
     transition: color 0.3s ease, border-color 0.3s ease;
 }
 
+th:first-child {
+    padding-left: 20px;
+}
+
 td {
-    padding: 16px;
+    padding: 16px 12px;
     font-size: 14px;
     color: var(--text-primary);
     border-bottom: 1px solid var(--border-color);
     transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+td:first-child {
+    padding-left: 20px;
 }
 
 tbody tr {
@@ -1188,8 +1197,8 @@ tbody tr:hover {
 }
 
 .filter-item {
-    flex: 1;
-    min-width: 180px;
+    flex: 0 0 auto;
+    min-width: auto;
 }
 
 .search-box {
