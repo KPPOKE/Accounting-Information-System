@@ -1,4 +1,11 @@
             </div>
+            
+            <footer class="main-footer">
+                <div class="footer-content">
+                    <p>&copy; <?php echo date('Y'); ?> Finacore by Keneth Langit Baranduda</p>
+                    <p class="version">Version 1.0.6</p>
+                </div>
+            </footer>
         </main>
     </div>
 

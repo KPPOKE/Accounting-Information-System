@@ -684,7 +684,6 @@ a {
     margin-top: 4px;
 }
 
-/* Filter Bar Styling */
 .filter-bar {
     display: flex;
     align-items: center;
@@ -731,7 +730,6 @@ a {
     font-size: 13px;
 }
 
-/* Search Box with Icon */
 .search-box {
     position: relative;
 }
@@ -783,7 +781,6 @@ a {
     min-width: 130px;
 }
 
-/* Better spacing for desktop */
 @media (min-width: 992px) {
     .filter-bar form {
         flex-wrap: nowrap;
@@ -794,7 +791,6 @@ a {
     }
 }
 
-/* Mobile filter bar adjustments */
 @media (max-width: 768px) {
     .filter-bar {
         padding: 12px 16px;
@@ -3999,7 +3995,6 @@ body.swal2-toast-shown.swal2-height-auto {
     padding: 8px;
 }
 
-/* Custom Dropdown Component */
 .custom-dropdown {
     position: relative;
     display: inline-block;
@@ -4094,7 +4089,6 @@ body.swal2-toast-shown.swal2-height-auto {
     background: var(--primary-dark);
 }
 
-/* Dark mode for custom dropdown */
 [data-theme="dark"] .dropdown-trigger {
     background: #1e293b;
     border-color: #334155;
@@ -4120,7 +4114,6 @@ body.swal2-toast-shown.swal2-height-auto {
     background: #334155;
 }
 
-/* Mobile adjustments for custom dropdown */
 @media (max-width: 768px) {
     .custom-dropdown {
         order: 2;
@@ -4241,7 +4234,6 @@ body.swal2-toast-shown.swal2-height-auto {
     }
 }
 
-/* Notification Dropdown */
 .notification-wrapper {
     position: relative;
 }
@@ -4390,4 +4382,31 @@ body.swal2-toast-shown.swal2-height-auto {
     font-size: 32px;
     margin-bottom: 8px;
     display: block;
+}
+
+
+.main-footer {
+    padding: 24px 32px;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.footer-content .version {
+    font-weight: 500;
+    color: var(--text-tertiary);
+}
+
+
+[data-theme="dark"] .main-footer {
+    background: var(--bg-secondary);
+    border-top-color: var(--border-color);
 }
