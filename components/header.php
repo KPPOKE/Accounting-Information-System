@@ -181,6 +181,12 @@ foreach ($pathParts as $part) {
                             <span class="nav-item-text">Activity Log</span>
                         </a>
                         <?php endif; ?>
+                        <?php if ($user['role_id'] == 1): ?>
+                        <a href="<?php echo APP_URL; ?>/backup" class="nav-item <?php echo $currentModule === 'backup' ? 'active' : ''; ?>">
+                            <span class="nav-item-icon"><i class="fas fa-database"></i></span>
+                            <span class="nav-item-text">Database Backup</span>
+                        </a>
+                        <?php endif; ?>
                     </div>
                     <?php endif; ?>
                 </div>
@@ -227,9 +233,63 @@ foreach ($pathParts as $part) {
                         <i class="fas fa-sun icon-sun"></i>
                         <i class="fas fa-moon icon-moon"></i>
                     </button>
-                    <button class="header-btn" title="Notifikasi">
-                        <i class="fas fa-bell"></i>
-                    </button>
+                    <div class="notification-wrapper">
+                        <button class="header-btn" id="notificationBtn" title="Notifikasi">
+                            <i class="fas fa-bell"></i>
+                            <?php
+                            $recentLogs = getActivityLogs([], 5);
+                            $lastSeenNotif = $_SESSION['last_seen_notification'] ?? null;
+                            $unreadCount = 0;
+                            
+                            if (!empty($recentLogs)) {
+                                foreach ($recentLogs as $log) {
+                                    if (!$lastSeenNotif || strtotime($log['created_at']) > strtotime($lastSeenNotif)) {
+                                        $unreadCount++;
+                                    }
+                                }
+                            }
+                            
+                            if ($unreadCount > 0):
+                            ?>
+                            <span class="notification-badge" id="notificationBadge"><?php echo $unreadCount > 9 ? '9+' : $unreadCount; ?></span>
+                            <?php endif; ?>
+                        </button>
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <div class="notification-header">
+                                <span>Aktivitas Terbaru</span>
+                                <a href="<?php echo APP_URL; ?>/logs">Lihat Semua</a>
+                            </div>
+                            <div class="notification-list">
+                                <?php if (empty($recentLogs)): ?>
+                                <div class="notification-empty">
+                                    <i class="fas fa-inbox"></i>
+                                    <span>Tidak ada aktivitas</span>
+                                </div>
+                                <?php else: ?>
+                                <?php foreach ($recentLogs as $log): ?>
+                                <div class="notification-item">
+                                    <div class="notification-icon <?php echo $log['action']; ?>">
+                                        <i class="fas fa-<?php 
+                                            echo match($log['action']) {
+                                                'create' => 'plus',
+                                                'update' => 'edit',
+                                                'delete' => 'trash',
+                                                'login' => 'sign-in-alt',
+                                                'logout' => 'sign-out-alt',
+                                                default => 'info'
+                                            };
+                                        ?>"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-text"><?php echo htmlspecialchars(substr($log['description'], 0, 50)); ?></div>
+                                        <div class="notification-time"><?php echo formatDateTime($log['created_at'], 'd M H:i'); ?></div>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
                     <a href="<?php echo APP_URL; ?>/logout" class="header-btn" title="Logout">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>

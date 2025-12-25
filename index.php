@@ -54,6 +54,9 @@ $router->get('/reports/income-expense', __DIR__ . '/modules/reports/income_expen
 
 $router->get('/logs', __DIR__ . '/modules/logs/index.php');
 
+$router->get('/backup', __DIR__ . '/modules/backup/index.php');
+$router->post('/backup', __DIR__ . '/modules/backup/index.php');
+
 $router->get('/', function() {
     header('Location: ' . APP_URL . '/login');
     exit;

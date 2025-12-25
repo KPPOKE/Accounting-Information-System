@@ -11,7 +11,7 @@ set_error_handler('customErrorHandler');
 set_exception_handler('customExceptionHandler');
 
 function customErrorHandler($errno, $errstr, $errfile, $errline) {
-    $logDir = __DIR__ . '/../logs';
+    $logDir = __DIR__ . '/../storage';
     if (!is_dir($logDir)) {
         mkdir($logDir, 0755, true);
     }
@@ -29,7 +29,7 @@ function customErrorHandler($errno, $errstr, $errfile, $errline) {
 }
 
 function customExceptionHandler($exception) {
-    $logDir = __DIR__ . '/../logs';
+    $logDir = __DIR__ . '/../storage';
     if (!is_dir($logDir)) {
         mkdir($logDir, 0755, true);
     }

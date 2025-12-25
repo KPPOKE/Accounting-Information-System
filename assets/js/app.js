@@ -511,3 +511,39 @@ function applyFlatpickrTheme(theme) {
         }
     }
 }
+
+// Notification Dropdown Toggle
+const notificationBtn = document.getElementById('notificationBtn');
+const notificationDropdown = document.getElementById('notificationDropdown');
+const notificationBadge = document.getElementById('notificationBadge');
+
+if (notificationBtn && notificationDropdown) {
+    notificationBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        notificationDropdown.classList.toggle('show');
+
+        // Mark notifications as read and hide badge
+        if (notificationDropdown.classList.contains('show') && notificationBadge) {
+            notificationBadge.style.display = 'none';
+
+            // Call API to mark as read
+            fetch('/FinacoreSIA/api/mark_notifications_read.php', {
+                method: 'POST',
+                credentials: 'same-origin'
+            }).catch(err => console.log('Mark read error:', err));
+        }
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!notificationDropdown.contains(e.target) && !notificationBtn.contains(e.target)) {
+            notificationDropdown.classList.remove('show');
+        }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            notificationDropdown.classList.remove('show');
+        }
+    });
+}
