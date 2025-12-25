@@ -4,6 +4,12 @@ ini_set('display_startup_errors', 0);
 error_reporting(0);
 
 require_once __DIR__ . '/config/app.php';
+
+if (file_exists(__DIR__ . '/.maintenance')) {
+    http_response_code(503);
+    require_once __DIR__ . '/modules/errors/500.php';
+    exit;
+}
 require_once __DIR__ . '/includes/Router.php';
 require_once __DIR__ . '/includes/HashIdHelper.php';
 
