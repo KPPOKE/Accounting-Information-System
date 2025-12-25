@@ -101,10 +101,10 @@ require_once __DIR__ . '/../../components/header.php';
                     <th>Kode</th>
                     <th>Nama Akun</th>
                     <th>Kategori</th>
-                    <th>Tipe</th>
+                    <th style="text-align: center;">Tipe</th>
                     <th>Saldo</th>
                     <th>Status</th>
-                    <th style="width: 120px;">Aksi</th>
+                    <th style="width: 120px; text-align: center;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -124,7 +124,7 @@ require_once __DIR__ . '/../../components/header.php';
                     <td><strong><?php echo htmlspecialchars($account['code']); ?></strong></td>
                     <td><?php echo htmlspecialchars($account['name']); ?></td>
                     <td><?php echo htmlspecialchars($account['category_name']); ?></td>
-                    <td>
+                    <td style="text-align: center;">
                         <?php
                         $typeLabels = [
                             'aset' => ['Aset', 'primary'],
@@ -145,8 +145,8 @@ require_once __DIR__ . '/../../components/header.php';
                             <?php echo $account['is_active'] ? 'Aktif' : 'Nonaktif'; ?>
                         </span>
                     </td>
-                    <td>
-                        <div class="btn-group">
+                    <td style="text-align: center;">
+                        <div class="btn-group" style="justify-content: center;">
                             <?php if (hasPermission('accounts_edit')): ?>
                             <a href="<?php echo APP_URL; ?>/accounts/edit?id=<?php echo HashIdHelper::encode($account['id']); ?>" class="btn btn-sm btn-secondary btn-icon" title="Edit">
                                 <i class="fas fa-edit"></i>

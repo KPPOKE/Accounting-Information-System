@@ -114,7 +114,7 @@ require_once __DIR__ . '/../../components/header.php';
                     <th>Jumlah</th>
                     <th>Dibuat Oleh</th>
                     <th>Status</th>
-                    <th style="width: 150px;">Aksi</th>
+                    <th style="width: 80px;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -145,7 +145,7 @@ require_once __DIR__ . '/../../components/header.php';
                             <?php echo ucfirst($journal['status']); ?>
                         </span>
                     </td>
-                    <td>
+                    <td style="text-align: center; vertical-align: middle;">
                         <div class="btn-group">
                             <a href="<?php echo APP_URL; ?>/journal/view?id=<?php echo HashIdHelper::encode($journal['id']); ?>" class="btn btn-sm btn-secondary btn-icon" title="Detail">
                                 <i class="fas fa-eye"></i>

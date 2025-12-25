@@ -28,6 +28,7 @@ foreach ($pathParts as $part) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo APP_URL; ?>/assets/css/style.css?v=1.0.6">
+    <link rel="stylesheet" type="text/css" href="<?php echo APP_URL; ?>/assets/css/loader.css?v=1.0.0">
     
 
     <link rel="apple-touch-icon" sizes="180x180" href="<?php echo APP_URL; ?>/assets/images/apple-touch-icon.png">
@@ -36,6 +37,7 @@ foreach ($pathParts as $part) {
     <link rel="manifest" href="<?php echo APP_URL; ?>/assets/images/site.webmanifest">
     <link rel="shortcut icon" href="<?php echo APP_URL; ?>/assets/images/favicon.ico">
 
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script> 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -106,6 +108,22 @@ foreach ($pathParts as $part) {
             document.body.classList.remove('preload');
         })();
     </script>
+    
+    <!-- Page Loading Screen -->
+    <div id="pageLoader" class="page-loader">
+        <div class="loader-content">
+            <dotlottie-player 
+                src="<?php echo APP_URL; ?>/assets/Loading 40 _ Paperplane backround transparent.lottie" 
+                background="transparent" 
+                speed="1" 
+                style="width: 200px; height: 200px;" 
+                loop 
+                autoplay>
+            </dotlottie-player>
+            <p class="loader-text">Memuat...</p>
+        </div>
+    </div>
+    
     <div class="app-container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-brand">

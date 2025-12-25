@@ -2,3 +2,19 @@
 [2025-12-25 07:03:51] Error [2]: Undefined array key "status" in C:\xampp\htdocs\FinacoreSIA\modules\users\edit.php on line 138
 [2025-12-25 07:04:27] Error [2]: Undefined array key "status" in C:\xampp\htdocs\FinacoreSIA\modules\users\edit.php on line 137
 [2025-12-25 07:04:27] Error [2]: Undefined array key "status" in C:\xampp\htdocs\FinacoreSIA\modules\users\edit.php on line 138
+[2025-12-25 20:23:05] Exception: Class "HashIdHelper" not found in C:\xampp\htdocs\FinacoreSIA\modules\journal\index.php on line 150
+Stack trace:
+#0 {main}
+
+[2025-12-25 20:23:41] Exception: Class "HashIdHelper" not found in C:\xampp\htdocs\FinacoreSIA\modules\journal\index.php on line 150
+Stack trace:
+#0 {main}
+
+[2025-12-25 21:07:02] Exception: Class "HashIdHelper" not found in C:\xampp\htdocs\FinacoreSIA\modules\journal\index.php on line 150
+Stack trace:
+#0 {main}
+
+[2025-12-25 21:07:21] Exception: Class "HashIdHelper" not found in C:\xampp\htdocs\FinacoreSIA\modules\journal\index.php on line 150
+Stack trace:
+#0 {main}
+
