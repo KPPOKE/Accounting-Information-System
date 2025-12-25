@@ -1,6 +1,3 @@
-# Minimal .htaccess for debugging
-# If this works, the previous error was caused by incompatible directives (e.g. php_value or Order)
-
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
