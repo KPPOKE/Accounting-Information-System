@@ -65,7 +65,13 @@ unset($_SESSION['login_username']);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="<?php echo APP_URL; ?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo APP_URL; ?>/assets/css/style.css?v=1.0.5">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo APP_URL; ?>/assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo APP_URL; ?>/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo APP_URL; ?>/assets/images/favicon-16x16.png">
+    <link rel="manifest" href="<?php echo APP_URL; ?>/assets/images/site.webmanifest">
+    <link rel="shortcut icon" href="<?php echo APP_URL; ?>/assets/images/favicon.ico">
+
     <style>
 
         html, body {
@@ -108,7 +114,7 @@ unset($_SESSION['login_username']);
         <div class="login-card fade-in-up">
             <div class="login-header">
                 <div class="login-logo">
-                    <i class="fas fa-chart-line"></i>
+                    <img src="<?php echo APP_URL; ?>/assets/images/main_logo.png" alt="Finacore Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">
                 </div>
                 <h1 class="login-title">Finacore</h1>
                 <p class="login-subtitle">Sistem Informasi Akuntansi</p>

@@ -27,7 +27,15 @@ foreach ($pathParts as $part) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="<?php echo APP_URL; ?>/assets/css/style.css?v=1.0.1">
+    <link rel="stylesheet" type="text/css" href="<?php echo APP_URL; ?>/assets/css/style.css?v=1.0.5">
+    
+
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo APP_URL; ?>/assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo APP_URL; ?>/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo APP_URL; ?>/assets/images/favicon-16x16.png">
+    <link rel="manifest" href="<?php echo APP_URL; ?>/assets/images/site.webmanifest">
+    <link rel="shortcut icon" href="<?php echo APP_URL; ?>/assets/images/favicon.ico">
+
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script> 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -89,6 +97,11 @@ foreach ($pathParts as $part) {
             if (window.innerWidth > 1024 && localStorage.getItem('sidebarCollapsed') === 'true') {
                 document.documentElement.classList.add('sidebar-is-collapsed');
             }
+            
+            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (isCollapsed && !isMobile) {
+                document.documentElement.classList.add('sidebar-is-collapsed');
+            }
 
             document.body.classList.remove('preload');
         })();
@@ -97,7 +110,7 @@ foreach ($pathParts as $part) {
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-brand">
                 <div class="sidebar-brand-icon">
-                    <i class="fas fa-chart-line"></i>
+                    <img src="<?php echo APP_URL; ?>/assets/images/main_logo.png" alt="Finacore Logo" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <span class="sidebar-brand-text">Finacore</span>
             </div>

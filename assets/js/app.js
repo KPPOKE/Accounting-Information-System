@@ -512,7 +512,6 @@ function applyFlatpickrTheme(theme) {
     }
 }
 
-// Notification Dropdown Toggle
 const notificationBtn = document.getElementById('notificationBtn');
 const notificationDropdown = document.getElementById('notificationDropdown');
 const notificationBadge = document.getElementById('notificationBadge');
@@ -522,11 +521,9 @@ if (notificationBtn && notificationDropdown) {
         e.stopPropagation();
         notificationDropdown.classList.toggle('show');
 
-        // Mark notifications as read and hide badge
         if (notificationDropdown.classList.contains('show') && notificationBadge) {
             notificationBadge.style.display = 'none';
 
-            // Call API to mark as read
             fetch('/FinacoreSIA/api/mark_notifications_read.php', {
                 method: 'POST',
                 credentials: 'same-origin'
@@ -540,7 +537,6 @@ if (notificationBtn && notificationDropdown) {
         }
     });
 
-    // Close on escape key
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
             notificationDropdown.classList.remove('show');

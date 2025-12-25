@@ -157,16 +157,17 @@ a {
 }
 
 .sidebar-brand-icon {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    width: 56px;
+    height: 56px;
+    background: transparent !important;
+    border: none !important;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 24px;
     color: white;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    box-shadow: none !important;
     flex-shrink: 0;
     transition: var(--transition);
 }
@@ -3639,9 +3640,10 @@ body.swal2-toast-shown.swal2-height-auto {
 }
 
 .login-logo {
-    width: 64px;
-    height: 64px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    width: 80px;
+    height: 80px;
+    background: transparent !important;
+    border: none !important;
     border-radius: 16px;
     display: flex;
     align-items: center;
@@ -3649,7 +3651,25 @@ body.swal2-toast-shown.swal2-height-auto {
     font-size: 28px;
     color: white;
     margin: 0 auto 16px;
-    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+    box-shadow: none !important;
+    animation: floatLogo 6s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0% {
+        transform: translateY(0px);
+        filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+    }
+
+    50% {
+        transform: translateY(-12px);
+        filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.4));
+    }
+
+    100% {
+        transform: translateY(0px);
+        filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+    }
 }
 
 .login-title {
