@@ -109,11 +109,10 @@ foreach ($pathParts as $part) {
         })();
     </script>
     
-    <!-- Page Loading Screen -->
     <div id="pageLoader" class="page-loader">
         <div class="loader-content">
             <dotlottie-player 
-                src="<?php echo APP_URL; ?>/assets/Loading 40 _ Paperplane backround transparent.lottie" 
+                src="<?php echo str_replace(['http://', 'https://'], '//', APP_URL); ?>/assets/Loading 40 _ Paperplane backround transparent.lottie" 
                 background="transparent" 
                 speed="1" 
                 style="width: 200px; height: 200px;" 
