@@ -14,34 +14,53 @@ $roles = getAllRoles();
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = [
-        'username' => sanitize($_POST['username'] ?? ''),
-        'email' => sanitize($_POST['email'] ?? ''),
-        'password' => $_POST['password'] ?? '',
-        'full_name' => sanitize($_POST['full_name'] ?? ''),
-        'role_id' => intval($_POST['role_id'] ?? 0),
-        'status' => sanitize($_POST['status'] ?? 'active')
-    ];
+    if (!validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        $errors[] = 'Invalid security token';
+    } else {
+        $data = [
+            'username' => sanitize($_POST['username'] ?? ''),
+            'email' => sanitize($_POST['email'] ?? ''),
+            'password' => $_POST['password'] ?? '',
+            'full_name' => sanitize($_POST['full_name'] ?? ''),
+            'role_id' => intval($_POST['role_id'] ?? 0),
+            'status' => sanitize($_POST['status'] ?? 'active')
+        ];
 
-    if (empty($data['username'])) $errors[] = 'Username harus diisi';
-    if (empty($data['email'])) $errors[] = 'Email harus diisi';
-    if (empty($data['password'])) $errors[] = 'Password harus diisi';
-    if (strlen($data['password']) < 6) $errors[] = 'Password minimal 6 karakter';
-    if (empty($data['full_name'])) $errors[] = 'Nama lengkap harus diisi';
-    if ($data['role_id'] <= 0) $errors[] = 'Role harus dipilih';
-
-    $pdo = getDBConnection();
-    $check = $pdo->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
-    $check->execute([$data['username'], $data['email']]);
-    if ($check->fetch()) $errors[] = 'Username atau email sudah digunakan';
-
-    if (empty($errors)) {
-        $userId = createUser($data);
-        if ($userId) {
-            setFlash('success', 'Pengguna berhasil ditambahkan');
-            redirect(APP_URL . '/users');
+        if (empty($data['username'])) {
+            $errors[] = 'Username harus diisi';
+        } elseif (!isValidUsername($data['username'])) {
+            $errors[] = 'Username hanya boleh huruf, angka, underscore (3-20 karakter)';
+        }
+        
+        if (empty($data['email'])) {
+            $errors[] = 'Email harus diisi';
+        } elseif (!isValidEmail($data['email'])) {
+            $errors[] = 'Format email tidak valid';
+        }
+        
+        if (empty($data['password'])) {
+            $errors[] = 'Password harus diisi';
         } else {
-            $errors[] = 'Gagal menyimpan data';
+            $passwordErrors = validatePassword($data['password']);
+            $errors = array_merge($errors, $passwordErrors);
+        }
+        
+        if (empty($data['full_name'])) $errors[] = 'Nama lengkap harus diisi';
+        if ($data['role_id'] <= 0) $errors[] = 'Role harus dipilih';
+
+        $pdo = getDBConnection();
+        $check = $pdo->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
+        $check->execute([$data['username'], $data['email']]);
+        if ($check->fetch()) $errors[] = 'Username atau email sudah digunakan';
+
+        if (empty($errors)) {
+            $userId = createUser($data);
+            if ($userId) {
+                setFlash('success', 'Pengguna berhasil ditambahkan');
+                redirect(APP_URL . '/users');
+            } else {
+                $errors[] = 'Gagal menyimpan data';
+            }
         }
     }
 }
@@ -89,7 +108,7 @@ require_once __DIR__ . '/../../components/header.php';
                 <div class="form-group">
                     <label class="form-label">Password <span class="text-danger">*</span></label>
                     <input type="password" name="password" class="form-control" required>
-                    <span class="form-text">Minimal 6 karakter</span>
+                    <span class="form-text">Min 8 karakter, harus ada huruf dan angka</span>
                 </div>
             </div>
 

@@ -37,6 +37,53 @@ function checkCsrf() {
     return true;
 }
 
+function validatePassword($password) {
+    $errors = [];
+    
+    if (strlen($password) < 8) {
+        $errors[] = 'Password minimal 8 karakter';
+    }
+    
+    if (!preg_match('/[A-Za-z]/', $password)) {
+        $errors[] = 'Password harus mengandung huruf';
+    }
+    
+    if (!preg_match('/[0-9]/', $password)) {
+        $errors[] = 'Password harus mengandung angka';
+    }
+    
+    return $errors;
+}
+
+function isValidEmail($email) {
+    return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+}
+
+function isValidUsername($username) {
+    return preg_match('/^[a-zA-Z0-9_]{3,20}$/', $username);
+}
+
+function validateRequired($data, $fields) {
+    $errors = [];
+    foreach ($fields as $field => $label) {
+        if (empty(trim($data[$field] ?? ''))) {
+            $errors[] = "$label wajib diisi";
+        }
+    }
+    return $errors;
+}
+
+function validateLength($value, $min, $max, $fieldName) {
+    $len = strlen($value);
+    if ($len < $min) {
+        return "$fieldName minimal $min karakter";
+    }
+    if ($len > $max) {
+        return "$fieldName maksimal $max karakter";
+    }
+    return null;
+}
+
 function formatCurrency($amount) {
     return 'Rp ' . number_format($amount, 0, ',', '.');
 }
