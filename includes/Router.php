@@ -55,7 +55,6 @@ class Router
             }
         }
 
-        http_response_code(404);
         $errorPage = __DIR__ . '/../modules/errors/404.php';
         if (file_exists($errorPage)) {
             require_once $errorPage;
