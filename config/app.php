@@ -5,7 +5,7 @@ define('APP_VERSION', '1.0.0');
 
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-$scriptPath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])); // Fix Windows slashes
+$scriptPath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])); 
 $basePath = '';
 
 
