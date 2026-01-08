@@ -102,7 +102,7 @@ require_once __DIR__ . '/../../components/header.php';
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label">Tipe Transaksi <span class="text-danger">*</span></label>
-                    <select name="type" class="form-select" required onchange="window.location.href='create.php?type='+this.value">
+                    <select name="type" class="form-select" required onchange="window.location.href='<?php echo APP_URL; ?>/cash/create?type='+this.value">
                         <option value="masuk" <?php echo $type === 'masuk' ? 'selected' : ''; ?>>Kas Masuk</option>
                         <option value="keluar" <?php echo $type === 'keluar' ? 'selected' : ''; ?>>Kas Keluar</option>
                     </select>
