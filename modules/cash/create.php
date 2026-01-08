@@ -6,7 +6,7 @@ requirePermission('cash_create');
 
 $pageTitle = 'Tambah Transaksi Kas';
 $breadcrumb = [
-    ['title' => 'Kas Masuk/Keluar', 'url' => APP_URL . '/modules/cash/'],
+    ['title' => 'Kas Masuk/Keluar', 'url' => APP_URL . '/cash'],
     ['title' => 'Tambah Transaksi']
 ];
 
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdo->commit();
             logActivity('create', 'cash', $transactionId, "Membuat transaksi kas: $transactionNumber");
             setFlash('success', 'Transaksi kas berhasil dibuat');
-            redirect(APP_URL . '/modules/cash/');
+            redirect(APP_URL . '/cash');
 
         } catch (Exception $e) {
             $pdo->rollBack();
@@ -163,7 +163,7 @@ require_once __DIR__ . '/../../components/header.php';
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i> Simpan
                 </button>
-                <a href="<?php echo APP_URL; ?>/modules/cash/" class="btn btn-secondary">
+                <a href="<?php echo APP_URL; ?>/cash" class="btn btn-secondary">
                     <i class="fas fa-times"></i> Batal
                 </a>
             </div>

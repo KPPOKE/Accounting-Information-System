@@ -3,12 +3,40 @@
 
     const pageLoader = document.getElementById('pageLoader');
 
+    function hideLoader() {
+        if (pageLoader) {
+            pageLoader.classList.add('hidden');
+        }
+    }
+
+    function showLoader() {
+        if (pageLoader) {
+            pageLoader.classList.remove('hidden');
+        }
+    }
+
+    if (document.readyState === 'complete') {
+        hideLoader();
+    } else if (document.readyState === 'interactive') {
+        setTimeout(hideLoader, 100);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        hideLoader();
+    });
+
     window.addEventListener('load', function () {
-        setTimeout(function () {
-            if (pageLoader) {
-                pageLoader.classList.add('hidden');
-            }
-        }, 500);
+        hideLoader();
+    });
+
+    window.addEventListener('pageshow', function () {
+        hideLoader();
+    });
+
+    document.addEventListener('readystatechange', function () {
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            hideLoader();
+        }
     });
 
     document.addEventListener('click', function (e) {
@@ -27,9 +55,7 @@
                 !target.hasAttribute('data-no-loader') &&
                 (href.startsWith('/') || href.includes(currentHost))
             ) {
-                if (pageLoader) {
-                    pageLoader.classList.remove('hidden');
-                }
+                showLoader();
             }
         }
     });
@@ -38,24 +64,12 @@
         const form = e.target;
 
         if (!form.hasAttribute('data-no-loader')) {
-            if (pageLoader) {
-                pageLoader.classList.remove('hidden');
-            }
+            showLoader();
         }
     });
 
-    window.addEventListener('pageshow', function (event) {
-        if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
-            if (pageLoader) {
-                pageLoader.classList.add('hidden');
-            }
-        }
-    });
-
-    setTimeout(function () {
-        if (pageLoader && !pageLoader.classList.contains('hidden')) {
-            pageLoader.classList.add('hidden');
-        }
-    }, 10000);
+    setTimeout(hideLoader, 500);
+    setTimeout(hideLoader, 1000);
+    setTimeout(hideLoader, 3000);
 
 })();

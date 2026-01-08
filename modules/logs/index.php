@@ -84,7 +84,7 @@ require_once __DIR__ . '/../../components/header.php';
                 <input type="date" name="date_from" class="form-control" value="<?php echo $dateFrom; ?>" placeholder="Dari Tanggal">
                 <input type="date" name="date_to" class="form-control" value="<?php echo $dateTo; ?>" placeholder="Sampai Tanggal">
                 <button type="submit" class="btn btn-secondary"><i class="fas fa-filter"></i> Filter</button>
-                <a href="<?php echo APP_URL; ?>/modules/logs/" class="btn btn-outline">Reset</a>
+                <a href="<?php echo APP_URL; ?>/logs" class="btn btn-outline">Reset</a>
             </div>
         </form>
     </div>

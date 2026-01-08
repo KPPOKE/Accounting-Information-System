@@ -6,7 +6,7 @@ requirePermission('accounts_create');
 
 $pageTitle = 'Tambah Akun';
 $breadcrumb = [
-    ['title' => 'Chart of Accounts', 'url' => APP_URL . '/modules/accounts/'],
+    ['title' => 'Chart of Accounts', 'url' => APP_URL . '/accounts'],
     ['title' => 'Tambah Akun']
 ];
 
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $accountId = $pdo->lastInsertId();
             logActivity('create', 'accounts', $accountId, "Membuat akun baru: $code - $name");
             setFlash('success', 'Akun berhasil ditambahkan');
-            redirect(APP_URL . '/modules/accounts/');
+            redirect(APP_URL . '/accounts');
         } else {
             $errors[] = 'Gagal menyimpan data';
         }
@@ -124,7 +124,7 @@ require_once __DIR__ . '/../../components/header.php';
                     <i class="fas fa-save"></i>
                     Simpan
                 </button>
-                <a href="<?php echo APP_URL; ?>/modules/accounts/" class="btn btn-secondary">
+                <a href="<?php echo APP_URL; ?>/accounts" class="btn btn-secondary">
                     <i class="fas fa-times"></i>
                     Batal
                 </a>
