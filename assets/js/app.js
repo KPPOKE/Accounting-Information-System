@@ -334,6 +334,15 @@ function initializeFlatpickr() {
             }
         });
     }
+
+    window.addEventListener('scroll', function () {
+        var inputs = document.querySelectorAll('.flatpickr-input');
+        inputs.forEach(function (input) {
+            if (input._flatpickr && input._flatpickr.isOpen) {
+                input._flatpickr.close();
+            }
+        });
+    }, true);
 }
 
 function initDarkMode() {

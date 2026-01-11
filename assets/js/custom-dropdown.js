@@ -69,6 +69,12 @@ function initCustomDropdowns() {
             });
         }
     });
+
+    window.addEventListener('scroll', () => {
+        document.querySelectorAll('.custom-dropdown.open').forEach(d => {
+            d.classList.remove('open');
+        });
+    }, true);
 }
 
 function createCustomDropdown(options) {
