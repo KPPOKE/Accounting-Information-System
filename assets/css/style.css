@@ -4418,4 +4418,1874 @@ body.swal2-toast-shown.swal2-height-auto {
 [data-theme="dark"] .main-footer {
     background: var(--bg-secondary);
     border-top-color: var(--border-color);
-} 
+}
+
+/* ============================================
+   ENHANCED MOBILE RESPONSIVE STYLES
+   ============================================ */
+
+/* Mobile: Max 576px (Small phones) */
+@media (max-width: 576px) {
+
+    /* Header improvements for touch */
+    .header {
+        height: 60px;
+        padding: 0 12px;
+    }
+
+    .header-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .header-right {
+        gap: 8px;
+    }
+
+    .page-title {
+        font-size: 14px;
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Content wrapper */
+    .content-wrapper {
+        padding: 12px;
+    }
+
+    /* Forms - Single column on mobile */
+    .form-row {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .form-control,
+    .form-select {
+        height: 44px;
+        font-size: 16px;
+        padding: 10px 14px;
+    }
+
+    .form-label {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    /* Buttons - larger touch targets */
+    .btn {
+        min-height: 44px;
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+
+    .btn-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .d-flex.gap-2 {
+        flex-direction: column;
+        gap: 12px !important;
+    }
+
+    .d-flex.gap-2 .btn {
+        width: 100%;
+    }
+
+    /* Cards */
+    .card {
+        border-radius: 10px;
+    }
+
+    .card-header {
+        padding: 14px 16px;
+        min-height: auto;
+    }
+
+    .card-title {
+        font-size: 15px;
+    }
+
+    .card-body {
+        padding: 16px;
+    }
+
+    /* Stats cards */
+    .stat-card {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    .stat-label {
+        font-size: 12px;
+    }
+
+    /* Tables */
+    .table-container {
+        margin: 0 -16px;
+        padding: 0 16px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        min-width: 600px;
+    }
+
+    th,
+    td {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    th:first-child,
+    td:first-child {
+        padding-left: 12px;
+    }
+
+    th:last-child,
+    td:last-child {
+        padding-right: 12px;
+    }
+
+    /* Filter bar */
+    .filter-bar {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .filter-bar form {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filter-form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filter-group-left,
+    .filter-group-right {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filter-item {
+        width: 100%;
+    }
+
+    .filter-item .form-control,
+    .filter-item .form-select {
+        width: 100%;
+        min-width: unset;
+        height: 44px;
+    }
+
+    .filter-bar .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .search-box .form-control {
+        width: 100%;
+    }
+
+    /* Custom dropdown */
+    .custom-dropdown {
+        width: 100%;
+    }
+
+    .dropdown-trigger {
+        width: 100%;
+        height: 44px;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+        max-width: none;
+    }
+
+    /* Action buttons in tables */
+    .btn-group {
+        flex-wrap: nowrap;
+        gap: 4px;
+    }
+
+    .btn-group .btn-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+
+    /* Footer */
+    .main-footer {
+        padding: 16px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    /* Sidebar overlay on mobile */
+    .sidebar {
+        width: 280px;
+    }
+
+    .sidebar.open {
+        box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.5);
+    }
+
+    /* Alerts */
+    .alert {
+        padding: 12px 14px;
+        font-size: 13px;
+    }
+
+    /* Badge */
+    .badge {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    /* Charts */
+    .chart-container {
+        height: 250px !important;
+    }
+}
+
+/* Mobile: Max 480px (Extra small phones) */
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 13px;
+        max-width: 120px;
+    }
+
+    .header-right {
+        gap: 6px;
+    }
+
+    .header-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    th,
+    td {
+        font-size: 11px;
+        padding: 8px 6px;
+    }
+
+    .btn-group .btn-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+    }
+
+    /* Hide some columns on very small screens */
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+/* Tablet: Max 768px */
+@media (max-width: 768px) {
+
+    /* Ensure forms stack properly */
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    /* Card header with button */
+    .card-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .card-header .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Stats grid */
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    /* Charts grid */
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    .btn {
+        min-height: 44px;
+    }
+
+    .form-control,
+    .form-select {
+        min-height: 44px;
+    }
+
+    .nav-item {
+        padding: 14px 24px;
+    }
+
+    .dropdown-item {
+        padding: 14px 16px;
+    }
+
+    /* Remove hover effects on touch */
+    .btn:hover {
+        transform: none;
+    }
+
+    .stat-card:hover {
+        transform: none;
+    }
+
+    .card:hover {
+        box-shadow: var(--shadow);
+    }
+}
+
+/* Landscape mode on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .content-wrapper {
+        padding: 8px 12px;
+    }
+
+    .card-body {
+        padding: 12px;
+    }
+
+    .form-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Ensure horizontal scroll hint for tables */
+.table-scroll-hint {
+    display: none;
+    text-align: center;
+    padding: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+    .table-scroll-hint {
+        display: block;
+    }
+}
+
+/* ============================================
+   JOURNAL CREATE TABLE - MOBILE RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+
+    /* Journal detail table - make it scrollable and wider */
+    #journalForm .table-container {
+        margin: 0 -16px;
+        padding: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #journalForm .table-container table {
+        min-width: 600px;
+    }
+
+    #journalForm .table-container th,
+    #journalForm .table-container td {
+        padding: 8px 6px;
+        font-size: 12px;
+    }
+
+    #journalForm .table-container .form-select,
+    #journalForm .table-container .form-control {
+        min-height: 36px;
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+
+    /* Add row button */
+    #journalForm .btn-secondary {
+        width: 100%;
+        margin-bottom: 16px;
+    }
+}
+
+/* ============================================
+   LIST TABLES - BETTER MOBILE EXPERIENCE
+   ============================================ */
+@media (max-width: 576px) {
+
+    /* All list page tables - improve scrolling */
+    .card>.table-container,
+    .card-body>.table-container {
+        margin: 0 -16px;
+        border-radius: 0;
+    }
+
+    /* Improve table readability */
+    .table-container table {
+        font-size: 11px;
+    }
+
+    .table-container th {
+        font-size: 10px;
+        padding: 8px 4px;
+        white-space: nowrap;
+    }
+
+    .table-container td {
+        padding: 10px 4px;
+    }
+
+    /* Action buttons in tables - smaller but still touchable */
+    .table-container .btn-group {
+        display: flex;
+        gap: 2px;
+    }
+
+    .table-container .btn-icon {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        padding: 0;
+        font-size: 11px;
+    }
+
+    /* Badge styling for smaller screens */
+    .table-container .badge {
+        font-size: 9px;
+        padding: 2px 6px;
+    }
+
+    /* Card header improvements */
+    .card-header {
+        padding: 12px 16px;
+    }
+
+    .card-header .btn {
+        font-size: 13px;
+        padding: 10px 14px;
+    }
+
+    /* Filter buttons side by side */
+    .filter-bar .btn {
+        flex: 1;
+        min-width: 0;
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    /* Custom dropdown in filters */
+    .filter-bar .custom-dropdown .dropdown-trigger {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+    .filter-bar .custom-dropdown .dropdown-menu {
+        font-size: 13px;
+    }
+}
+
+/* ============================================
+   ADDITIONAL MOBILE FIXES
+   ============================================ */
+@media (max-width: 480px) {
+
+    /* Very small screens - more aggressive fixes */
+    .header {
+        height: 56px;
+    }
+
+    .header-left {
+        gap: 8px;
+    }
+
+    .page-title {
+        font-size: 12px;
+        max-width: 100px;
+    }
+
+    /* Stats cards - even more compact */
+    .stat-card {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .stat-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .stat-value {
+        font-size: 18px;
+    }
+
+    .stat-label {
+        font-size: 11px;
+    }
+
+    /* Footer compact */
+    .main-footer {
+        padding: 12px;
+    }
+
+    .footer-content {
+        font-size: 11px;
+    }
+
+    /* Alert compact */
+    .alert {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .alert i {
+        font-size: 14px;
+    }
+}
+
+/* ============================================
+   REPORT PAGES - MOBILE RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+
+    /* Trial balance and other report tables */
+    .report-table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -16px;
+    }
+
+    .report-table-container table {
+        min-width: 500px;
+    }
+
+    /* Export buttons */
+    .report-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .report-actions .btn {
+        width: 100%;
+    }
+}
+
+/* ============================================
+   USER MANAGEMENT - MOBILE RESPONSIVE  
+   ============================================ */
+@media (max-width: 576px) {
+
+    /* Users table - hide less important columns */
+    .users-table .hide-sm {
+        display: none !important;
+    }
+}
+
+/* ============================================
+   SIDEBAR MOBILE OVERLAY IMPROVEMENT
+   ============================================ */
+@media (max-width: 1024px) {
+    .sidebar.open::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+    }
+
+    /* Ensure close button visible */
+    .sidebar-close-btn {
+        display: block;
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 32px;
+        height: 32px;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+}
+
+/* ============================================
+   CARD-BASED TABLE LAYOUT FOR MOBILE
+   No horizontal scrolling - all content visible
+   ============================================ */
+@media (max-width: 576px) {
+
+    /* Hide table headers on mobile */
+    .table-responsive-cards thead {
+        display: none;
+    }
+
+    /* Transform table rows into cards */
+    .table-responsive-cards tbody tr {
+        display: block;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        margin-bottom: 12px;
+        padding: 12px;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .table-responsive-cards tbody tr:hover {
+        background: var(--card-bg);
+    }
+
+    /* Transform cells into block elements */
+    .table-responsive-cards tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border: none;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 13px;
+    }
+
+    .table-responsive-cards tbody td:last-child {
+        border-bottom: none;
+        padding-top: 12px;
+        justify-content: flex-end;
+    }
+
+    /* Show label from data-label attribute */
+    .table-responsive-cards tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-secondary);
+        font-size: 12px;
+        flex-shrink: 0;
+        margin-right: 12px;
+    }
+
+    .table-responsive-cards tbody td:last-child::before {
+        display: none;
+    }
+
+    /* Action buttons full width */
+    .table-responsive-cards .btn-group {
+        width: 100%;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+
+    .table-responsive-cards .btn-icon {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* ============================================
+   ALTERNATIVE: STACKED TABLE WITHOUT data-label
+   Uses CSS to display header text
+   ============================================ */
+@media (max-width: 576px) {
+
+    /* Generic responsive table */
+    .table-container {
+        overflow-x: visible;
+        margin: 0;
+    }
+
+    .table-container table {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .table-container thead {
+        display: none;
+    }
+
+    .table-container tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .table-container tbody tr {
+        display: flex;
+        flex-direction: column;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 14px;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .table-container tbody tr:hover {
+        background: var(--card-bg);
+        transform: none;
+    }
+
+    .table-container tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        font-size: 13px;
+    }
+
+    [data-theme="dark"] .table-container tbody td {
+        border-bottom-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .table-container tbody td:first-child {
+        padding-left: 0;
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--primary);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 10px;
+        margin-bottom: 4px;
+    }
+
+    .table-container tbody td:last-child {
+        border-bottom: none;
+        padding-top: 10px;
+        margin-top: 4px;
+        justify-content: center;
+    }
+
+    /* Badges */
+    .table-container .badge {
+        font-size: 11px;
+        padding: 4px 10px;
+    }
+
+    /* Action buttons */
+    .table-container .btn-group {
+        width: 100%;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .table-container .btn-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    /* Empty state */
+    .table-container .empty-state {
+        padding: 40px 20px;
+    }
+}
+
+/* ============================================
+   JOURNAL DETAILS TABLE - STACKED ON MOBILE
+   ============================================ */
+@media (max-width: 576px) {
+    #journalForm .table-container {
+        overflow: visible;
+        margin: 0;
+    }
+
+    #journalForm .table-container table {
+        min-width: unset;
+    }
+
+    #journalForm .table-container thead {
+        display: none;
+    }
+
+    #journalForm .table-container tbody tr {
+        display: flex;
+        flex-direction: column;
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 14px;
+        margin-bottom: 12px;
+        gap: 10px;
+    }
+
+    #journalForm .table-container tbody td {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        border: none;
+        gap: 4px;
+    }
+
+    #journalForm .table-container tbody td::before {
+        content: attr(data-label);
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    #journalForm .table-container tbody td:last-child {
+        display: none;
+    }
+
+    #journalForm .table-container .form-select,
+    #journalForm .table-container .form-control {
+        width: 100%;
+        min-height: 44px;
+        font-size: 14px;
+    }
+
+    /* Add row button */
+    #journalForm>.btn-secondary {
+        width: 100%;
+        margin: 16px 0;
+    }
+}
+
+/* ============================================
+   FILTER BAR - FULLY STACKED ON MOBILE
+   ============================================ */
+@media (max-width: 576px) {
+    .filter-bar {
+        padding: 14px;
+    }
+
+    .filter-bar form,
+    .filter-bar .d-flex {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .filter-item,
+    .filter-bar .search-box,
+    .filter-bar .custom-dropdown {
+        width: 100%;
+    }
+
+    .filter-bar .form-control,
+    .filter-bar .form-select {
+        width: 100%;
+        height: 44px;
+    }
+
+    .filter-bar .dropdown-trigger {
+        width: 100%;
+        height: 44px;
+    }
+
+    .filter-bar .btn {
+        width: 100%;
+        height: 44px;
+        justify-content: center;
+    }
+
+    /* Two buttons side by side */
+    .filter-bar form>.btn,
+    .filter-bar form>a.btn {
+        flex: 1;
+    }
+
+    .filter-bar form {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    /* Filter and Reset buttons side by side */
+    .filter-btn-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 4px;
+    }
+}
+
+/* ============================================
+   CARD HEADER - STACKED ON MOBILE
+   ============================================ */
+@media (max-width: 576px) {
+    .card-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 14px;
+    }
+
+    .card-header .card-title {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .card-header .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ============================================
+   DASHBOARD MOBILE IMPROVEMENTS  
+   ============================================ */
+@media (max-width: 576px) {
+    .stats-grid {
+        gap: 10px;
+    }
+
+    .stat-card {
+        flex-direction: row;
+        padding: 14px;
+    }
+
+    /* Charts */
+    .chart-container {
+        height: 200px !important;
+    }
+
+    .grid-2 {
+        gap: 16px;
+    }
+}
+
+/* ============================================
+   FORMS - ENSURE SINGLE COLUMN
+   ============================================ */
+@media (max-width: 576px) {
+    .form-row {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+    }
+
+    .form-group {
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    .form-control,
+    .form-select,
+    textarea.form-control {
+        width: 100%;
+        font-size: 16px;
+        min-height: 44px;
+    }
+
+    .form-label {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    /* Submit buttons */
+    .d-flex.gap-2 {
+        flex-direction: column;
+        gap: 10px !important;
+    }
+
+    .d-flex.gap-2 .btn {
+        width: 100%;
+        min-height: 48px;
+        font-size: 15px;
+    }
+}
+
+/* ============================================
+   COMPREHENSIVE BUTTON UX FOR MOBILE
+   ============================================ */
+@media (max-width: 576px) {
+
+    /* Header buttons - more spacing */
+    .header-right {
+        gap: 8px;
+    }
+
+    .header-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+
+    /* Primary action buttons - full width and prominent */
+    .btn-primary,
+    .btn-success {
+        width: 100%;
+        min-height: 48px;
+        font-size: 15px;
+        font-weight: 600;
+        justify-content: center;
+        border-radius: 10px;
+    }
+
+    /* Secondary buttons */
+    .btn-secondary,
+    .btn-outline {
+        min-height: 44px;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+
+    /* Card action buttons - PROMINENT STYLING */
+    .table-container .btn-group {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+        padding-top: 12px;
+        margin-top: 8px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .table-container .btn-icon {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px;
+        font-size: 16px !important;
+        border-radius: 10px;
+    }
+
+    /* Edit button - blue */
+    .table-container .btn-icon.btn-secondary,
+    .table-container .btn-sm.btn-secondary.btn-icon {
+        background: var(--primary) !important;
+        color: white !important;
+        border: none;
+    }
+
+    .table-container .btn-icon.btn-secondary:hover {
+        background: var(--primary-hover) !important;
+    }
+
+    /* Delete button - red, stays red */
+    .table-container .btn-icon.btn-danger,
+    .table-container .btn-sm.btn-danger.btn-icon {
+        background: var(--danger) !important;
+        color: white !important;
+        border: none;
+    }
+
+    /* Detail/View button */
+    .table-container .btn-icon.btn-info {
+        background: var(--info) !important;
+        color: white !important;
+        border: none;
+    }
+
+    /* Filter buttons - side by side */
+    .filter-bar .btn {
+        flex: 1;
+        min-height: 44px;
+        font-size: 14px;
+        justify-content: center;
+    }
+
+    /* Make filter form have two buttons side by side at bottom */
+    .filter-bar form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filter-bar form>.btn,
+    .filter-bar form>a.btn {
+        width: 100%;
+    }
+
+    /* Add Akun, Tambah Jurnal, etc - card header buttons */
+    .card-header .btn-primary {
+        width: 100%;
+        min-height: 48px;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    /* Pagination buttons if any */
+    .pagination {
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .pagination .btn,
+    .page-item .page-link {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+/* ============================================
+   CARD LAYOUT - VISIBLE ACTION BUTTONS
+   ============================================ */
+@media (max-width: 576px) {
+
+    /* Ensure action cell in cards is always visible */
+    .table-container tbody td:last-child {
+        display: flex !important;
+        justify-content: center;
+        padding: 14px 0 4px;
+        margin-top: 10px;
+    }
+
+    /* Make sure all cells are visible */
+    .table-container tbody td {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+/* ============================================
+   FORM ACTION BUTTONS - STACKED NICELY
+   ============================================ */
+@media (max-width: 576px) {
+
+    /* Form footer buttons */
+    form .d-flex.gap-2,
+    .form-actions,
+    .card-body>.d-flex.gap-2 {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        margin-top: 20px;
+    }
+
+    form .d-flex.gap-2 .btn,
+    .form-actions .btn {
+        width: 100% !important;
+        min-height: 50px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 12px;
+    }
+
+    /* Primary save button - more prominent */
+    form .btn-primary {
+        order: -1;
+    }
+}
+
+/* ============================================
+   SIDEBAR MENU ITEMS - BETTER TOUCH TARGETS
+   ============================================ */
+@media (max-width: 1024px) {
+    .nav-item {
+        padding: 14px 20px;
+        font-size: 14px;
+    }
+
+    .nav-item i {
+        width: 24px;
+        font-size: 16px;
+    }
+}
+
+/* ============================================
+   DASHBOARD ACTION BUTTONS
+   ============================================ */
+@media (max-width: 576px) {
+
+    /* Any dashboard-specific buttons */
+    .dashboard-actions .btn {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    /* Period selector */
+    .period-selector select,
+    .period-selector .form-select {
+        height: 44px;
+        font-size: 14px;
+    }
+}
+
+/* ============================================
+   MODAL/DIALOG BUTTONS ON MOBILE
+   ============================================ */
+@media (max-width: 576px) {
+    .swal2-actions {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .swal2-confirm,
+    .swal2-cancel {
+        width: 100% !important;
+        margin: 0 !important;
+        min-height: 48px;
+    }
+}
+
+/* ============================================
+   QUICK ACTION FLOATING BUTTON (FAB)
+   ============================================ */
+@media (max-width: 576px) {
+
+    .fab,
+    .floating-action-btn {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        font-size: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* ============================================
+   JOURNAL REPORT PAGE - BASE STYLES
+   ============================================ */
+/* Export buttons group */
+.export-btn-group {
+    display: flex;
+    gap: 10px;
+}
+
+/* Journal entry card */
+.journal-entry-card {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.journal-entry-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    gap: 12px;
+}
+
+.journal-entry-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.journal-number-link {
+    text-decoration: none;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.journal-date {
+    color: var(--text-secondary);
+}
+
+.journal-description {
+    color: var(--text-secondary);
+    text-align: right;
+}
+
+/* Journal details table wrapper */
+.journal-details-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -8px;
+    padding: 0 8px;
+}
+
+.journal-details-table table {
+    width: 100%;
+    min-width: 400px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-collapse: collapse;
+}
+
+.journal-details-table th {
+    padding: 12px;
+    color: var(--text-secondary);
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: var(--table-header-bg);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.journal-details-table td {
+    padding: 12px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.journal-details-table .text-right {
+    text-align: right;
+}
+
+/* Grand total bar */
+.grand-total-bar {
+    background: var(--primary);
+    color: white;
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.grand-total-values {
+    display: flex;
+    gap: 32px;
+}
+
+/* ============================================
+   JOURNAL REPORT PAGE - MOBILE RESPONSIVE
+   ============================================ */
+@media (max-width: 576px) {
+
+    /* Export buttons - stacked */
+    .export-btn-group {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+    }
+
+    .export-btn-group .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Journal entry header - stacked */
+    .journal-entry-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .journal-entry-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .journal-description {
+        text-align: left;
+        font-size: 13px;
+    }
+
+    /* Journal details table - smaller */
+    .journal-details-table {
+        margin: 0 -16px;
+        padding: 0;
+    }
+
+    .journal-details-table table {
+        min-width: 350px;
+    }
+
+    .journal-details-table th,
+    .journal-details-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    /* Grand total - stacked */
+    .grand-total-bar {
+        flex-direction: column;
+        text-align: center;
+        padding: 14px;
+    }
+
+    .grand-total-values {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+
+    /* Report title */
+    .card-body h2 {
+        font-size: 18px;
+    }
+
+    .card-body>.text-center p {
+        font-size: 13px;
+    }
+}
+
+/* ============================================
+   INCOME/EXPENSE REPORT - BASE STYLES
+   ============================================ */
+/* Report filter form */
+.report-filter-form {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+/* Income Expense Grid - side by side on desktop */
+.income-expense-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+/* Report section */
+.report-section {
+    padding: 16px;
+    background: var(--bg-tertiary);
+    border-radius: 10px;
+}
+
+.section-title {
+    margin-bottom: 16px;
+    font-size: 16px;
+}
+
+.section-title.text-success {
+    color: var(--success);
+}
+
+.section-title.text-danger {
+    color: var(--danger);
+}
+
+/* Report table */
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.report-table td {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.report-table .account-name {
+    color: var(--text-primary);
+}
+
+.report-table .amount {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.report-table .empty-row {
+    padding: 20px;
+}
+
+.report-table .total-row {
+    font-weight: 600;
+    border-top: 2px solid var(--border-color);
+}
+
+.report-table .total-row.success {
+    border-top-color: var(--success);
+}
+
+.report-table .total-row.success .amount {
+    color: var(--success);
+}
+
+.report-table .total-row.danger {
+    border-top-color: var(--danger);
+}
+
+.report-table .total-row.danger .amount {
+    color: var(--danger);
+}
+
+/* Report header */
+.report-header {
+    margin-bottom: 24px;
+}
+
+.report-header h2 {
+    margin-bottom: 8px;
+}
+
+.report-period {
+    color: var(--text-secondary);
+}
+
+/* Laba Rugi Summary Bar */
+.laba-rugi-summary {
+    margin-top: 32px;
+    padding: 24px;
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.laba-rugi-summary.laba {
+    background: var(--success);
+}
+
+.laba-rugi-summary.rugi {
+    background: var(--danger);
+}
+
+.laba-rugi-summary .summary-label {
+    margin: 0;
+    font-size: 18px;
+}
+
+.laba-rugi-summary .summary-value {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Total Row Mobile - Flexbox based for reliable mobile display */
+.total-row-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    margin-top: 8px;
+    border-top: 2px solid var(--border-color);
+    font-weight: 600;
+}
+
+.total-row-mobile .total-label {
+    flex: 1;
+    color: var(--text-primary);
+}
+
+.total-row-mobile .total-amount {
+    flex-shrink: 0;
+    text-align: right;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.total-row-mobile.success {
+    border-top-color: var(--success);
+}
+
+.total-row-mobile.success .total-amount {
+    color: var(--success);
+}
+
+.total-row-mobile.danger {
+    border-top-color: var(--danger);
+}
+
+.total-row-mobile.danger .total-amount {
+    color: var(--danger);
+}
+
+/* ============================================
+   INCOME/EXPENSE REPORT - MOBILE RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+
+    /* Grid stacks on tablet */
+    .income-expense-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+
+    /* Filter form - stacked */
+    .report-filter-form {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .report-filter-form .form-group {
+        width: 100%;
+    }
+
+    .report-filter-form .btn {
+        width: 100%;
+    }
+
+    /* Report sections */
+    .report-section {
+        padding: 14px;
+    }
+
+    .section-title {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    /* Report table - compact */
+    .report-table td {
+        padding: 8px 0;
+        font-size: 13px;
+    }
+
+    .report-table .account-name {
+        word-break: break-word;
+    }
+
+    .report-table .amount {
+        font-size: 12px;
+    }
+
+    /* Laba Rugi - stacked */
+    .laba-rugi-summary {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+        padding: 16px;
+        margin-top: 20px;
+    }
+
+    .laba-rugi-summary .summary-label {
+        font-size: 14px;
+    }
+
+    .laba-rugi-summary .summary-value {
+        font-size: 20px;
+    }
+
+    /* Report header */
+    .report-header h2 {
+        font-size: 16px;
+    }
+
+    .report-period {
+        font-size: 12px;
+    }
+}
+
+/* ============================================
+   INCOME/EXPENSE REPORT - ENHANCED MOBILE FIX
+   Prevents horizontal scroll and ensures proper
+   viewport fitting on mobile devices
+   ============================================ */
+@media (max-width: 576px) {
+    .report-table-wrapper {
+        overflow: visible !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .report-table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        table-layout: fixed !important;
+    }
+
+    .report-table tr {
+        display: table-row !important;
+    }
+
+    .report-table td {
+        display: table-cell !important;
+        padding: 10px 4px !important;
+        vertical-align: middle !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .report-table td:first-child {
+        width: 55% !important;
+        word-break: break-word !important;
+    }
+
+    .report-table td.amount,
+    .report-table td:nth-child(2) {
+        width: 45% !important;
+        min-width: 80px !important;
+        text-align: right !important;
+        font-size: 13px !important;
+        white-space: nowrap !important;
+        padding-right: 4px !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .report-table .total-row td {
+        font-weight: 600 !important;
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+    }
+
+    .report-table .total-row.success td.amount,
+    .report-table .total-row.success td:nth-child(2) {
+        color: var(--success) !important;
+    }
+
+    .report-table .total-row.danger td.amount,
+    .report-table .total-row.danger td:nth-child(2) {
+        color: var(--danger) !important;
+    }
+
+    .report-table .empty-row td[colspan] {
+        width: 100% !important;
+        text-align: center !important;
+        color: var(--text-secondary) !important;
+        padding: 16px 4px !important;
+    }
+
+    .report-section {
+        margin: 0 !important;
+        padding: 12px !important;
+        border-radius: 8px !important;
+        overflow: visible !important;
+    }
+
+    .income-expense-grid {
+        margin: 0 !important;
+        gap: 16px !important;
+    }
+
+    .section-title {
+        font-size: 13px !important;
+        margin-bottom: 10px !important;
+    }
+}
+
+/* ============================================
+   GLOBAL MOBILE VIEWPORT FIX
+   Ensures no horizontal overflow on any page
+   ============================================ */
+@media (max-width: 768px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+
+    .content-wrapper {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+        padding: 12px;
+    }
+
+    .header {
+        width: 100%;
+        max-width: 100vw;
+    }
+
+    .card {
+        overflow: hidden;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .card-body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .header {
+        padding: 0 10px;
+    }
+
+    .header-left {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .page-title {
+        font-size: 13px;
+        max-width: 140px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .breadcrumb {
+        display: none;
+    }
+
+    .header-right {
+        flex-shrink: 0;
+        gap: 6px;
+    }
+
+    .header-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 14px;
+    }
+
+    .theme-toggle {
+        width: 34px;
+        height: 34px;
+    }
+
+    .content-wrapper {
+        padding: 10px;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .card-body {
+        padding: 12px;
+    }
+
+    .report-header h2 {
+        font-size: 15px;
+    }
+
+    .report-period {
+        font-size: 11px;
+    }
+}

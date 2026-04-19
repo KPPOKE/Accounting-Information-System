@@ -62,13 +62,13 @@ require_once __DIR__ . '/../../components/header.php';
     <div class="card-header">
         <h3 class="card-title">Laporan Jurnal Umum</h3>
         <?php if (hasPermission('reports_export')): ?>
-        <div class="btn-group">
+        <div class="export-btn-group">
             <a href="<?php echo APP_URL; ?>/api/export_pdf.php?type=journal&date_from=<?php echo $dateFrom; ?>&date_to=<?php echo $dateTo; ?>&status=<?php echo $status; ?>" 
-               class="btn btn-danger btn-sm" target="_blank">
+               class="btn btn-danger" target="_blank">
                 <i class="fas fa-file-pdf"></i> Export PDF
             </a>
             <a href="<?php echo APP_URL; ?>/api/export_excel.php?type=journal&date_from=<?php echo $dateFrom; ?>&date_to=<?php echo $dateTo; ?>&status=<?php echo $status; ?>" 
-               class="btn btn-success btn-sm">
+               class="btn btn-success">
                 <i class="fas fa-file-excel"></i> Export Excel
             </a>
         </div>
@@ -143,26 +143,27 @@ require_once __DIR__ . '/../../components/header.php';
         $grandTotalCredit = 0;
         foreach ($journals as $journal): 
         ?>
-        <div style="margin-bottom: 24px; padding: 16px; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border-color);">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                <div>
+        <div class="journal-entry-card">
+            <div class="journal-entry-header">
+                <div class="journal-entry-info">
                     <strong>
-                        <a href="<?php echo APP_URL; ?>/journal/view?id=<?php echo HashIdHelper::encode($journal['id']); ?>" style="text-decoration: none; color: var(--text-primary);">
+                        <a href="<?php echo APP_URL; ?>/journal/view?id=<?php echo HashIdHelper::encode($journal['id']); ?>" class="journal-number-link">
                             <?php echo htmlspecialchars($journal['entry_number']); ?>
                         </a>
                     </strong>
-                    <span style="color: var(--text-secondary); margin-left: 12px;"><?php echo formatDate($journal['entry_date']); ?></span>
+                    <span class="journal-date"><?php echo formatDate($journal['entry_date']); ?></span>
                 </div>
-                <div style="color: var(--text-secondary);"><?php echo htmlspecialchars($journal['description']); ?></div>
+                <div class="journal-description"><?php echo htmlspecialchars($journal['description']); ?></div>
             </div>
 
-            <table style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-color);">
+            <div class="journal-details-table">
+                <table>
                 <thead>
-                    <tr style="background: var(--table-header-bg);">
-                        <th style="width: 15%; padding: 12px; color: var(--text-secondary); text-align: left; font-size: 12px; font-weight: 600; text-transform: uppercase; border-bottom: 2px solid var(--border-color);">Kode Akun</th>
-                        <th style="width: 35%; padding: 12px; color: var(--text-secondary); text-align: left; font-size: 12px; font-weight: 600; text-transform: uppercase; border-bottom: 2px solid var(--border-color);">Nama Akun</th>
-                        <th style="width: 25%; padding: 12px; color: var(--text-secondary); text-align: right; font-size: 12px; font-weight: 600; text-transform: uppercase; border-bottom: 2px solid var(--border-color);">Debit</th>
-                        <th style="width: 25%; padding: 12px; color: var(--text-secondary); text-align: right; font-size: 12px; font-weight: 600; text-transform: uppercase; border-bottom: 2px solid var(--border-color);">Kredit</th>
+                    <tr>
+                        <th>Kode Akun</th>
+                        <th>Nama Akun</th>
+                        <th class="text-right">Debit</th>
+                        <th class="text-right">Kredit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -172,22 +173,23 @@ require_once __DIR__ . '/../../components/header.php';
                         $grandTotalDebit += $d['debit'];
                         $grandTotalCredit += $d['credit'];
                     ?>
-                    <tr style="border-bottom: 1px solid var(--border-color);">
-                        <td style="padding: 12px; color: var(--text-primary);"><?php echo htmlspecialchars($d['account_code']); ?></td>
-                        <td style="padding: 12px; color: var(--text-primary);"><?php echo htmlspecialchars($d['account_name']); ?></td>
-                        <td style="padding: 12px; color: var(--text-primary); text-align: right;"><?php echo $d['debit'] > 0 ? formatCurrency($d['debit']) : '-'; ?></td>
-                        <td style="padding: 12px; color: var(--text-primary); text-align: right;"><?php echo $d['credit'] > 0 ? formatCurrency($d['credit']) : '-'; ?></td>
+                    <tr>
+                        <td><?php echo htmlspecialchars($d['account_code']); ?></td>
+                        <td><?php echo htmlspecialchars($d['account_name']); ?></td>
+                        <td class="text-right"><?php echo $d['debit'] > 0 ? formatCurrency($d['debit']) : '-'; ?></td>
+                        <td class="text-right"><?php echo $d['credit'] > 0 ? formatCurrency($d['credit']) : '-'; ?></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
-            </table>
+                </table>
+            </div>
         </div>
         <?php endforeach; ?>
 
-        <div style="background: var(--primary); color: white; padding: 16px; border-radius: 8px; display: flex; justify-content: space-between;">
+        <div class="grand-total-bar">
             <strong>GRAND TOTAL</strong>
-            <div>
-                <span style="margin-right: 48px;">Debit: <?php echo formatCurrency($grandTotalDebit); ?></span>
+            <div class="grand-total-values">
+                <span>Debit: <?php echo formatCurrency($grandTotalDebit); ?></span>
                 <span>Kredit: <?php echo formatCurrency($grandTotalCredit); ?></span>
             </div>
         </div>

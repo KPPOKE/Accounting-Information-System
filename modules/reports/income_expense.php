@@ -61,15 +61,17 @@ require_once __DIR__ . '/../../components/header.php';
     <div class="card-header">
         <h3 class="card-title">Laporan Pendapatan & Beban</h3>
         <?php if (hasPermission('reports_export')): ?>
-        <a href="<?php echo APP_URL; ?>/api/export_excel.php?type=income_expense&date_from=<?php echo $dateFrom; ?>&date_to=<?php echo $dateTo; ?>" 
-           class="btn btn-success btn-sm">
-            <i class="fas fa-file-excel"></i> Export Excel
-        </a>
+        <div class="export-btn-group">
+            <a href="<?php echo APP_URL; ?>/api/export_excel.php?type=income_expense&date_from=<?php echo $dateFrom; ?>&date_to=<?php echo $dateTo; ?>" 
+               class="btn btn-success">
+                <i class="fas fa-file-excel"></i> Export Excel
+            </a>
+        </div>
         <?php endif; ?>
     </div>
 
     <div class="filter-bar">
-        <form method="GET" class="d-flex gap-2" style="align-items: flex-end;">
+        <form method="GET" class="report-filter-form">
             <div class="form-group mb-0">
                 <label class="form-label">Dari Tanggal</label>
                 <input type="date" name="date_from" class="form-control" value="<?php echo $dateFrom; ?>">
@@ -85,60 +87,65 @@ require_once __DIR__ . '/../../components/header.php';
     </div>
 
     <div class="card-body">
-        <div class="text-center" style="margin-bottom: 24px;">
-            <h2 style="margin-bottom: 8px;">LAPORAN LABA RUGI</h2>
-            <p style="color: var(--gray-500);">Periode: <?php echo formatDate($dateFrom); ?> - <?php echo formatDate($dateTo); ?></p>
+        <div class="report-header text-center">
+            <h2>LAPORAN LABA RUGI</h2>
+            <p class="report-period">Periode: <?php echo formatDate($dateFrom); ?> - <?php echo formatDate($dateTo); ?></p>
         </div>
 
-        <div class="grid-2" style="gap: 32px;">
-            <div>
-                <h4 style="color: var(--success); margin-bottom: 16px;">
+        <div class="income-expense-grid">
+            <div class="report-section pendapatan-section">
+                <h4 class="section-title text-success">
                     <i class="fas fa-arrow-down"></i> PENDAPATAN
                 </h4>
-                <table style="width: 100%;">
-                    <?php if (empty($pendapatan)): ?>
-                    <tr><td colspan="2" class="text-muted text-center" style="padding: 20px;">Tidak ada pendapatan</td></tr>
-                    <?php else: ?>
-                    <?php foreach ($pendapatan as $p): ?>
-                    <tr>
-                        <td style="padding: 8px 0;"><?php echo htmlspecialchars($p['code'] . ' - ' . $p['name']); ?></td>
-                        <td style="padding: 8px 0; text-align: right;"><?php echo formatCurrency($p['amount']); ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                    <?php endif; ?>
-                    <tr style="border-top: 2px solid var(--success); font-weight: 600;">
-                        <td style="padding: 12px 0;">Total Pendapatan</td>
-                        <td style="padding: 12px 0; text-align: right; color: var(--success);"><?php echo formatCurrency($totalPendapatan); ?></td>
-                    </tr>
-                </table>
+                <div class="report-table-wrapper">
+                    <table class="report-table">
+                        <?php if (empty($pendapatan)): ?>
+                        <tr><td colspan="2" class="text-muted text-center empty-row">Tidak ada pendapatan</td></tr>
+                        <?php else: ?>
+                        <?php foreach ($pendapatan as $p): ?>
+                        <tr>
+                            <td class="account-name"><?php echo htmlspecialchars($p['code'] . ' - ' . $p['name']); ?></td>
+                            <td class="amount"><?php echo formatCurrency($p['amount']); ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
+                    </table>
+                </div>
+                <div class="total-row-mobile success">
+                    <span class="total-label">Total Pendapatan</span>
+                    <span class="total-amount"><?php echo formatCurrency($totalPendapatan); ?></span>
+                </div>
             </div>
 
-            <div>
-                <h4 style="color: var(--danger); margin-bottom: 16px;">
+            <!-- BEBAN -->
+            <div class="report-section beban-section">
+                <h4 class="section-title text-danger">
                     <i class="fas fa-arrow-up"></i> BEBAN
                 </h4>
-                <table style="width: 100%;">
-                    <?php if (empty($beban)): ?>
-                    <tr><td colspan="2" class="text-muted text-center" style="padding: 20px;">Tidak ada beban</td></tr>
-                    <?php else: ?>
-                    <?php foreach ($beban as $b): ?>
-                    <tr>
-                        <td style="padding: 8px 0;"><?php echo htmlspecialchars($b['code'] . ' - ' . $b['name']); ?></td>
-                        <td style="padding: 8px 0; text-align: right;"><?php echo formatCurrency($b['amount']); ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                    <?php endif; ?>
-                    <tr style="border-top: 2px solid var(--danger); font-weight: 600;">
-                        <td style="padding: 12px 0;">Total Beban</td>
-                        <td style="padding: 12px 0; text-align: right; color: var(--danger);"><?php echo formatCurrency($totalBeban); ?></td>
-                    </tr>
-                </table>
+                <div class="report-table-wrapper">
+                    <table class="report-table">
+                        <?php if (empty($beban)): ?>
+                        <tr><td colspan="2" class="text-muted text-center empty-row">Tidak ada beban</td></tr>
+                        <?php else: ?>
+                        <?php foreach ($beban as $b): ?>
+                        <tr>
+                            <td class="account-name"><?php echo htmlspecialchars($b['code'] . ' - ' . $b['name']); ?></td>
+                            <td class="amount"><?php echo formatCurrency($b['amount']); ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
+                    </table>
+                </div>
+                <div class="total-row-mobile danger">
+                    <span class="total-label">Total Beban</span>
+                    <span class="total-amount"><?php echo formatCurrency($totalBeban); ?></span>
+                </div>
             </div>
         </div>
 
-        <div style="margin-top: 32px; padding: 24px; background: <?php echo $labaRugi >= 0 ? 'var(--success)' : 'var(--danger)'; ?>; color: white; border-radius: 12px; display: flex; justify-content: space-between; align-items: center;">
-            <h3 style="margin: 0;"><?php echo $labaRugi >= 0 ? 'LABA BERSIH' : 'RUGI BERSIH'; ?></h3>
-            <h2 style="margin: 0;"><?php echo formatCurrency(abs($labaRugi)); ?></h2>
+        <div class="laba-rugi-summary <?php echo $labaRugi >= 0 ? 'laba' : 'rugi'; ?>">
+            <h3 class="summary-label"><?php echo $labaRugi >= 0 ? 'LABA BERSIH' : 'RUGI BERSIH'; ?></h3>
+            <h2 class="summary-value"><?php echo formatCurrency(abs($labaRugi)); ?></h2>
         </div>
     </div>
 </div>
